@@ -1,0 +1,61 @@
+import Carusel from '../model/carosalModel.js'
+import Category from '../model/categoryModel.js'
+import catchAsyncErr from "../middlewares/catchAsyncErr.js";
+import ErrorHandler from "../middlewares/ErrorHandler.js";
+// get Category
+export const getCategory = catchAsyncErr(async (req, res, next) => {
+    
+    const category = await Category.find()
+
+    res.status(200).json({
+        success: true,
+        category
+    })
+})
+export const createCategory = catchAsyncErr(async (req, res, next) => {
+    
+    const category = await Category.create(req.body)
+
+    res.status(200).json({
+        success: true,
+        category
+    })
+})
+// get carousel
+export const getCarousel = catchAsyncErr(async (req, res, next) => {
+    const carusel = await Carusel.find()
+
+    res.status(200).json({
+        success: true,
+        carusel
+    })
+})
+// create carousel
+export const createCarousel = catchAsyncErr(async (req, res, next) => {
+    let carousel = await Carusel.create(req.body)
+
+    res.status(200).json({
+        success: true,
+        carousel
+    })
+})
+// update carousel
+export const updateCarousel = catchAsyncErr(async (req, res, next) => {
+    let carousel = await Carusel.findById(req.params.id)
+
+    if (!carousel) {
+        return next(new ErrorHandler("Product not found", 404))
+    }
+
+    carousel = await Carusel.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
+
+    res.status(200).json({
+        success: true,
+        carousel
+    })
+})
+
