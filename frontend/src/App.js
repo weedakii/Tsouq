@@ -26,6 +26,13 @@ import Dashboard from './components/admin/Dashboard';
 import AdminProducts from './components/admin/AdminProducts';
 import AdminProductCreate from './components/admin/AdminProductCreate';
 import { getCategory } from './actions/productAction';
+import UpdateProduct from './components/admin/UpdateProduct';
+import AdminOrders from './components/admin/AdminOrders';
+import AdminOrderUpdate from './components/admin/AdminOrderUpdate';
+import AdminUsers from './components/admin/AdminUsers';
+import UpdateRole from './components/admin/UpdateRole';
+import AdminReviews from './components/admin/AdminReviews';
+import Footer from './components/layout/Footer';
 
 
 function App() {
@@ -36,7 +43,7 @@ function App() {
   }, [])
 
   return (
-    <div className="App">
+    <div className="h-full min-h-screen relative flex flex-col justify-between">
       <Router>
         {isAuthenticated ? <Header user={user} /> : <Header />}
         <Routes>
@@ -112,8 +119,39 @@ function App() {
               <AdminProductCreate />
             </ProtectedRoute>
           } />
+          <Route path='/admin/product/:id' element={
+            <ProtectedRoute isAdmin={true}>
+              <UpdateProduct />
+            </ProtectedRoute>
+          } />
+          <Route path='/admin/orders' element={
+            <ProtectedRoute isAdmin={true}>
+              <AdminOrders />
+            </ProtectedRoute>
+          } />
+          <Route path='/admin/order/:id' element={
+            <ProtectedRoute isAdmin={true}>
+              <AdminOrderUpdate />
+            </ProtectedRoute>
+          } />
+          <Route path='/admin/users' element={
+            <ProtectedRoute isAdmin={true}>
+              <AdminUsers />
+            </ProtectedRoute>
+          } />
+          <Route path='/admin/user/:id' element={
+            <ProtectedRoute isAdmin={true}>
+              <UpdateRole />
+            </ProtectedRoute>
+          } />
+          <Route path='/admin/reviews' element={
+            <ProtectedRoute isAdmin={true}>
+              <AdminReviews />
+            </ProtectedRoute>
+          } />
           <Route path='*' element={<NotFound />} />
         </Routes>
+        <Footer />
       </Router>
     </div>
   );

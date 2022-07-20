@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {useAlert} from 'react-alert'
 import CartItemCard from './CartItemCard'
 import { removeFromCart } from '../../actions/cartActions'
 import { Link, useNavigate } from 'react-router-dom'
@@ -19,7 +18,7 @@ const Cart = () => {
     }
 
   return (
-    <div className="p-5">
+    <div className="p-5 h-full">
         {
             (cartItems.length === 0) ? 
             <div className="text-center py-3">
@@ -27,11 +26,11 @@ const Cart = () => {
                 <Link to='/' className="text-slate-800 font-semibold underline text-lg">Go Home And Add Some</Link>
             </div> 
             : <>
-            <div className="rounded-lg border shadow-card border-slate-300 overflow-x-hidden">
-                <div className="bg-orange-600 grid grid-cols-cart text-center  border-b border-slate-400">
-                    <h3 className='p-3 text-slate-100 border-r border-slate-300 text-start'>Product</h3>
-                    <h3 className='p-3 text-slate-100 border-r border-slate-300'>Quantity</h3>
-                    <h3 className='p-3 text-slate-100 text-right'>Subtotal</h3>
+            <div className="rounded-lg border flex flex-col shadow-card border-slate-300 overflow-x-auto">
+                <div className="bg-orange-600 min-w-fit flex text-start  border-b border-slate-400">
+                    <h3 className='p-3 text-slate-100 border-r flex-[0.6] min-w-[320px] border-slate-300 text-start'>Product</h3>
+                    <h3 className='p-3 text-slate-100 border-r flex-[0.2] min-w-[120px] border-slate-300'>Quantity</h3>
+                    <h3 className='p-3 text-slate-100 flex-[0.2] min-w-[120px] text-right'>Subtotal</h3>
                 </div>
                 <div>
                     {

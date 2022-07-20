@@ -286,13 +286,18 @@ export const adminGetOneUser = catchAsyncErr(async (req, res, next) => {
 })
 // admin update user
 export const adminUpdateUser = catchAsyncErr(async (req, res, next) => {
-    const user = {
+    const usnewUserer = {
         name: req.body.name,
         email: req.body.email,
         role: req.body.role
     }
+    let user = await User.findById(req.params.id)
 
-    const newUser = await User.findByIdAndUpdate(req.user.id, user, {
+    if (!user) {
+        return ErrorHandler("User Not Found With this ID", 400)
+    }
+
+    await User.findByIdAndUpdate(req.params.id, usnewUserer, {
         new: true,
         runValidators: true,
         useFindAndModify: false
@@ -300,7 +305,6 @@ export const adminUpdateUser = catchAsyncErr(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
-        newUser
     })
 })
 // admin delete user
@@ -309,6 +313,9 @@ export const adminDeleteUser = catchAsyncErr(async (req, res, next) => {
     if (!user) {
         return next(new ErrorHandler('user not found with this id', 400))
     }
+
+    const imgId = user.avatar.public_id
+    await cloudinary.v2.uploader.destroy(imgId)
 
     await user.remove()
 

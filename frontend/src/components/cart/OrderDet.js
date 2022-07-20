@@ -28,7 +28,7 @@ return (
                 <Loader />
             ) : (
                 <div className="p-5 sm:w-4/5 mx-auto">
-                    <h2 className="text-slate-400 sm:text-3xl sm:font-bold text-xl font-semibold text-center">OrderID #{order && order?._id}</h2>
+                    <h2 className="text-orange-600 sm:text-xl sm:font-bold text-lg font-semibold text-center">OrderID #{order && order?._id}</h2>
                     {/*  */}
                     <div className="my-5 flex gap-4 justify-around sm:flex-row flex-col">
                         <div>
@@ -49,7 +49,7 @@ return (
                             <h3 className="text-slate-800 sm:text-2xl sm:font-bold text-xl font-semibold">Order Status</h3>
                             <div className="order-card">
                                 <p className={
-                                    order.orderStatus && order.orderStatus === "Delivered" ? "text-green-500" : "text-red-500"
+                                    order.orderStatus && order.orderStatus === "Delivered" ? "text-green-700" : order?.orderStatus === "Shipping" ? "text-slate-900" : "text-red-700"
                                 }>{order.orderStatus && order.orderStatus}</p>
                             </div>
                         </div>

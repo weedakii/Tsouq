@@ -72,15 +72,19 @@ export const updateRole = catchAsyncErr(async (req, res, next) => {
     if (!order) {
         return next(new ErrorHandler('order not found with this id', 401))
     }
-    if (order.orderStatus === 'delivered') {
+    if (order.orderStatus === 'Delivered') {
         return next(new ErrorHandler('order have already been delivered', 400))
     }
-    order.orderItems.forEach(async (item) => {
-        await updateStocks(item.product, item.quantity)
-    })
+    if (order.orderStatus !== "Shipping" && req.body.status === 'Shipping') {
+        order.orderItems.forEach(async (item) => {
+            await updateStocks(item.product, item.quantity)
+        })
+    }
 
     order.orderStatus = req.body.status
-    order.deliveredAt = Date.now()
+    if (req.body.status === "Delivered") {
+        order.deliveredAt = Date.now()
+    }
 
     await order.save()
 
@@ -93,6 +97,9 @@ async function updateStocks(id, quantity) {
     const product = await Product.findById(id)
 
     product.stock = product.stock - quantity
+    if (product.stock <= 0) {
+        product.stock = 0
+    }
 
     await product.save({ validateBeforeSave: false })
 }

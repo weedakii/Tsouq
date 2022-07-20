@@ -44,7 +44,7 @@ const Signin = () => {
       data: {tokenId: response.tokenId}
     }).then(res => {
       if (res.statusText === "OK") {
-        localStorage.setItem('status', res.statusText)
+        window.location = '/profile'
       }
     })
   }

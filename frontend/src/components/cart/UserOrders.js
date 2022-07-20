@@ -20,7 +20,7 @@ const UserOrders = () => {
         {
             field: "status", headerName: "Status", minWidth: 120, flex: 0.5,
             cellClassName: (params) => {
-                return params.getValue(params.id, "status") === "Delivered" ? 'text-green-700' : 'text-red-700';
+                return params.getValue(params.id, "status") === "Delivered" ? 'text-green-700' : params.getValue(params.id, "status") === "Shipping" ? "text-slate-900" : "text-red-700";
             }
         },
         {field: "itemsQty", headerName: "items Qty", type: "number", minWidth: 100, flex: 0.3},

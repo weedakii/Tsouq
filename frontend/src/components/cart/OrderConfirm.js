@@ -11,7 +11,6 @@ const OrderConfirm = () => {
   const navigate = useNavigate()
   const {shippingInfo, cartItems} = useSelector(state => state.cart)
   const {error, loading} = useSelector(state => state.createOrder)
-  const {user} = useSelector(state => state.user)
 
   const itemsPrice = cartItems.reduce(
     (acc, item) => acc + item.quantity * item.price,
@@ -42,7 +41,7 @@ const OrderConfirm = () => {
   
   return (
     <div>
-        <div className="mt-4">
+        <div className="mt-4 ">
             <CheckActiveStep activeStep={1} />
         </div>
         <div className="p-5">
@@ -75,7 +74,7 @@ const OrderConfirm = () => {
                       key={item.product}
                       className="flex h-40 bg-slate-100/50 mb-5 w-[90%] mx-auto rounded-xl overflow-hidden border-2 border-slate-300 max-w-[500px] md:ml-0 md:mr-auto"
                     >
-                      <img src={item.image} alt={item.name} className=" h-full my-auto"/>
+                      <img src={item.image} alt={item.name} className=" h-full my-auto max-w-[40%] object-cover"/>
                       <div className='p-3 flex flex-col justify-between w-full'>
                         <div className="block underline w-full font-semibold text-right md:text-xl">
                           <Link to={`/product/${item.product}`}>
@@ -100,6 +99,7 @@ const OrderConfirm = () => {
                 </div>
                 <p className="flex justify-between text-xl pb-3 font-semibold border-b border-slate-300"><span>Total:</span> <span className="text-red-600">{total}$</span></p>
                 <button 
+                    disabled={loading ? true : false}
                     onClick={createOrderHandler}
                     className="block my-3 mx-auto p-2 text-center rounded-lg
                       font-semibold text-lg bg-slate-800 text-slate-50 w-[90%] hover:rounded-full hover:bg-amber-700 transition duration-300 active:scale-50"

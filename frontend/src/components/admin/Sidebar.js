@@ -15,7 +15,7 @@ import './sidebar.css'
 
 const Sidebar = () => {
   return (
-    <div className="hidden fixed w-[180px] sm:flex border-r-2 border-slate-400 flex-col gap-2 overflow-auto justify-between max-h-[calc(100vh-100px)] sm:p-2 p-1">
+    <div className="hidden bg-white fixed w-[180px] sm:flex border-r-2 border-slate-400 flex-col gap-2 overflow-auto justify-between max-h-[calc(100vh-100px)] sm:p-2 p-1">
         <div className="sidebar">
             <Link to='/'>Tsouq</Link>
             <Link to='/admin/dashboard'>
@@ -51,7 +51,7 @@ const Sidebar = () => {
                     <span className='hidden sm:block'>Users</span>
                 </p>
             </Link>
-            <Link to='/admin/RateReviewIcon'>
+            <Link to='/admin/reviews'>
                 <p>
                     <RateReviewIcon />
                     <span className='hidden sm:block'>Reviews</span>

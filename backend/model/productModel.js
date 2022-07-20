@@ -15,14 +15,14 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: [true, 'plz enter product info'],
     },
-    description: {
-        type: String,
-        required: [true, 'plz enter product description'],
-    },
     type: {
         type: String,
         required: true,
         default: 'new'
+    },
+    description: {
+        type: String,
+        required: [true, 'plz enter product description'],
     },
     price: {
         type: Number,
@@ -66,10 +66,11 @@ const productSchema = new mongoose.Schema({
         enum: {
             values: [
                 'Electronics',
-                'Cameras',
-                'Laptops',
+                'Clothes',
+                'Games',
                 'Ladies',
-                'Food',
+                'Watches',
+                'Shoes',
                 'Books',
                 'Clothes',
                 'Shoes',

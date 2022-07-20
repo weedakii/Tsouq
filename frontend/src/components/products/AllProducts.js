@@ -1,4 +1,4 @@
-import { Breadcrumbs, Slider } from '@mui/material'
+import { Breadcrumbs, Button, Slider } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import {useAlert} from 'react-alert'
 import {useDispatch, useSelector} from 'react-redux'
@@ -10,6 +10,8 @@ import MetaData from '../layout/MetaData'
 import ProductItem from '../layout/ProductItem'
 import Search from './Search'
 import ReactStars from 'react-rating-stars-component'
+import SortIcon from '@mui/icons-material/Sort';
+import CloseIcon from '@mui/icons-material/Close';
 
 const options = {
     edit: true,
@@ -27,22 +29,28 @@ const AllProducts = () => {
     const {category} = useSelector(state => state.catygories)
     const keyword = params.keyword
     let count = filteredProducts
+
+    const [open, setOpen] = useState(false)
+    const handleFilter = () => {
+        setOpen(!open)
+    }
+
     
     const [currentPage, setCurrentPage] = useState(1)
     const setCurrentPageNo = (e) => {
         setCurrentPage(e)
     }
-
+    
     const [price, setPrice] = useState([0, 1000])
     const [newPrice, setNewPrice] = useState([0, 1000])
     const handlePrice = (e, newPrice) => {
         setPrice(newPrice)
     }
-
+    
     const [cat, setCat] = useState('')
     const [ratings, setRatings] = useState(0)
     
-
+    
     useEffect(() => {
         if (error) {
             alert.error(error)
@@ -73,61 +81,73 @@ const AllProducts = () => {
                         </Breadcrumbs>
                     </div>
                     <div>
-                        <div className="bg-slate-100 px-8 mx-auto py-5 sticky top-0 z-20">
-                            <Search />
-                        </div>
-                        <div className="flex border-t border-slate-500">
-                            <div className="w-1/5 border-r border-slate-600">
-                                <h2>Filter</h2>
-                                <div className="p-1">
-                                    <div className="pb-3 flex flex-col border-slate-500 border-b">
-                                        <h2 className="mb-10 font-semibold text-xl flex justify-center">Price:
-                                        <button 
-                                            onClick={() => setNewPrice(price)}
-                                            className="py-1 px-3 text-sm ml-auto border-2 border-orange-700 hover:bg-red-600 hover:text-slate-100"
-                                        >Filter</button>
-                                        </h2>
-                                        <Slider
-                                            getAriaLabel={() => 'Temperature range'}
-                                            value={price}
-                                            onChange={handlePrice}
-                                            valueLabelDisplay="on"
-                                            min={0}
-                                            max={1000}
-                                            step={100}
-                                            sx={{width: '80%', margin: '0 auto'}}
-                                        />
+                        <div className="bg-slate-50 flex gap-2 sm:px-8 px-4 mx-auto py-4 sticky top-[58px] z-20">
+                            <div className='relative'>
+                                <div className='block '>
+                                    <Button size='large' onClick={handleFilter}>
+                                        {
+                                            open ? <CloseIcon fontSize='large' color='secondary' /> 
+                                                : <SortIcon fontSize='large' color='secondary' />
+                                        }
+                                        
+                                    </Button>
+                                </div>
+                                <div className={`${open ? ' opacity-100 h-[77vh] sm:w-[60vw] w-[70vw] ' : ' opacity-0 h-0 w-0 '} overflow-auto transition-all duration-1000 absolute top-[67px] -left-[32px] z-10 bg-white p-3 shadow-2xl border-r border-slate-500`}>
+                                    <h2>Filter</h2>
+                                    <div className="p-1">
+                                        <div className="pb-3 flex flex-col border-slate-500 border-b">
+                                            <h2 className="mb-10 font-semibold text-xl flex justify-center">Price:
+                                            <button 
+                                                onClick={() => setNewPrice(price)}
+                                                className="py-1 px-3 text-sm ml-auto border-2 border-orange-700 hover:bg-red-600 hover:text-slate-100"
+                                            >Filter</button>
+                                            </h2>
+                                            <Slider
+                                                getAriaLabel={() => 'Temperature range'}
+                                                value={price}
+                                                onChange={handlePrice}
+                                                valueLabelDisplay="on"
+                                                min={0}
+                                                max={1000}
+                                                step={100}
+                                                sx={{width: '80%', margin: '0 auto'}}
+                                            />
+                                        </div>
+                                        <div className="border-slate-500 border-b pb-3">
+                                            <h2 className="text-xl font-semibold">Category</h2>
+                                            <ul className="p-3 list-none font-mono cursor-pointer">
+                                                <li onClick={() => setCat('')}
+                                                    className="hover:text-red-700 hover:pl-2"
+                                                >All Products</li>
+                                                {
+                                                    category && category.map(c => (
+                                                        <li 
+                                                            className="hover:text-red-700 hover:pl-3 transition"
+                                                            key={c._id}
+                                                            onClick={() => setCat(c.name)}
+                                                        >&rarr; {c.name}</li>
+                                                    ))
+                                                }
+                                            </ul>
+                                        </div>
+                                        <fieldset className="border border-slate-400 pb-1 flex justify-center">
+                                            <legend className="ml-2 px-2 py-0">Ratings</legend>
+                                            <ReactStars 
+                                                {...options}
+                                                value={ratings}
+                                                onChange={(newRating) => {
+                                                    console.log(newRating);
+                                                    setRatings(newRating);
+                                                }}
+                                            />
+                                        </fieldset>
                                     </div>
-                                    <div className="border-slate-500 border-b pb-3">
-                                        <h2 className="text-xl font-semibold">Category</h2>
-                                        <ul className="p-3 list-none font-mono cursor-pointer">
-                                            <li onClick={() => setCat('')}
-                                                className="hover:text-red-700 hover:pl-2"
-                                            >All Products</li>
-                                            {
-                                                category && category.map(c => (
-                                                    <li 
-                                                        className="hover:text-red-700 hover:pl-3 transition"
-                                                        key={c._id}
-                                                        onClick={() => setCat(c.name)}
-                                                    >&rarr; {c.name}</li>
-                                                ))
-                                            }
-                                        </ul>
-                                    </div>
-                                    <fieldset className="border border-slate-400 pb-1 flex justify-center">
-                                        <legend className="ml-2 px-2 py-0">Ratings</legend>
-                                        <ReactStars 
-                                            {...options}
-                                            value={ratings}
-                                            onChange={(newRating) => {
-                                                setRatings(newRating);
-                                            }}
-                                        />
-                                    </fieldset>
                                 </div>
                             </div>
-                            <div className="w-4/5 grid sm:grid-cols-pr grid-cols-2 sm:gap-5 gap-3 p-4 mx-auto my-0 justify-center">
+                            <Search  />
+                        </div>
+                        <div className="flex border-t border-slate-500">
+                            <div className="sm:w-4/5 w-[95%] grid sm:grid-cols-pr grid-cols-2 sm:gap-5 gap-3 sm:p-4 p-2 mx-auto my-0 justify-center">
                                 {
                                     products && products.map(product => (
                                         <ProductItem key={product._id} product={product} />

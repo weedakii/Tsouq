@@ -22,6 +22,16 @@
     @apply py-3 px-5 my-5 text-center sm:mx-5 shadow-card rounded-xl text-lg font-semibold text-slate-600 max-w-[200px] min-w-[150px] mx-auto
 }
 
+.text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* number of lines to show */
+            line-clamp: 1; 
+    -webkit-box-orient: vertical;
+    direction: rtl;
+}
+
 .cp {
     position: relative;
 }
@@ -76,6 +86,15 @@
     font: 600 16px "Roboto";
     color: rgb(82, 82, 82);
     transition: all 0.3s;
+}
+
+@media (max-width: 500px) {
+    .page-item {
+        padding: 4px 10px;
+    }
+    .page-link {
+        font-size: 14px;
+    }
 }
 
 .page-item:hover {

@@ -77,7 +77,7 @@ const UpdateProfile = () => {
             <Loader />
         ) : (
             <div className="grid place-items-center">
-        <form onSubmit={handleUpdate} className='p-5 border border-slate-400 my-10 shadow-[0_0_15px_1px_#ccc] rounded-xl'>
+        <form onSubmit={handleUpdate} className='sm:p-5 p-2 sm:border sm:border-slate-400 my-7 sm:shadow-[0_0_15px_1px_#ccc] sm:rounded-xl'>
             <div className="flex items-center gap-4 mb-8 mt-4">
                 <Avatar src={avatarPreview} />
                 <input 

@@ -1,6 +1,6 @@
 import { Avatar } from '@mui/material'
 import Loader from '../layout/Loader'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import {Link, useParams, useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector} from 'react-redux'
 import { useAlert} from 'react-alert'
@@ -48,7 +48,7 @@ const Profile = () => {
       loading ? (
         <Loader />
       ) : (
-        <div className="flex p-8">
+        <div className="flex sm:p-8 p-2">
         <div className="hidden md:block w-1/4 border-r  border-slate-600">
           <ul className="list-none">
             {

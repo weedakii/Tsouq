@@ -11,6 +11,7 @@ const Home = () => {
     const alert = useAlert()
 
     const {loading, error, products} = useSelector(state => state.products)
+    const {category} = useSelector(state => state.catygories)
 
     useEffect(() => {
         if (error) {
@@ -27,9 +28,9 @@ const Home = () => {
                 <Loader />
             ) : (
                 <>
-                    <div>
+                    <div className='h-full'>
                         <MetaData title='Tsouq' />
-                        <div className="container mx-auto p-5 overflow-hidden">
+                        <div className="container mx-auto sm:p-5 p-2 overflow-hidden">
                             {/* banner */}
                             <div className="grid sm:grid-cols-3 sm:grid-rows-2 grid-rows-3 gap-4 h-[450px]">
                                 <div className="bg-stone-600 row-span-2 col-span-2">img1</div>
@@ -37,22 +38,19 @@ const Home = () => {
                                 <div className="bg-stone-600">img3</div>
                             </div>
                             {/* category */}
-                            <div className="my-7 flex justify-center gap-2 overflow-auto">
-                                <div className="bg-amber-800 w-12 min-w-[48px] h-12">cat</div>
-                                <div className="bg-amber-800 w-12 min-w-[48px] h-12">cat</div>
-                                <div className="bg-amber-800 w-12 min-w-[48px] h-12">cat</div>
-                                <div className="bg-amber-800 w-12 min-w-[48px] h-12">cat</div>
-                                <div className="bg-amber-800 w-12 min-w-[48px] h-12">cat</div>
-                                <div className="bg-amber-800 w-12 min-w-[48px] h-12">cat</div>
-                                <div className="bg-amber-800 w-12 min-w-[48px] h-12">cat</div>
-                                <div className="bg-amber-800 w-12 min-w-[48px] h-12">cat</div>
-                                <div className="bg-amber-800 w-12 min-w-[48px] h-12">cat</div>
-                                <div className="bg-amber-800 w-12 min-w-[48px] h-12">cat</div>
+                            <div className="my-7 mx-auto sm:w-fit flex justify-start gap-3 overflow-auto">
+                                {
+                                    category && category.map(c => (
+                                        <div className=" w-[70px] min-w-[70px] h-12 text-ellipsis overflow-hidden">
+                                            {c.name}
+                                        </div>
+                                    ))
+                                }
                             </div>
                             {/* hot products */}
                             <div>
                                 <h2 className="cp font-bold text-3xl text-slate-700 border-b-2 border-amber-500 p-4">Hot Products</h2>
-                                <div className="mt-8 grid sm:grid-cols-pr grid-cols-2 gap-5 p-5 mx-auto my-0 justify-center">
+                                <div className="mt-8 grid sm:grid-cols-pr grid-cols-2 gap-5 sm:p-5 mx-auto my-0 justify-center">
                                     {
                                         products && products.map((p, i) => {
                                             return <ProductItem key={i} product={p} />

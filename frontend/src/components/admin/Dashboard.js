@@ -15,6 +15,9 @@ import {
 } from 'chart.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAdminProducts } from '../../actions/productAction';
+import MetaData from '../layout/MetaData';
+import { allOrders } from '../../actions/orderAction';
+import { getAllUsers } from '../../actions/userAction';
 
 ChartJS.register(
     CategoryScale,
@@ -30,12 +33,18 @@ ChartJS.register(
 const Dashboard = () => {
   const dispatch = useDispatch()
   const {products} = useSelector(state => state.adminProducts)
+  const {orders} = useSelector(state => state.allOrders)
+  const { users} = useSelector(state => state.allUsers)
   let outOfStock = 0;
+  let totalAmount = 0;
   products && products.forEach(p => {
-    if (p.stock === 0) {
+    if (p.stock <= 0) {
       outOfStock += 1;
     }
   })
+  orders && orders.map(i => (
+    totalAmount += i.totalPrice
+  ))
 
   const lineState = {
     labels: ["Initial Amount", "Amount Earned"],
@@ -44,7 +53,7 @@ const Dashboard = () => {
         label: "TOTAL AMOUNT",
         hoverBackgroundColor: ["rgb(197, 72, 48)"],
         backgroundColor: ["tomato"],
-        data: [0, 4000]
+        data: [0, totalAmount]
       }
     ]
   }
@@ -62,11 +71,14 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(getAdminProducts())
+    dispatch(allOrders())
+    dispatch(getAllUsers())
   }, [dispatch])
   
 
   return (
     <>
+    <MetaData title={'Dashboard'} />
       <div className="sm:grid-cols-sid grid-cols-1 grid gap-2 sm:p-5 p-2 w-screen max-w-[100%]">
         <div className="sm:max-w-[250px] sm:min-w-[200px]">
           <Sidebar />
@@ -76,7 +88,7 @@ const Dashboard = () => {
           {/*  */}
           <div className="rounded-lg mb-4 py-3 text-lg font-semibold bg-sky-600 text-slate-100 text-center">
             <p>Total Money</p>
-            <span>10000$</span>
+            <span>{totalAmount}$</span>
           </div>
           {/*  */}
           <div className="flex gap-3 justify-evenly font-mono my-6 h-auto">
@@ -89,13 +101,13 @@ const Dashboard = () => {
             <Link to="/admin/orders">
               <div className="bg-red-600 text-slate-50 md:w-36 md:h-36 sm:w-28 sm:h-28 w-20 h-20 flex items-center justify-center flex-col rounded-full md:font-semibold md:text-lg sm:text-sm text-[12px]">
                 <p>Orders</p>
-                <span>10</span>
+                <span>{orders && orders.length}</span>
               </div>
             </Link>
             <Link to="/admin/users">
               <div className="bg-emerald-600 text-slate-50 md:w-36 md:h-36 sm:w-28 sm:h-28 w-20 h-20 flex items-center justify-center flex-col rounded-full md:font-semibold md:text-lg sm:text-sm text-[12px]">
                 <p>Users</p>
-                <span>10</span>
+                <span>{users && users.length}</span>
               </div>
             </Link>
           </div>

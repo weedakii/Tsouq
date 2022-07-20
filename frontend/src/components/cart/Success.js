@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const Success = () => {
   return (
     <>
-        <div className="mt-4">
+        <div className="mt-4 h-full">
             <CheckActiveStep activeStep={2} />
         </div>
         <div className="m-auto flex flex-col items-center justify-center text-center h-[50vh]">

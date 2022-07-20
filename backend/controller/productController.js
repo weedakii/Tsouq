@@ -86,6 +86,30 @@ export const updateProduct = catchAsyncErr(async(req, res, next) => {
         return next(new ErrorHandler('product not found with this id', 404));
     }
 
+    let images = []
+    if (typeof req.body.images === "string") {
+        images.push(req.body.images)
+    } else {
+        images = req.body.images
+    }
+    if (images !== undefined) {
+        for (let i = 0; i < product.images.length; i++) {
+            await cloudinary.v2.uploader.destroy(product.images[i].public_id)
+        }
+        let imagesLink = []
+        for (let i = 0; i < images.length; i++) {
+            let result = await cloudinary.v2.uploader.upload(images[i], {
+                folder: "products"
+            })
+            imagesLink.push({
+                public_id: result.public_id,
+                url: result.secure_url
+            })
+        }
+        req.body.images = imagesLink
+    }
+
+
     product = await Products.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true,

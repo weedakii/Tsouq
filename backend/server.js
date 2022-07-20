@@ -9,7 +9,9 @@ process.on('uncaughtException', err => {
     process.exit(1);
 })
 // settent confing and connect database
-dotenv.config({path: 'backend/config/config.env'})
+if (process.env.NODE_ENV !== "PRODUCTION") {
+    dotenv.config({path: 'backend/config/config.env'})
+}
 connectdb()
 
 cloudinary.config({
@@ -23,7 +25,7 @@ const server = app.listen(process.env.PORT, () => {
 })
 // handle unhandled promis error
 process.on('unhandledRejection', err => {
-    console.log(`ERROR: ${err.message}`);
+    console.log(`ERROR: ${err.stack}`);
     console.log('shutting down server due to unhandled rejection');
     server.close(() => {
         process.exit(1);

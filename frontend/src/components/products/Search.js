@@ -1,4 +1,4 @@
-import { Button, IconButton, InputAdornment, TextField } from '@mui/material'
+import { IconButton, InputAdornment, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import SearchIcon from '@mui/icons-material/Search';
 import {useNavigate} from 'react-router-dom'
@@ -16,7 +16,7 @@ const Search = () => {
         }
     }
   return (
-    <div>
+    <div className='w-full'>
         <form action="" onSubmit={searchSubmit} className="flex items-center gap-3">
             <TextField 
                 id="standard-basic" 
