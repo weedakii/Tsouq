@@ -128,8 +128,8 @@ const ProductDetails = () => {
                                     {
                                         product && product.images && <ImageGallery items={(product?.images || []).map(i => {
                                             return {
-                                                original: i.url,
                                                 thumbnail: i.url,
+                                                original: i?.url,
                                             }}
                                         )}  {...options} />
                                     }
