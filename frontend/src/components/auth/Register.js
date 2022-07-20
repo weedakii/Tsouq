@@ -61,9 +61,9 @@ const Register = () => {
   
 
   return (
-    <div className={(darkMode === "true") ? "dark" : ''}>
-      <div className="grid dark:bg-slate-800 bg-cyan-100/20 place-items-center h-auto min-h-[calc(100vh-52px)]">
-          <form className="my-10 relative dark:bg-slate-700 dark:shadow-[0_0_10px_1px_#444] w-full max-w-sm text-left flex flex-col bg-white px-7 pt-14 pb-7 font-medium shadow-[0_0_20px_8px_#ddd]" onSubmit={handleRegister}>
+    <div className={(darkMode === "true") ? " dark h-full " : 'h-full'}>
+      <div className="grid dark:bg-slate-800 bg-cyan-100/20 place-items-center h-full min-h-[calc(100vh-52px)]">
+          <form className="my-10 relative rounded-md dark:bg-slate-700 dark:shadow-[0_0_10px_1px_#444] w-full max-w-[320px] text-left flex flex-col bg-white px-7 pt-14 pb-7 font-medium shadow-[0_0_20px_8px_#ddd]" onSubmit={handleRegister}>
               <div className="absolute -top-6 left-1/2 -translate-x-1/2 ">
                   <Avatar sx={{ width: '65px', height: '65px' }} className="bg-gradient-to-r from-orange-300 to-yellow-200 shadow-2xl shadow-slate-400" />
               </div>

@@ -77,7 +77,7 @@ console.log(location.search.split('=')[1]);
               <Loader />
             ) : (
               <>
-              <form onSubmit={handleLogin} className="relative dark:bg-slate-700 dark:shadow-[0_0_10px_1px_#444] w-full max-w-sm text-left flex flex-col bg-white px-7 pt-14 pb-7 font-medium shadow-[0_0_20px_8px_#ddd]">
+              <form onSubmit={handleLogin} className="relative dark:bg-slate-700 dark:shadow-[0_0_10px_1px_#444] w-full max-w-[320px] rounded-md text-left flex flex-col bg-white px-7 pt-14 pb-7 font-medium shadow-[0_0_20px_8px_#ddd]">
               <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-10">
                   <Avatar sx={{ width: '65px', height: '65px' }} className="bg-gradient-to-r from-orange-300 to-yellow-200 shadow-2xl shadow-slate-400" />
               </div>
@@ -105,9 +105,9 @@ console.log(location.search.split('=')[1]);
                 name='password'
                 value={password} onChange={handleChangeInput}
               />
-              <Link to="/password/forgot"><p className='text-orange-700 dark:text-orange-300 text-end underline'>Forgot your password?</p></Link>
+              <Link to="/password/forgot"><p className='text-orange-700 sm:text-base text-sm dark:text-orange-300 text-end underline'>Forgot your password?</p></Link>
               <button disabled={loading ? true : false} type="submit" className="btn">Sign in</button>
-              <p className="dark:text-slate-200 font-serif">You donnot have an account? <Link to="/register">
+              <p className="dark:text-slate-200 sm:text-base text-sm font-serif">You donnot have an account? <Link to="/register">
                   <span className="text-orange-700 dark:text-orange-400">Register</span>
                   </Link></p>
             </form>
