@@ -1,7 +1,10 @@
 {
   "name": "tsouq",
   "version": "1.0.0",
-  "description": "",
+  "description": "Tsouq app store",
+  "engines": {
+    "node": "14.x"
+  },
   "main": "backend/server.js",
   "type": "module",
   "scripts": {
