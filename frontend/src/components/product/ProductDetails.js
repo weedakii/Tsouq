@@ -126,7 +126,7 @@ const ProductDetails = () => {
                             <div className="p-5 mx-auto flex gap-4 sm:flex-row flex-col">
                                 <div className="p-4 md:w-3/5 sm:w-[50%] w-[90%] flex-[0.38] sm:h-2/5 m-auto">
                                     {
-                                        product && <ImageGallery items={(product?.images || []).map(i => {
+                                        product && product.images && <ImageGallery items={(product?.images || []).map(i => {
                                             return {
                                                 original: i.url,
                                                 thumbnail: i.url,
