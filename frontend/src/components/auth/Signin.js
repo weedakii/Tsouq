@@ -31,7 +31,7 @@ const Signin = () => {
     dispatch(login(email, password))
   }
 
-  window.gapi.load('client:auth2', () => {
+  gapi.load('client:auth2', () => {
     window.gapi.client.init({
       clientId: 'your client id will be display here',
       plugin_name: "chat"
@@ -52,7 +52,6 @@ const Signin = () => {
   const responseFailureGoogle = (response) => {
     console.log(response);
   }
-console.log(location.search.split('=')[1]);
   let redirect = location.search ? location.search.split('=')[1] : '/profile'
   if (redirect === 'shipping') {
     redirect = '/shipping'
