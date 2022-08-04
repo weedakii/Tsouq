@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import {useLocation, Link} from 'react-router-dom'
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -22,6 +23,7 @@ const Navbar = ({user}) => {
     const alert = useAlert()
     const dispatch = useDispatch()
     const {cartItems} = useSelector(state => state.cart)
+    const {items} = useSelector(state => state.myFav)
     const [isDark, setIsDark] = useState(false)
 
     if (user && user.role === 'admin') {
@@ -80,10 +82,17 @@ const Navbar = ({user}) => {
                 <Link to='/products'>
                     <span className={'hover:text-orange-700 dark:hover:text-orange-700 dark:text-slate-200' + isActive('/products')}>products</span>
                 </Link>
-                <Link to='/cart'>
-                    <span className={'flex items-center dark:text-slate-200 gap-1 dark:hover:text-orange-700 hover:text-orange-700' + isActive('/cart')}>cart 
+                <Link to='/cart' className='mx-2'>
+                    <span className={'flex items-center dark:text-slate-200 gap-1 dark:hover:text-orange-700 hover:text-orange-700' + isActive('/cart')}> 
                         <Badge badgeContent={cartItems?.length} color="secondary">
                             <ShoppingCartIcon />
+                        </Badge>
+                    </span>
+                </Link>
+                <Link to='/favourite'>
+                    <span className={'flex items-center dark:text-slate-200 gap-1 dark:hover:text-orange-700 hover:text-orange-700' + isActive('/cart')}> 
+                        <Badge badgeContent={items?.length} color="secondary">
+                            <FavoriteIcon color='error' className='active:scale-50' />
                         </Badge>
                     </span>
                 </Link>

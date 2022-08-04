@@ -28,7 +28,7 @@ const CartItemCard = ({item, deleteCartItem}) => {
           <Link to={`/product/${item.product}`} className="w-full" style={{textDecoration: 'underline'}} >{item.name}</Link>
           <div className="flex gap-2 w-full items-center">
             <span className="w-full font-bold">{`${item.price}$`}</span>
-            <p onClick={() => deleteCartItem(item.product)} className="text-red-600 p-2 rounded-full cursor-pointer active:bg-slate-300 hover:bg-slate-200"><DeleteIcon /></p>
+            <p onClick={() => deleteCartItem(item.product)} className="text-red-600 p-2 rounded-full cursor-pointer active:bg-slate-300 hover:bg-slate-200" ><DeleteIcon /></p>
           </div>
         </div>
       </div>

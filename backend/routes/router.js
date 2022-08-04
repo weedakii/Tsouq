@@ -1,9 +1,11 @@
 import express from 'express';
 import { createCarousel, createCategory, getCarousel, getCategory, updateCarousel } from '../controller/categoryCotroller.js';
 import { createOrder, deleteOrder, getAllOrders, getMyOrder, getSingleOrder, updateRole } from '../controller/orderController.js';
-import { createProduct, adminGetProducts, updateProduct, deleteProduct, getProducts, getSingleProduct } from '../controller/productController.js';
+import { createProduct, adminGetProducts, updateProduct, deleteProduct, getProducts, getSingleProduct, homeProducts } from '../controller/productController.js';
 import { adminDeleteUser, adminGetAllUsers, adminGetOneUser, adminUpdateUser, forgotPassword, googleLogin, loginUser, logoutUser, registerUser, resetPassword, userChangePassword, userProfile, userUpdateProfile } from '../controller/userController.js';
 import { authRoles, isAuthenticated } from '../utils/auth.js';
+import { createFavourite, deleteFavourite, getAllFavourite } from '../controller/favouriteController.js';
+
 const router = express.Router();
 // category and carusel routes
 router.route('/category').get(getCategory)
@@ -11,7 +13,12 @@ router.route('/weed/category/new').post(isAuthenticated ,createCategory)
 router.route('/carousel').get(getCarousel)
 router.route('/new/carousel').post(createCarousel)
 router.route('/carousel/:id').put(updateCarousel)
+// favourite routes
+router.route('/favourite').get(isAuthenticated ,getAllFavourite)
+router.route('/favourite/new').post(isAuthenticated ,createFavourite)
+router.route('/favourite/:id').delete(isAuthenticated ,deleteFavourite)
 // products routes
+router.route('/home').get(homeProducts)
 router.route('/products').get(getProducts)
 router.route('/product/:id').get(getSingleProduct)
 // user routes

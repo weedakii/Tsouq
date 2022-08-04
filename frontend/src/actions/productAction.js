@@ -59,6 +59,25 @@ export const getAdminProducts = () => async (dispatch) => {
     }
 }
 
+export const getHome = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: ALL_PRODUCTS_REQUEST
+        })
+        let link = `/api/v1/home`
+        let {data} = await axios.get(link)
+        dispatch({
+            type: ALL_PRODUCTS_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        dispatch({
+            type: ALL_PRODUCTS_FAIL,
+            payload: error.response.data.errMessage
+        })
+    }
+}
+
 export const getProducts = (keyword = '', currentPage = '', price = [0, 1000], cat, ratings = 0) => async (dispatch) => {
     try {
         dispatch({

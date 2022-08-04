@@ -33,6 +33,7 @@ import AdminUsers from './components/admin/AdminUsers';
 import UpdateRole from './components/admin/UpdateRole';
 import AdminReviews from './components/admin/AdminReviews';
 import Footer from './components/layout/Footer';
+import Favourite from './components/fav/Favourite';
 
 
 function App() {
@@ -79,6 +80,11 @@ function App() {
             </ProtectedRoute>
           } />
           <Route path='/cart' element={<Cart />} />
+          <Route path='/favourite' element={
+            <ProtectedRoute>
+              <Favourite />
+            </ProtectedRoute>
+          } />
           <Route path='/shipping' element={
             <ProtectedRoute>
               <Shipping />

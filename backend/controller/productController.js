@@ -1,8 +1,32 @@
 import catchAsyncErr from "../middlewares/catchAsyncErr.js";
 import ErrorHandler from "../middlewares/ErrorHandler.js";
 import Products from '../model/productModel.js'
+import Carosal from '../model/carosalModel.js'
 import APIFeatures from "../utils/APIFeatures.js";
 import cloudinary from 'cloudinary'
+
+// home page products
+export const homeProducts = catchAsyncErr(async (req, res, next) => {
+    const carousel = await Carosal.find()
+    const resPerPage = 10
+    let topRated = new APIFeatures(Products.find({type: "top rated"}), req.query).pagination(resPerPage)
+    let hot = new APIFeatures(Products.find({type: "hot"}), req.query).pagination(resPerPage)
+    let newest = new APIFeatures(Products.find({type: "new"}), req.query).pagination(resPerPage)
+
+    const topRatedProducts = await topRated.query.clone()
+    const hotProducts = await hot.query.clone()
+    const newestProducts = await newest.query.clone()
+
+    res.status(200).json({
+        success: true,
+        products: {
+            carousel,
+            topRatedProducts,
+            hotProducts,
+            newestProducts
+        }
+    })
+})
 // get all products
 export const getProducts = catchAsyncErr(async(req, res, next) => {
     const resPerPage = 8
