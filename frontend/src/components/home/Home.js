@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import ProductItem from '../layout/ProductItem'
-import { clearErrors, getHome, getProducts } from '../../actions/productAction'
+import { clearErrors, getHome } from '../../actions/productAction'
 import MetaData from '../layout/MetaData'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../layout/Loader'
 import {useAlert} from 'react-alert'
+import { REMOVE_FROM_FAV_RESET } from '../../constants/favConst'
+import { addToFavourite } from '../../actions/favAction'
 
 const Home = () => {
     const dispatch = useDispatch()
     const alert = useAlert()
 
     const {loading, error, products} = useSelector(state => state.products)
+    const {error: addErr, success} = useSelector(state => state.addToFav)
+    const {error: rmvERR, idRemoved} = useSelector(state => state.removeFromFav)
     const {category} = useSelector(state => state.catygories)
     const {
         carousel,
@@ -19,13 +23,36 @@ const Home = () => {
         newestProducts
     } = products && products
 
+    const handleAdding = (data) => {
+        dispatch(addToFavourite(data))
+    }
+
     useEffect(() => {
-        if (error) {
-            alert.error(error)
-            dispatch(clearErrors())
+        const fetchData = () => {
+            if (error) {
+                alert.error(error)
+                dispatch(clearErrors())
+            }
+            if (addErr) {
+                alert.error(addErr)
+                dispatch(clearErrors())
+            }
+            if (rmvERR) {
+                alert.error(rmvERR)
+                dispatch(clearErrors())
+            }
+            if (idRemoved) {
+                alert.success('Product Removed Successfully')
+                dispatch({type: REMOVE_FROM_FAV_RESET})
+            }
+            if (success) {
+                alert.success('Product Added Successfully')
+                dispatch({type: REMOVE_FROM_FAV_RESET})
+            }
+            dispatch(getHome())
         }
-        dispatch(getHome())
-    }, [dispatch, alert, error])
+        fetchData()
+    }, [dispatch, alert, error, addErr, rmvERR, success, idRemoved])
     
   return (
     <>
@@ -65,29 +92,29 @@ const Home = () => {
                                 <div className="mt-8 grid sm:grid-cols-pr grid-cols-2 gap-5 sm:p-5 mx-auto my-0 justify-center">
                                     {
                                         hotProducts && hotProducts.map((p, i) => {
-                                            return <ProductItem key={i} product={p} />
+                                            return <ProductItem key={i} product={p} action={handleAdding} />
                                         })
                                     }
                                 </div>
                             </div>
                             {/* newest products */}
                             <div className='mb-7'>
-                                <h2 className="cp font-bold text-3xl text-slate-700 border-b-2 border-amber-500 p-4">Hot Products</h2>
+                                <h2 className="cp font-bold text-3xl text-slate-700 border-b-2 border-amber-500 p-4">New Products</h2>
                                 <div className="mt-8 grid sm:grid-cols-pr grid-cols-2 gap-5 sm:p-5 mx-auto my-0 justify-center">
                                     {
                                         newestProducts && newestProducts.map((p, i) => {
-                                            return <ProductItem key={i} product={p} />
+                                            return <ProductItem key={i} product={p} action={handleAdding} />
                                         })
                                     }
                                 </div>
                             </div>
                             {/* top Rated products */}
                             <div className='mb-7'>
-                                <h2 className="cp font-bold text-3xl text-slate-700 border-b-2 border-amber-500 p-4">Hot Products</h2>
+                                <h2 className="cp font-bold text-3xl text-slate-700 border-b-2 border-amber-500 p-4">Top Rated</h2>
                                 <div className="mt-8 grid sm:grid-cols-pr grid-cols-2 gap-5 sm:p-5 mx-auto my-0 justify-center">
                                     {
                                         topRatedProducts && topRatedProducts.map((p) => {
-                                            return <ProductItem key={p._id} product={p} />
+                                            return <ProductItem key={p._id} product={p} action={handleAdding} />
                                         })
                                     }
                                 </div>

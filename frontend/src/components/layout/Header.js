@@ -11,6 +11,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import { useAlert} from 'react-alert'
 import { useDispatch, useSelector} from 'react-redux'
 import { logout } from '../../actions/userAction';
+import { myFavourite } from '../../actions/favAction';
 
 
 const Navbar = ({user}) => {
@@ -60,7 +61,8 @@ const Navbar = ({user}) => {
         } else if (localStorage.getItem('isDark') === 'false') {
             setIsDark(false);
         }
-    }, [])
+        dispatch(myFavourite())
+    }, [dispatch])
     
     
     return (

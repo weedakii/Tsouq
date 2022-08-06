@@ -8,7 +8,7 @@ import cloudinary from 'cloudinary'
 // home page products
 export const homeProducts = catchAsyncErr(async (req, res, next) => {
     const carousel = await Carosal.find()
-    const resPerPage = 10
+    const resPerPage = 8
     let topRated = new APIFeatures(Products.find({type: "top rated"}), req.query).pagination(resPerPage)
     let hot = new APIFeatures(Products.find({type: "hot"}), req.query).pagination(resPerPage)
     let newest = new APIFeatures(Products.find({type: "new"}), req.query).pagination(resPerPage)
@@ -53,6 +53,9 @@ export const getProducts = catchAsyncErr(async(req, res, next) => {
 // admin => get all products
 export const adminGetProducts = catchAsyncErr(async(req, res, next) => {
     const products = await Products.find()
+    products.map(p => {
+        p.oldPrice = p.price;
+    })
 
     res.status(200).json({
         success: true,
@@ -94,6 +97,7 @@ export const createProduct = catchAsyncErr(async(req, res, next) => {
     }
     req.body.images = imagesLink
     req.body.user = req.user.id
+    req.body.oldPrice = req.body.price;
     req.body.index = await Products.countDocuments()
     const product = await Products.create(req.body)
 
@@ -133,6 +137,10 @@ export const updateProduct = catchAsyncErr(async(req, res, next) => {
         req.body.images = imagesLink
     }
 
+    if (req.body.oldPrice) {
+        let dis = ((req.body.oldPrice - req.body.price) / req.body.oldPrice * 100)
+        req.body.discount = Math.round(dis)
+    }
 
     product = await Products.findByIdAndUpdate(req.params.id, req.body, {
         new: true,

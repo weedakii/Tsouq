@@ -1,6 +1,10 @@
 import mongoose from 'mongoose'
 
 const favouriteSchema = new mongoose.Schema({
+    index: {
+        type: String,
+        required: true,
+    },
     name: {
         type: String,
         required: true,

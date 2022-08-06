@@ -67,7 +67,7 @@ const ProductDetails = () => {
     
     const dispatch = useDispatch()
     const {loading, error, product} = useSelector(state => state.productDetails)
-    const {error: productsError, products} = useSelector(state => state.products)
+    const {error: productsError, products, loading: loadingPR} = useSelector(state => state.products)
 
     const addToCartHamdler = () => {
         dispatch(addToCart(params.id, quantity))
@@ -93,12 +93,12 @@ const ProductDetails = () => {
         
         dispatch(getSingleProduct(params.id))
         dispatch(getProducts(...filter))
-    }, [dispatch, error,alert, params, productsError, category])
+    }, [dispatch, error, alert, params, productsError])
     
     return (
         <>
             {
-                loading ? (
+                (loading && loadingPR) ? (
                     <Loader />
                 ) : (
                     <>
@@ -228,7 +228,7 @@ const ProductDetails = () => {
                                     {
                                         products &&
                                         products.slice(0, 5).map(i => {
-                                            if (i.category === product.category && i._id !== product._id) {
+                                            if ((i.category === product.category) && (i._id !== product._id)) {
                                                 return (
                                                     <ProductItem key={i._id} product={i} />
                                                 )
