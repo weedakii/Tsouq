@@ -18,7 +18,7 @@ const FavCard = ({card, action}) => {
         <img src={card?.image} alt={card?.name} className="max-h-52 m-auto rounded" />
         <div className=" p-2 border-t border-slate-300">
             <Link to={`/product/${card.product}`} className="text underline sm:text-lg text-base font-serif font-bold">{card?.name}</Link>
-            <span className="font-bold text-xl text-orange-700">{card?.price}$</span>
+            <span className="font-bold text-xl text-mainDarkColor font-mono">{card?.price}$</span>
         </div>
     </div>
   )

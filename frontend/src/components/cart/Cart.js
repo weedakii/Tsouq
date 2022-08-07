@@ -27,7 +27,7 @@ const Cart = () => {
             </div> 
             : <>
             <div className="rounded-lg border flex flex-col shadow-card border-slate-300 overflow-x-auto">
-                <div className="bg-orange-600 min-w-fit flex text-start  border-b border-slate-400">
+                <div className="bg-mainDarkColor min-w-fit flex text-start  border-b border-slate-400">
                     <h3 className='p-3 text-slate-100 border-r flex-[0.6] min-w-[320px] border-slate-300 text-start'>Product</h3>
                     <h3 className='p-3 text-slate-100 border-r flex-[0.2] min-w-[120px] border-slate-300'>Quantity</h3>
                     <h3 className='p-3 text-slate-100 flex-[0.2] min-w-[120px] text-right'>Subtotal</h3>
@@ -49,13 +49,13 @@ const Cart = () => {
                 )}`}</span></p>
                     <p className="flex justify-between text-sm font-semibold"><span>Delivery:</span> <span className="text-slate-500">0.00$</span></p>
                 </div>
-                <p className="flex justify-between text-xl pb-3 font-semibold border-b border-slate-300"><span>Total:</span> <span className="text-red-600">{`$${cartItems.reduce(
+                <p className="flex justify-between text-xl pb-3 font-semibold border-b border-slate-300"><span>Total:</span> <span className="text-red-700 text-2xl font-bold">{`$${cartItems.reduce(
                     (acc, item) => acc + item.quantity*item.price,
                     0
                 )}`}</span></p>
                 <button 
                     onClick={checkoutHandler}
-                    className="block my-3 mx-auto p-2 text-center rounded-full font-semibold text-lg bg-amber-700 text-slate-50 w-[90%]">
+                    className="block my-3 mx-auto p-2 text-center rounded-full font-semibold text-lg bg-emerald-900 text-slate-50 w-[90%]">
                     Checkout
                 </button>
             </div>

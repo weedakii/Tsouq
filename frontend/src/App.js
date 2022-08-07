@@ -39,8 +39,11 @@ import Favourite from './components/fav/Favourite';
 function App() {
   const {user, isAuthenticated} = useSelector(state => state.user)
   useEffect(() => {
-    store.dispatch(loadUser())
-    store.dispatch(getCategory())
+    const fetchData = () => {
+      store.dispatch(loadUser())
+      store.dispatch(getCategory())
+    }
+    fetchData()
   }, [])
 
   return (

@@ -17,6 +17,9 @@ import {
     ALL_PRODUCTS_REQUEST,
     ALL_PRODUCTS_SUCCESS,
     ALL_PRODUCTS_FAIL,
+    HOME_REQUEST,
+    HOME_SUCCESS,
+    HOME_FAIL,
     PRODUCT_DETAILS_REQUEST,
     PRODUCT_DETAILS_SUCCESS,
     PRODUCT_DETAILS_FAIL,
@@ -154,12 +157,14 @@ export const adminProductsReducer = (state= {products: []}, action) => {
 export const productReducer = (state= {products: []}, action) => {
     switch (action.type) {
         case ALL_PRODUCTS_REQUEST:
+        case HOME_REQUEST:
             return {
                 loading: true,
                 products: []
             }
     
         case ALL_PRODUCTS_SUCCESS:
+        case HOME_SUCCESS:
             return {
                 loading: false,
                 products: action.payload.products,
@@ -169,6 +174,7 @@ export const productReducer = (state= {products: []}, action) => {
             }
     
         case ALL_PRODUCTS_FAIL:
+        case HOME_FAIL:
             return {
                 loading: false,
                 error: action.payload

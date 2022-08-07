@@ -32,7 +32,7 @@ const CheckActiveStep = ({activeStep}) => {
                 <StepLabel 
                     icon={item.icon}
                     style={{
-                        color: activeStep >= index ? '#ed3b02' : 'rgba(0, 0, 0, 0.364)'
+                        color: activeStep >= index ? '#088f7e' : 'rgba(0, 0, 0, 0.364)'
                     }}
                 >{item.label}</StepLabel>
             </Step>

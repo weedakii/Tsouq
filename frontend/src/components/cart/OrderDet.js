@@ -28,7 +28,7 @@ return (
                 <Loader />
             ) : (
                 <div className="p-5 sm:w-4/5 mx-auto">
-                    <h2 className="text-orange-600 sm:text-xl sm:font-bold text-lg font-semibold text-center">OrderID #{order && order?._id}</h2>
+                    <h2 className="text-mainDarkColor sm:text-xl sm:font-bold text-lg font-semibold text-center">OrderID #{order && order?._id}</h2>
                     {/*  */}
                     <div className="my-5 flex gap-4 justify-around sm:flex-row flex-col">
                         <div>

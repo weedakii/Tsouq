@@ -72,6 +72,6 @@ export const removeFromFavourite = (productData) => async (dispatch) => {
     }
 }
 
-export const clearErrors = () => async (dispatch) => {
+export const clearFavErrors = () => async (dispatch) => {
     dispatch({type: CLEAR_ERRORS})
 }

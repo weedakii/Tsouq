@@ -64,7 +64,7 @@ export const addToFavReducer = (state= {item: {}}, action) => {
             return {
                 ...state,
                 loading: false,
-                error: action.payload
+                errorFav: action.payload
             }
     
         case ADD_TO_FAV_RESET:
@@ -76,7 +76,7 @@ export const addToFavReducer = (state= {item: {}}, action) => {
         case CLEAR_ERRORS:
             return {
                 ...state,
-                error: null
+                errorFav: null
             }
     
         default:

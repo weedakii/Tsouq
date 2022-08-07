@@ -14,6 +14,12 @@ module.exports = {
       boxShadow: {
         'sh': '0 0 6px -1px #aaa',
         'card': '0 0 6px #aaa',
+      },
+      colors: {
+        'mainDarkColor': '#088f7e',
+        'mainColor': '#89dad0',
+        'textColor': '#ccc7c5',
+        'blue': 'blue',
       }
     },
   },

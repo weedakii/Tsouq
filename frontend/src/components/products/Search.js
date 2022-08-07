@@ -22,7 +22,7 @@ const Search = () => {
                 id="standard-basic" 
                 label="Search" 
                 variant="filled" 
-                color="warning"
+                color="success"
                 size="small" 
                 onChange={(e) => setKeyword(e.target.value)}
                 sx={{width: '100%', maxWidth: '800px',margin: '0 auto'}}
@@ -30,7 +30,7 @@ const Search = () => {
                     endAdornment: <InputAdornment position="end">
                         <IconButton 
                             type='submit' 
-                            color="warning" 
+                            color="success" 
                             size="large"
                         >
                             <SearchIcon />

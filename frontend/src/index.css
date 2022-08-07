@@ -40,7 +40,7 @@
     content: "";
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 85, 0, 0.679);
+    background-color: #cdcdcdb2;
     position: absolute;
     top: 0;
     left: 0;
@@ -157,15 +157,15 @@ input[type="number"] {
 
 .MuiStepConnector-active, 
 .MuiStepConnector-completed {
-    background-color: #ff4400d3
+    background-color: #088f7e
 }
 
 .MuiDataGrid-columnHeaders div {
-    background: #ff4400d3;
+    background: #088f7e;
     color: #f6f6f6;
     font-weight: bold !important
 }
 
 .MuiDataGrid-cell a:hover {
-    color: #ff6347;
+    color: #89dad8;
 }

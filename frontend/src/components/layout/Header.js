@@ -47,9 +47,9 @@ const Navbar = ({user}) => {
     const router = useLocation()
     const isActive = (r) => {
         if (r === router.pathname || (router.pathname === '/admin/dashboard' && r === '/dashboard')) {
-            return " text-orange-700"
+            return " text-mainDarkColor"
         } else if(router.pathname === '/order/me' && r === '/orders') {
-            return " text-orange-700"
+            return " text-mainDarkColor"
         } else {
             return ""
         }
@@ -69,7 +69,7 @@ const Navbar = ({user}) => {
         <div className= {isDark ? "dark sticky top-0 left-0 z-[999]" : "sticky top-0 left-0 z-[999]"} >
             <header className='bg-white shadow-md py-[10px] dark:bg-slate-900'>
             <div className='mx-auto px-4 sm:px-8 max-w-7xl flex items-center justify-between'>
-                <div className='text-amber-600 font-bold text-2xl'>
+                <div className='text-mainDarkColor font-bold text-2xl'>
                 <Link to='/' >
                     Tsouq
                 </Link>
@@ -82,17 +82,17 @@ const Navbar = ({user}) => {
                     color="warning"
                 />
                 <Link to='/products'>
-                    <span className={'hover:text-orange-700 dark:hover:text-orange-700 dark:text-slate-200' + isActive('/products')}>products</span>
+                    <span className={'hover:text-emerald-900 dark:hover:text-mainDarkColor dark:text-slate-200' + isActive('/products')}>products</span>
                 </Link>
                 <Link to='/cart' className='mx-2'>
-                    <span className={'flex items-center dark:text-slate-200 gap-1 dark:hover:text-orange-700 hover:text-orange-700' + isActive('/cart')}> 
+                    <span className={'flex items-center dark:text-slate-200 gap-1 dark:hover:text-mainDarkColor hover:text-mainDarkColor' + isActive('/cart')}> 
                         <Badge badgeContent={cartItems?.length} color="secondary">
                             <ShoppingCartIcon />
                         </Badge>
                     </span>
                 </Link>
                 <Link to='/favourite'>
-                    <span className={'flex items-center dark:text-slate-200 gap-1 dark:hover:text-orange-700 hover:text-orange-700' + isActive('/cart')}> 
+                    <span className={'flex items-center dark:text-slate-200 gap-1 dark:hover:text-mainDarkColor hover:text-mainDarkColor' + isActive('/cart')}> 
                         <Badge badgeContent={items?.length} color="secondary">
                             <FavoriteIcon color='error' className='active:scale-50' />
                         </Badge>
@@ -121,7 +121,7 @@ const Navbar = ({user}) => {
                                 tooltipTitle={action.name}
                                 FabProps={{
                                     sx: {
-                                    color: isActive('/'+action.name.toLowerCase()) && "orange"
+                                    color: isActive('/'+action.name.toLowerCase()) && "darkgreen"
                                     }
                                 }}
                                 

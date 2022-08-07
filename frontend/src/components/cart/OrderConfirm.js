@@ -81,7 +81,7 @@ const OrderConfirm = () => {
                             {item.name}
                           </Link>
                         </div>
-                        <p className="text-orange-700 font-semibold text-xl font-mono">${item.price}</p>
+                        <p className="text-mainDarkColor font-semibold text-xl font-mono">${item.price}</p>
                         <p>Quantity: {item.quantity}</p>
                         <p className="flex justify-between text-xl font-semibold">Total: <span className='text-red-600 font-bold'>{item.quantity*item.price}$</span></p>
                       </div>
@@ -102,7 +102,7 @@ const OrderConfirm = () => {
                     disabled={loading ? true : false}
                     onClick={createOrderHandler}
                     className="block my-3 mx-auto p-2 text-center rounded-lg
-                      font-semibold text-lg bg-slate-800 text-slate-50 w-[90%] hover:rounded-full hover:bg-amber-700 transition duration-300 active:scale-50"
+                      font-semibold text-lg bg-slate-800 text-slate-50 w-[90%] hover:rounded-full hover:bg-emerald-900 transition duration-300 active:scale-50"
                   >
                     Make The Order
                 </button>

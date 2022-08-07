@@ -14,6 +14,9 @@ import {
     ALL_PRODUCTS_REQUEST,
     ALL_PRODUCTS_SUCCESS,
     ALL_PRODUCTS_FAIL,
+    HOME_REQUEST,
+    HOME_SUCCESS,
+    HOME_FAIL,
     PRODUCT_DETAILS_REQUEST,
     PRODUCT_DETAILS_SUCCESS,
     PRODUCT_DETAILS_FAIL,
@@ -59,25 +62,6 @@ export const getAdminProducts = () => async (dispatch) => {
     }
 }
 
-export const getHome = () => async (dispatch) => {
-    try {
-        dispatch({
-            type: ALL_PRODUCTS_REQUEST
-        })
-        let link = `/api/v1/home`
-        let {data} = await axios.get(link)
-        dispatch({
-            type: ALL_PRODUCTS_SUCCESS,
-            payload: data
-        })
-    } catch (error) {
-        dispatch({
-            type: ALL_PRODUCTS_FAIL,
-            payload: error.response.data.errMessage
-        })
-    }
-}
-
 export const getProducts = (keyword = '', currentPage = '', price = [0, 1000], cat, ratings = 0) => async (dispatch) => {
     try {
         dispatch({
@@ -95,6 +79,25 @@ export const getProducts = (keyword = '', currentPage = '', price = [0, 1000], c
     } catch (error) {
         dispatch({
             type: ALL_PRODUCTS_FAIL,
+            payload: error.response.data.errMessage
+        })
+    }
+}
+
+export const getHome = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: HOME_REQUEST
+        })
+        let link = `/api/v1/home`
+        let {data} = await axios.get(link)
+        dispatch({
+            type: HOME_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        dispatch({
+            type: HOME_FAIL,
             payload: error.response.data.errMessage
         })
     }

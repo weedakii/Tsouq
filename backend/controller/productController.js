@@ -53,9 +53,6 @@ export const getProducts = catchAsyncErr(async(req, res, next) => {
 // admin => get all products
 export const adminGetProducts = catchAsyncErr(async(req, res, next) => {
     const products = await Products.find()
-    products.map(p => {
-        p.oldPrice = p.price;
-    })
 
     res.status(200).json({
         success: true,
@@ -69,6 +66,9 @@ export const getSingleProduct = catchAsyncErr(async(req, res, next) => {
     if (!product) {
         return next(new ErrorHandler('product not found with this id', 404));
     }
+
+    product.views += 1;
+    product.save()
 
     res.status(200).json({
         success: true,

@@ -52,12 +52,14 @@ const AllProducts = () => {
     
     
     useEffect(() => {
-        if (error) {
-            alert.error(error)
-            dispatch(clearErrors)
+        const fetchData = () => {
+            if (error) {
+                alert.error(error)
+                dispatch(clearErrors)
+            }
+            dispatch(getProducts(keyword, currentPage, newPrice, cat, ratings))
         }
-        dispatch(getProducts(keyword, currentPage, newPrice, cat, ratings))
-        dispatch(getCategory())
+        fetchData()
     }, [dispatch, error, alert, keyword, currentPage, newPrice, cat, ratings])
     
     return (
@@ -86,8 +88,8 @@ const AllProducts = () => {
                                 <div className='block '>
                                     <Button size='large' onClick={handleFilter}>
                                         {
-                                            open ? <CloseIcon fontSize='large' color='secondary' /> 
-                                                : <SortIcon fontSize='large' color='secondary' />
+                                            open ? <CloseIcon fontSize='large' color='error' /> 
+                                                : <SortIcon fontSize='large' color='info' />
                                         }
                                         
                                     </Button>

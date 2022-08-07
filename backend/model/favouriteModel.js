@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const favouriteSchema = new mongoose.Schema({
     index: {
-        type: String,
+        type: Number,
         required: true,
     },
     name: {

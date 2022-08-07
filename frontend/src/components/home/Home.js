@@ -5,16 +5,14 @@ import MetaData from '../layout/MetaData'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../layout/Loader'
 import {useAlert} from 'react-alert'
-import { REMOVE_FROM_FAV_RESET } from '../../constants/favConst'
-import { addToFavourite } from '../../actions/favAction'
+import { ADD_TO_FAV_RESET } from '../../constants/favConst'
+import { addToFavourite, clearFavErrors } from '../../actions/favAction'
 
 const Home = () => {
     const dispatch = useDispatch()
     const alert = useAlert()
 
     const {loading, error, products} = useSelector(state => state.products)
-    const {error: addErr, success} = useSelector(state => state.addToFav)
-    const {error: rmvERR, idRemoved} = useSelector(state => state.removeFromFav)
     const {category} = useSelector(state => state.catygories)
     const {
         carousel,
@@ -23,9 +21,29 @@ const Home = () => {
         newestProducts
     } = products && products
 
-    const handleAdding = (data) => {
+    const handleAdding = async (data) => {
         dispatch(addToFavourite(data))
+        alert.success('Product Added Successfully')
+        dispatch({type: ADD_TO_FAV_RESET})
     }
+
+    let cat = category && category.map((c, i) => (
+        <div key={i} className=" w-[70px] min-w-[70px] h-12 text-ellipsis overflow-hidden">
+            {c.name}
+        </div>
+    ))
+
+    let hot = hotProducts && hotProducts.map((p) => {
+        return <ProductItem key={p._id} product={p} action={handleAdding} />
+    })
+
+    let newest = newestProducts && newestProducts.map((p) => {
+        return <ProductItem key={p._id} product={p} action={handleAdding} />
+    })
+
+    let top = topRatedProducts && topRatedProducts.map((p) => {
+        return <ProductItem key={p._id} product={p} action={handleAdding} />
+    })
 
     useEffect(() => {
         const fetchData = () => {
@@ -33,26 +51,10 @@ const Home = () => {
                 alert.error(error)
                 dispatch(clearErrors())
             }
-            if (addErr) {
-                alert.error(addErr)
-                dispatch(clearErrors())
-            }
-            if (rmvERR) {
-                alert.error(rmvERR)
-                dispatch(clearErrors())
-            }
-            if (idRemoved) {
-                alert.success('Product Removed Successfully')
-                dispatch({type: REMOVE_FROM_FAV_RESET})
-            }
-            if (success) {
-                alert.success('Product Added Successfully')
-                dispatch({type: REMOVE_FROM_FAV_RESET})
-            }
             dispatch(getHome())
         }
         fetchData()
-    }, [dispatch, alert, error, addErr, rmvERR, success, idRemoved])
+    }, [error, alert, dispatch])
     
   return (
     <>
@@ -79,43 +81,33 @@ const Home = () => {
                             {/* category */}
                             <div className="my-7 mx-auto sm:w-fit flex justify-start gap-3 overflow-auto">
                                 {
-                                    category && category.map(c => (
-                                        <div className=" w-[70px] min-w-[70px] h-12 text-ellipsis overflow-hidden">
-                                            {c.name}
-                                        </div>
-                                    ))
+                                    cat
                                 }
                             </div>
                             {/* hot products */}
                             <div className='mb-7'>
-                                <h2 className="cp font-bold text-3xl text-slate-700 border-b-2 border-amber-500 p-4">Hot Products</h2>
+                                <h2 className="cp font-bold text-3xl text-mainDarkColor p-4">Hot Products</h2>
                                 <div className="mt-8 grid sm:grid-cols-pr grid-cols-2 gap-5 sm:p-5 mx-auto my-0 justify-center">
                                     {
-                                        hotProducts && hotProducts.map((p, i) => {
-                                            return <ProductItem key={i} product={p} action={handleAdding} />
-                                        })
+                                        hot
                                     }
                                 </div>
                             </div>
                             {/* newest products */}
                             <div className='mb-7'>
-                                <h2 className="cp font-bold text-3xl text-slate-700 border-b-2 border-amber-500 p-4">New Products</h2>
+                                <h2 className="cp font-bold text-3xl text-mainDarkColor p-4">New Products</h2>
                                 <div className="mt-8 grid sm:grid-cols-pr grid-cols-2 gap-5 sm:p-5 mx-auto my-0 justify-center">
                                     {
-                                        newestProducts && newestProducts.map((p, i) => {
-                                            return <ProductItem key={i} product={p} action={handleAdding} />
-                                        })
+                                        newest
                                     }
                                 </div>
                             </div>
                             {/* top Rated products */}
                             <div className='mb-7'>
-                                <h2 className="cp font-bold text-3xl text-slate-700 border-b-2 border-amber-500 p-4">Top Rated</h2>
+                                <h2 className="cp font-bold text-3xl text-mainDarkColor p-4">Top Rated</h2>
                                 <div className="mt-8 grid sm:grid-cols-pr grid-cols-2 gap-5 sm:p-5 mx-auto my-0 justify-center">
                                     {
-                                        topRatedProducts && topRatedProducts.map((p) => {
-                                            return <ProductItem key={p._id} product={p} action={handleAdding} />
-                                        })
+                                        top
                                     }
                                 </div>
                             </div>

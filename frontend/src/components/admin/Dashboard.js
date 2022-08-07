@@ -64,15 +64,18 @@ const Dashboard = () => {
         label: "TOTAL AMOUNT",
         hoverBackgroundColor: ["#4b5606", "#35014f"],
         backgroundColor: ["#90a604", "#680084"],
-        data: [outOfStock, products.length - outOfStock]
+        data: [outOfStock, products?.length - outOfStock]
       }
     ]
   }
 
   useEffect(() => {
-    dispatch(getAdminProducts())
-    dispatch(allOrders())
-    dispatch(getAllUsers())
+    const fetchData = () => {
+      dispatch(getAdminProducts())
+      dispatch(allOrders())
+      dispatch(getAllUsers())
+    }
+    fetchData()
   }, [dispatch])
   
 

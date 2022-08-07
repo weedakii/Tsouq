@@ -61,7 +61,7 @@ const ProductDetails = () => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-
+    const [allProd, setAllProd] = useState([])
     const alert = useAlert()
     const params = useParams()
     
@@ -75,24 +75,37 @@ const ProductDetails = () => {
     }
     
     category = product?.category
+    let prod = allProd.length > 0 ? allProd.slice(0, 5).map(p => {
+        if ((p.category === product.category) && (p._id !== product._id)) {
+            return (
+                <ProductItem key={p._id} product={p} />
+            )
+        }
+    }) : []
     useEffect(() => {
-        const filter = [
-            keyword, 
-            currentPage, 
-            price, 
-            category
-        ]
-        if (error) {
-            alert.error(error)
-            dispatch(clearErrors())
+        let fetchData = () => {
+            if (products) {
+                setAllProd(products)
+            }
+            const filter = [
+                keyword,
+                currentPage, 
+                price, 
+                category
+            ]
+            if (error) {
+                alert.error(error)
+                dispatch(clearErrors())
+            }
+            if (productsError) {
+                alert.error(productsError)
+                dispatch(clearErrors())
+            }
+            
+            dispatch(getSingleProduct(params.id))
+            dispatch(getProducts(...filter))
         }
-        if (productsError) {
-            alert.error(productsError)
-            dispatch(clearErrors())
-        }
-        
-        dispatch(getSingleProduct(params.id))
-        dispatch(getProducts(...filter))
+        fetchData()
     }, [dispatch, error, alert, params, productsError])
     
     return (
@@ -172,14 +185,14 @@ const ProductDetails = () => {
                                             aria-describedby="alert-dialog-description"
                                         >
                                             <DialogTitle id="alert-dialog-title">
-                                            {"Use Google's location service?"}
+                                            {"We Are Very Sorry!!!"}
                                             </DialogTitle>
                                             <DialogContent>
                                             <DialogContentText id="alert-dialog-description">
-                                            <div className='flex items-center rounded-xl shadow-card p-5 gap-3 text-slate-50 bg-[#d32f2f]'>
+                                            <span className='flex items-center rounded-xl shadow-card p-5 gap-3 text-slate-50 bg-[#d32f2f]'>
                                                 <ErrorOutlineIcon color='inherit' />
-                                                <p>This future will be available soon</p>
-                                            </div>
+                                                <span className='text-cm'>This future will be available soon</span>
+                                            </span>
                                             </DialogContentText>
                                             </DialogContent>
                                             <DialogActions>
@@ -226,14 +239,7 @@ const ProductDetails = () => {
                                     
                                 <div className='flex items-start flex-nowrap overflow-auto gap-3 p-3 sm:mx-6'>
                                     {
-                                        products &&
-                                        products.slice(0, 5).map(i => {
-                                            if ((i.category === product.category) && (i._id !== product._id)) {
-                                                return (
-                                                    <ProductItem key={i._id} product={i} />
-                                                )
-                                            }
-                                        })
+                                        prod
                                     }
                                 </div>
                             </div>
