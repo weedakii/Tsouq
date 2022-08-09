@@ -14,7 +14,7 @@ import { addToCart } from '../../actions/cartActions'
 import ProductItem from '../layout/ProductItem'
 
   const options = {
-    thumbnailPosition: window.innerWidth > 640 ? "bottom" : "left",
+    thumbnailPosition: window.innerWidth > 640 ? "bottom" : "top",
     showPlayButton: false,
     useBrowserFullscreen: false,
     showFullscreenButton: false
@@ -61,13 +61,12 @@ const ProductDetails = () => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-    const [allProd, setAllProd] = useState([])
+
     const alert = useAlert()
     const params = useParams()
     
     const dispatch = useDispatch()
-    const {loading, error, product} = useSelector(state => state.productDetails)
-    const {error: productsError, products, loading: loadingPR} = useSelector(state => state.products)
+    const {loading, error, product, filtered} = useSelector(state => state.productDetails)
 
     const addToCartHamdler = () => {
         dispatch(addToCart(params.id, quantity))
@@ -75,43 +74,32 @@ const ProductDetails = () => {
     }
     
     category = product?.category
-    let prod = allProd.length > 0 ? allProd.slice(0, 5).map(p => {
-        if ((p.category === product.category) && (p._id !== product._id)) {
-            return (
-                <ProductItem key={p._id} product={p} />
-            )
-        }
-    }) : []
+    let prod = filtered && filtered.map(p => {
+        return <ProductItem key={p._id} product={p} />
+    })
+
+    const revs = product.reviews && product.reviews.map(r => <div>
+        <p>{r.name}</p>
+        <ReactStars {...infos} value={r.rating} />
+        <span>{r.comment}</span>
+    </div> )
+
     useEffect(() => {
         let fetchData = () => {
-            if (products) {
-                setAllProd(products)
-            }
-            const filter = [
-                keyword,
-                currentPage, 
-                price, 
-                category
-            ]
             if (error) {
                 alert.error(error)
                 dispatch(clearErrors())
             }
-            if (productsError) {
-                alert.error(productsError)
-                dispatch(clearErrors())
-            }
             
             dispatch(getSingleProduct(params.id))
-            dispatch(getProducts(...filter))
         }
         fetchData()
-    }, [dispatch, error, alert, params, productsError])
+    }, [dispatch, error, alert, params.id])
     
     return (
         <>
             {
-                (loading && loadingPR) ? (
+                (loading) ? (
                     <Loader />
                 ) : (
                     <>
@@ -220,11 +208,7 @@ const ProductDetails = () => {
                                             product.reviews && product.reviews[0] ? (
                                                 <div>
                                                     {
-                                                        product.reviews && product.reviews.map(r => <div>
-                                                            <p>{r.name}</p>
-                                                            <ReactStars {...infos} value={r.rating} />
-                                                            <span>{r.comment}</span>
-                                                        </div> )
+                                                        revs
                                                     }
                                                 </div>
                                             ) : (
@@ -237,7 +221,7 @@ const ProductDetails = () => {
                             <div>
                                 <h3 className='text-slate-800 sm:text-2xl ml-4 mb-4 p-3 text-lg font-semibold'>you may also like</h3>
                                     
-                                <div className='flex items-start flex-nowrap overflow-auto gap-3 p-3 sm:mx-6'>
+                                <div className='flex items-center flex-nowrap overflow-auto gap-3 p-3 sm:mx-6'>
                                     {
                                         prod
                                     }

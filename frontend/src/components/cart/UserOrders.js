@@ -48,11 +48,14 @@ const UserOrders = () => {
     })
 
     useEffect(() => {
-        if (error) {
-            alert.error(error)
-            dispatch(clearErrors())
+        const fetchData = () => {
+            if (error) {
+                alert.error(error)
+                dispatch(clearErrors())
+            }
+            dispatch(myOrders())
         }
-        dispatch(myOrders())
+        fetchData()
     }, [dispatch, error, alert])
 
 return (

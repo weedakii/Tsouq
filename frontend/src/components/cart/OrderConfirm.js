@@ -32,11 +32,32 @@ const OrderConfirm = () => {
     navigate('/success')
     alert.success("Order successfully created")
   }
+  const card = cartItems && cartItems.map((item) => (
+    <div 
+      key={item.product}
+      className="flex h-40 bg-slate-100/50 mb-5 w-[90%] mx-auto rounded-xl overflow-hidden border-2 border-slate-300 max-w-[500px] md:ml-0 md:mr-auto"
+    >
+      <img src={item.image} alt={item.name} className=" h-full my-auto max-w-[40%] object-cover"/>
+      <div className='p-3 flex flex-col justify-between w-full'>
+        <div className="block underline w-full font-semibold text-right md:text-xl">
+          <Link to={`/product/${item.product}`}>
+            {item.name}
+          </Link>
+        </div>
+        <p className="text-mainDarkColor font-semibold text-xl font-mono">${item.price}</p>
+        <p>Quantity: {item.quantity}</p>
+        <p className="flex justify-between text-xl font-semibold">Total: <span className='text-red-600 font-bold'>{item.quantity*item.price}$</span></p>
+      </div>
+    </div>
+  ))
   useEffect(() => {
-    if(error) {
-      alert.error(error)
-      dispatch(clearErrors())
+    const fetchData = () => {
+      if(error) {
+        alert.error(error)
+        dispatch(clearErrors())
+      }
     }
+    fetchData()
   }, [dispatch, alert, error])
   
   return (
@@ -69,24 +90,7 @@ const OrderConfirm = () => {
               <h2 className="font-bold text-xl">Your Cart Items:</h2>
               <div className="sm:m-4">
                 {
-                  cartItems && cartItems.map((item) => (
-                    <div 
-                      key={item.product}
-                      className="flex h-40 bg-slate-100/50 mb-5 w-[90%] mx-auto rounded-xl overflow-hidden border-2 border-slate-300 max-w-[500px] md:ml-0 md:mr-auto"
-                    >
-                      <img src={item.image} alt={item.name} className=" h-full my-auto max-w-[40%] object-cover"/>
-                      <div className='p-3 flex flex-col justify-between w-full'>
-                        <div className="block underline w-full font-semibold text-right md:text-xl">
-                          <Link to={`/product/${item.product}`}>
-                            {item.name}
-                          </Link>
-                        </div>
-                        <p className="text-mainDarkColor font-semibold text-xl font-mono">${item.price}</p>
-                        <p>Quantity: {item.quantity}</p>
-                        <p className="flex justify-between text-xl font-semibold">Total: <span className='text-red-600 font-bold'>{item.quantity*item.price}$</span></p>
-                      </div>
-                    </div>
-                  ))
+                  card
                 }
               </div>
             </div>

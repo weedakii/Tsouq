@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Sidebar from './Sidebar'
 import { clearErrors, deleteProduct, getAdminProducts } from '../../actions/productAction'
@@ -11,8 +11,15 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Button } from '@mui/material'
 import { DELETE_PRODUCT_RESET } from '../../constants/productConst'
+import CloseIcon from '@mui/icons-material/Close';
+import SortIcon from '@mui/icons-material/Sort';
 
 const AdminProducts = () => {
+    const [open, setOpen] = useState(false)
+    const handleOpen = () => {
+        setOpen(!open)
+    }
+
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const alert = useAlert()
@@ -62,28 +69,45 @@ const AdminProducts = () => {
     ))
 
     useEffect(() => {
-        if (error) {
-            alert.error(error)
-            dispatch(clearErrors())
+        const fetchData = () => {
+            if (window.innerWidth > 600 ) {
+                setOpen(true)
+            }
+            if (error) {
+                alert.error(error)
+                dispatch(clearErrors())
+            }
+            if (deleteError) {
+                alert.error(deleteError)
+                dispatch(clearErrors())
+            }
+            if (isDeleted) {
+                alert.success("Product Deleted Successfully")
+                navigate(`/admin/dashboard`)
+                dispatch({type: DELETE_PRODUCT_RESET})
+            }
+            dispatch(getAdminProducts())
         }
-        if (deleteError) {
-            alert.error(deleteError)
-            dispatch(clearErrors())
-        }
-        if (isDeleted) {
-            alert.success("Product Deleted Successfully")
-            navigate(`/admin/dashboard`)
-            dispatch({type: DELETE_PRODUCT_RESET})
-        }
-        dispatch(getAdminProducts())
+        fetchData()
     }, [dispatch, alert, error, deleteError, isDeleted, navigate])
 
     return (
         <>
             <MetaData title="Admin Products"/>
             <div className="sm:grid-cols-sid grid-cols-1 grid sm:p-3 p-2 w-screen max-w-[100%]">
-                <div className="sm:max-w-[200px] sm:min-w-[190px]">
-                    <Sidebar />
+                <div className="relative sm:max-w-[250px] sm:min-w-[200px] z-10 bg-white">
+                    <div className='sm:hidden'>
+                        <Button onClick={handleOpen} >
+                        {
+                            open ? <CloseIcon fontSize='large' color='error' /> 
+                            : <SortIcon fontSize='large' color='info' />
+                        }
+                        </Button>
+
+                    </div>
+                    <div className={`${open ? 'block' : 'hidden'}`}>
+                        <Sidebar />
+                    </div>
                 </div>
                 <div>
                     {

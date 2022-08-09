@@ -12,12 +12,21 @@ const OrderDet = () => {
     const alert = useAlert()
     const {loading, error, order} = useSelector(state => state.orderDetails)
 
+    const orderD = order.orderItems && order.orderItems.map(i => (
+        <div className="mb-4 p-2 border-b border-slate-500 flex gap-2 items-center" key={i._id}>
+            <img src={i.image} alt={i.name} width='100' />
+            <Link to={`product/${i._id}`} className="underline font-semibold">{i.name}</Link>
+        </div>
+    ))
     useEffect(() => {
-        if (error) {
-            alert.error(error)
-            dispatch(clearErrors())
+        const fetchData = () => {
+            if (error) {
+                alert.error(error)
+                dispatch(clearErrors())
+            }
+            dispatch(orderDetails(params.id))
         }
-        dispatch(orderDetails(params.id))
+        fetchData()
     }, [dispatch, error, alert, params])
     
 return (
@@ -57,12 +66,7 @@ return (
                     {/*  */}
                     <div>
                         {
-                            order.orderItems && order.orderItems.map(i => (
-                                <div className="mb-4 p-2 border-b border-slate-500 flex gap-2 items-center" key={i._id}>
-                                    <img src={i.image} alt={i.name} width='100' />
-                                    <Link to={`product/${i._id}`} className="underline font-semibold">{i.name}</Link>
-                                </div>
-                            ))
+                            orderD
                         }
                     </div>
                 </div>

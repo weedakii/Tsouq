@@ -30,15 +30,18 @@ const Profile = () => {
   const {loading, error, user, isAuthenticated} = useSelector(state => state.user)
 
   useEffect(() => {
-    if (error) {
-      alert.error(error)
-      dispatch(clearErrors())
+    const fetchData = () => {
+      if (error) {
+        alert.error(error)
+        dispatch(clearErrors())
+      }
+  
+      if (isAuthenticated === false && loading === false) {
+        alert.info('you are not loggin')
+        navigate('/signin')
+      }
     }
-
-    if (isAuthenticated === false && loading === false) {
-      alert.info('you are not loggin')
-      navigate('/signin')
-    }
+    fetchData()
   }, [dispatch, error, alert, isAuthenticated, loading, navigate])
   
   

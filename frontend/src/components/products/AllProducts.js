@@ -4,7 +4,7 @@ import {useAlert} from 'react-alert'
 import {useDispatch, useSelector} from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import Pagination from 'react-js-pagination'
-import { clearErrors, getCategory, getProducts } from '../../actions/productAction'
+import { clearErrors, getProducts } from '../../actions/productAction'
 import Loader from '../layout/Loader'
 import MetaData from '../layout/MetaData'
 import ProductItem from '../layout/ProductItem'
@@ -50,16 +50,25 @@ const AllProducts = () => {
     const [cat, setCat] = useState('')
     const [ratings, setRatings] = useState(0)
     
+    const cats = category && category.map(c => (
+        <li 
+            className="hover:text-red-700 hover:pl-3 transition"
+            key={c._id}
+            onClick={() => setCat(c.name)}
+        >&rarr; {c.name}</li>
+    ))
+
+    const prods = products && products.map(product => (
+        <ProductItem key={product._id} product={product} />
+    ))
     
     useEffect(() => {
-        const fetchData = () => {
             if (error) {
                 alert.error(error)
                 dispatch(clearErrors)
             }
             dispatch(getProducts(keyword, currentPage, newPrice, cat, ratings))
-        }
-        fetchData()
+
     }, [dispatch, error, alert, keyword, currentPage, newPrice, cat, ratings])
     
     return (
@@ -122,13 +131,7 @@ const AllProducts = () => {
                                                     className="hover:text-red-700 hover:pl-2"
                                                 >All Products</li>
                                                 {
-                                                    category && category.map(c => (
-                                                        <li 
-                                                            className="hover:text-red-700 hover:pl-3 transition"
-                                                            key={c._id}
-                                                            onClick={() => setCat(c.name)}
-                                                        >&rarr; {c.name}</li>
-                                                    ))
+                                                    cats
                                                 }
                                             </ul>
                                         </div>
@@ -151,9 +154,7 @@ const AllProducts = () => {
                         <div className="flex border-t border-slate-500">
                             <div className="sm:w-4/5 w-[95%] grid sm:grid-cols-pr grid-cols-2 sm:gap-5 gap-3 sm:p-4 p-2 mx-auto my-0 justify-center">
                                 {
-                                    products && products.map(product => (
-                                        <ProductItem key={product._id} product={product} />
-                                    ))
+                                    prods
                                 }
                             </div>
                         </div>

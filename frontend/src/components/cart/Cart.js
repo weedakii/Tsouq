@@ -17,6 +17,10 @@ const Cart = () => {
         navigate("/signin?redirect=shipping")
     }
 
+    const card = cartItems && cartItems.map(c => (
+        <CartItemCard key={c.product} item={c} deleteCartItem={removeFields} />
+    ))
+
   return (
     <div className="p-5 h-full">
         {
@@ -34,9 +38,7 @@ const Cart = () => {
                 </div>
                 <div>
                     {
-                        cartItems && cartItems.map(c => (
-                            <CartItemCard key={c.product} item={c} deleteCartItem={removeFields} />
-                        ))
+                        card
                     }
                 </div>
             </div>

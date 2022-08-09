@@ -7,8 +7,16 @@ import { clearErrors, orderDetails, updateOrder } from '../../actions/orderActio
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { UPDATE_ORDER_RESET } from '../../constants/orderConst'
 import { Button } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close';
+import SortIcon from '@mui/icons-material/Sort';
+
 
 const AdminOrderUpdate = () => {
+  const [open, setOpen] = useState(false)
+    const handleOpen = () => {
+        setOpen(!open)
+    }
+
   const params = useParams()
   const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -25,32 +33,49 @@ const AdminOrderUpdate = () => {
     }
 
     useEffect(() => {
-      if (order && order._id !== params.id) {
-        dispatch(orderDetails(params.id))
-      } else {
-          setStatus(order.orderStatus)
+      const fetchData = () => {
+        if (window.innerWidth > 600 ) {
+          setOpen(true)
+        }
+        if (order && order._id !== params.id) {
+          dispatch(orderDetails(params.id))
+        } else {
+            setStatus(order.orderStatus)
+        }
+        if (error) {
+            alert.error(error)
+            dispatch(clearErrors())
+        }
+        if (errorUpdate) {
+            alert.error(errorUpdate)
+            dispatch(clearErrors())
+        }
+        if (isUpdated) {
+          alert.success("Order Updated Successfully")
+          navigate(`/admin/order/${params.id}`)
+          dispatch({type: UPDATE_ORDER_RESET})
+        }
       }
-      if (error) {
-          alert.error(error)
-          dispatch(clearErrors())
-      }
-      if (errorUpdate) {
-          alert.error(errorUpdate)
-          dispatch(clearErrors())
-      }
-      if (isUpdated) {
-        alert.success("Order Updated Successfully")
-        navigate('/admin/orders')
-        dispatch({type: UPDATE_ORDER_RESET})
-      }
+      fetchData()
     }, [dispatch, error, alert, params, order, errorUpdate, navigate, isUpdated])
   return (
     <>
         <MetaData title={`All - Orders`} />
         <div className="sm:grid-cols-sid grid-cols-1 grid sm:p-3 p-2 w-screen max-w-[100%]">
-            <div className="sm:w-[220px] sm:min-w-[190px]">
-                <Sidebar />
-            </div>
+        <div className="relative sm:max-w-[250px] sm:min-w-[200px] z-10 bg-white">
+                <div className='sm:hidden'>
+                    <Button onClick={handleOpen} >
+                    {
+                        open ? <CloseIcon fontSize='large' color='error' /> 
+                        : <SortIcon fontSize='large' color='info' />
+                    }
+                    </Button>
+
+                </div>
+                <div className={`${open ? 'block' : 'hidden'}`}>
+                    <Sidebar />
+                </div>
+              </div>
             <div className="sm:p-2 p-1 sm:w-4/5 ">
                     <h2 className="text-orange-600 sm:text-lg text-sm font-semibold sm:text-center">OrderID #{order && order?._id}</h2>
                     <h2 className="text-gray-500 mt-8 sm:text-lg text-sm flex flex-col">CreatedAt: 

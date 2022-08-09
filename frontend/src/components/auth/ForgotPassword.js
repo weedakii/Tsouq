@@ -23,14 +23,17 @@ const ForgotPassword = () => {
     }
 
     useEffect(() => {
-        if (error) {
-            alert.error(error)
-            dispatch(clearErrors())
+        const fetchData = () => {
+            if (error) {
+                alert.error(error)
+                dispatch(clearErrors())
+            }
+        
+            if (message) {
+                alert.success(message)
+            }
         }
-    
-        if (message) {
-            alert.success(message)
-        }
+        fetchData()
     }, [error, alert, dispatch, message])
   return (
     <>

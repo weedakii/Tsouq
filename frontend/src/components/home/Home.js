@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../layout/Loader'
 import {useAlert} from 'react-alert'
 import { ADD_TO_FAV_RESET } from '../../constants/favConst'
-import { addToFavourite, clearFavErrors } from '../../actions/favAction'
+import { addToFavourite } from '../../actions/favAction'
 
 const Home = () => {
     const dispatch = useDispatch()

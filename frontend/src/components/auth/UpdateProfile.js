@@ -49,25 +49,28 @@ const UpdateProfile = () => {
     }
 
     useEffect(() => {
-        if (user) {
-            setName(user.name)
-            setEmail(user.email)
-            setAvatarPreview(user?.avatar?.url)
-            setLastName(user?.lastName)
-            setPhoneNo(user?.phoneNo)
-            setAddress(user?.address)
+        const fetchData = () => {
+            if (user) {
+                setName(user.name)
+                setEmail(user.email)
+                setAvatarPreview(user?.avatar?.url)
+                setLastName(user?.lastName)
+                setPhoneNo(user?.phoneNo)
+                setAddress(user?.address)
+            }
+            if (error) {
+                alert.error(error)
+                dispatch(clearErrors())
+            }
+        
+            if (isUpdated) {
+                alert.success('Profile Updated successfully')
+                dispatch(loadUser())
+                navigate('/profile')
+                dispatch({type: UPDATE_USER_RESET})
+            }
         }
-        if (error) {
-            alert.error(error)
-            dispatch(clearErrors())
-        }
-    
-        if (isUpdated) {
-            alert.success('Profile Updated successfully')
-            dispatch(loadUser())
-            navigate('/profile')
-            dispatch({type: UPDATE_USER_RESET})
-        }
+        fetchData()
     }, [error, alert, dispatch, navigate, isUpdated, user])
   return (
     <>

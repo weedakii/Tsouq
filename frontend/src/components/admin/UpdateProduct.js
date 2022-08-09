@@ -12,8 +12,15 @@ import FeedIcon from '@mui/icons-material/Feed';
 import { Button } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
 import { UPDATE_PRODUCT_RESET } from '../../constants/productConst'
+import CloseIcon from '@mui/icons-material/Close';
+import SortIcon from '@mui/icons-material/Sort';
 
 const AdminUpdateProduct = () => {
+    const [open, setOpen] = useState(false)
+    const handleOpen = () => {
+        setOpen(!open)
+    }
+
     const navigate = useNavigate()
     const params = useParams()
     const dispatch = useDispatch()
@@ -68,39 +75,56 @@ const AdminUpdateProduct = () => {
     }
 
     useEffect(() => {
-        if (product && product._id !== params.id) {
-            dispatch(getSingleProduct(params.id))
-        } else {
-            setName(product.name)
-            setPrice(product.price)
-            setStock(product.stock)
-            setDescription(product.description)
-            setInfo(product.info)
-            setCat(product?.category)
-            setOldImages(product?.images)
-            
+        const fetchData = () => {
+            if (window.innerWidth > 600 ) {
+                setOpen(true)
+            }
+            if (product && product._id !== params.id) {
+                dispatch(getSingleProduct(params.id))
+            } else {
+                setName(product.name)
+                setPrice(product.price)
+                setStock(product.stock)
+                setDescription(product.description)
+                setInfo(product.info)
+                setCat(product?.category)
+                setOldImages(product?.images)
+                
+            }
+            if (error) {
+                alert.error(error)
+                dispatch(clearErrors)
+            }
+            if (errUpdate) {
+                alert.error(errUpdate)
+                dispatch(clearErrors)
+            }
+            if (isUpdated) {
+                alert.success("Product Updated Successfully")
+                navigate('/admin/products')
+                dispatch({type: UPDATE_PRODUCT_RESET})
+            }
         }
-        if (error) {
-            alert.error(error)
-            dispatch(clearErrors)
-        }
-        if (errUpdate) {
-            alert.error(errUpdate)
-            dispatch(clearErrors)
-        }
-        if (isUpdated) {
-            alert.success("Product Updated Successfully")
-            navigate('/admin/products')
-            dispatch({type: UPDATE_PRODUCT_RESET})
-        }
+        fetchData()
     }, [error, errUpdate, alert, dispatch, navigate, isUpdated, product, params])
     
   return (
     <>
         <MetaData title="Admin Products"/>
         <div className="sm:grid-cols-sid grid-cols-1 grid sm:p-3 p-2 w-screen max-w-[100%]">
-            <div className="sm:max-w-[200px] sm:min-w-[190px]">
-                <Sidebar />
+            <div className="relative sm:max-w-[250px] sm:min-w-[200px] z-10 bg-white">
+                <div className='sm:hidden'>
+                    <Button onClick={handleOpen} >
+                    {
+                        open ? <CloseIcon fontSize='large' color='error' /> 
+                        : <SortIcon fontSize='large' color='info' />
+                    }
+                    </Button>
+
+                </div>
+                <div className={`${open ? 'block' : 'hidden'}`}>
+                    <Sidebar />
+                </div>
             </div>
             <div className='p-5'>
                 <form 

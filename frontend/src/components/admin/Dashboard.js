@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Sidebar from './Sidebar'
+import CloseIcon from '@mui/icons-material/Close';
+import SortIcon from '@mui/icons-material/Sort';
 import { Doughnut, Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -18,6 +20,7 @@ import { getAdminProducts } from '../../actions/productAction';
 import MetaData from '../layout/MetaData';
 import { allOrders } from '../../actions/orderAction';
 import { getAllUsers } from '../../actions/userAction';
+import { Button } from '@mui/material';
 
 ChartJS.register(
     CategoryScale,
@@ -31,6 +34,11 @@ ChartJS.register(
 );
 
 const Dashboard = () => {
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => {
+    setOpen(!open)
+  }
+
   const dispatch = useDispatch()
   const {products} = useSelector(state => state.adminProducts)
   const {orders} = useSelector(state => state.allOrders)
@@ -71,6 +79,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchData = () => {
+      if (window.innerWidth > 600 ) {
+        setOpen(true)
+      }
       dispatch(getAdminProducts())
       dispatch(allOrders())
       dispatch(getAllUsers())
@@ -82,9 +93,20 @@ const Dashboard = () => {
   return (
     <>
     <MetaData title={'Dashboard'} />
-      <div className="sm:grid-cols-sid grid-cols-1 grid gap-2 sm:p-5 p-2 w-screen max-w-[100%]">
-        <div className="sm:max-w-[250px] sm:min-w-[200px]">
-          <Sidebar />
+      <div className="sm:grid-cols-sid grid gap-2 sm:p-5 p-2 w-screen max-w-[100%]">
+        <div className="relative sm:max-w-[250px] sm:min-w-[200px]">
+          <div className='sm:hidden'>
+            <Button onClick={handleOpen} >
+              {
+                open ? <CloseIcon fontSize='large' color='error' /> 
+                : <SortIcon fontSize='large' color='info' />
+              }
+            </Button>
+
+          </div>
+          <div className={`${open ? 'block' : 'hidden'}`}>
+            <Sidebar />
+          </div>
         </div>
         <div>
           <h2 className="text-3xl text-slate-800 text-center py-3 font-bold font-serif" style={{letterSpacing: '2px'}}>Dashboard</h2>

@@ -1,5 +1,5 @@
 import express from 'express';
-import { createCarousel, createCategory, getCarousel, getCategory, updateCarousel } from '../controller/categoryCotroller.js';
+import { createCarousel, createCategory, getCarousel, getCategory, getSingleCarusel, updateCarousel } from '../controller/categoryCotroller.js';
 import { createOrder, deleteOrder, getAllOrders, getMyOrder, getSingleOrder, updateRole } from '../controller/orderController.js';
 import { createProduct, adminGetProducts, updateProduct, deleteProduct, getProducts, getSingleProduct, homeProducts } from '../controller/productController.js';
 import { adminDeleteUser, adminGetAllUsers, adminGetOneUser, adminUpdateUser, forgotPassword, googleLogin, loginUser, logoutUser, registerUser, resetPassword, userChangePassword, userProfile, userUpdateProfile } from '../controller/userController.js';
@@ -9,10 +9,7 @@ import { createFavourite, deleteFavourite, getAllFavourite } from '../controller
 const router = express.Router();
 // category and carusel routes
 router.route('/category').get(getCategory)
-router.route('/weed/category/new').post(isAuthenticated ,createCategory)
-router.route('/carousel').get(getCarousel)
-router.route('/new/carousel').post(createCarousel)
-router.route('/carousel/:id').put(updateCarousel)
+router.route('/carusels').get(getCarousel)
 // favourite routes
 router.route('/favourite').get(isAuthenticated ,getAllFavourite)
 router.route('/favourite/new').post(isAuthenticated ,createFavourite)
@@ -36,6 +33,11 @@ router.route('/order/new').post(isAuthenticated, createOrder)
 router.route('/order/:id').get(isAuthenticated, getSingleOrder)
 router.route('/orders/me').get(isAuthenticated, getMyOrder)
 // admin routes
+router.route('/weed/category/new').post(isAuthenticated ,createCategory)
+router.route('/weed/new/carusel').post(isAuthenticated, authRoles('admin'), createCarousel)
+router.route('/weed/carusel/:id')
+            .get(isAuthenticated, authRoles('admin'), getSingleCarusel)
+            .put(isAuthenticated, authRoles('admin'), updateCarousel)
 router.route('/weed/products').get(isAuthenticated, authRoles('admin'), adminGetProducts)
 router.route('/weed/product/new').post(isAuthenticated, authRoles('admin'), createProduct)
 router.route('/weed/product/:id')

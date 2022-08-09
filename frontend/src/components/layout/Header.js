@@ -79,7 +79,7 @@ const Navbar = ({user}) => {
                     checked={isDark}
                     onChange={handleChange}
                     inputProps={{ 'aria-label': 'controlled' }}
-                    color="warning"
+                    color="success"
                 />
                 <Link to='/products'>
                     <span className={'hover:text-emerald-900 dark:hover:text-mainDarkColor dark:text-slate-200' + isActive('/products')}>products</span>

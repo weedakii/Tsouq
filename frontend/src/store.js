@@ -6,8 +6,12 @@ import { allUsersReducer, forgotPasswordReducer, upadteUserReducer, userDetailsR
 import { allOrdersReducer, createOrderReducer, myOrdersReducer, orderDetailsReducer, orderReducer } from './reducer/orderReducer';
 import { cartReducer } from './reducer/cartReducer';
 import { addToFavReducer, myFavReducer, removeFromFavReducer } from './reducer/favReducer';
+import { caruselDetailsReducer, caruselsReducer, updateCaruselReducer } from './reducer/caruselReducer';
 
 const reducer = combineReducers({
+    carusels: caruselsReducer,
+    caruselDetails: caruselDetailsReducer,
+    updateCarusel: updateCaruselReducer,
     products: productReducer,
     productDetails: productDetailsReducer,
     catygories: categoryReducer,

@@ -9,19 +9,22 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import TreeItem from '@mui/lab/TreeItem';
 import { Avatar } from '@mui/material'
+
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './sidebar.css'
 
 const Sidebar = () => {
   return (
-    <div className="hidden bg-white fixed w-[180px] sm:flex border-r-2 border-slate-400 flex-col gap-2 overflow-auto justify-between max-h-[calc(100vh-100px)] sm:p-2 p-1">
+    <div className="bg-white sm:fixed absolute w-[180px] flex border-r-2 border-slate-400 flex-col gap-2 overflow-auto justify-between max-h-[calc(100vh-100px)] sm:p-2 p-1">
         <div className="sidebar">
-            <Link to='/'>Tsouq</Link>
+            <div className=''>
+                <Link to='/'>Tsouq</Link>
+            </div>
             <Link to='/admin/dashboard'>
                 <p>
                     <Dashboard />
-                    <span className='hidden sm:block'>Dashboard</span>
+                    <span className=' sm:block'>Dashboard</span>
                 </p>
             </Link>
             <div>
@@ -31,10 +34,10 @@ const Sidebar = () => {
                 >
                     <TreeItem nodeId="1" label="Products">
                         <Link to='/admin/products' className="mb-4">
-                            <TreeItem sx={{margin: '8px 0'}} nodeId="2" label={window.innerWidth > 600 ? "All" : ""} icon={<PostAddIcon />} />
+                            <TreeItem sx={{margin: '8px 0'}} nodeId="2" label={"All"} icon={<PostAddIcon />} />
                         </Link>
                         <Link to='/admin/create/product'>
-                            <TreeItem nodeId="3" label={window.innerWidth > 600 ? "Create" : ""} icon={<AddIcon />} />
+                            <TreeItem nodeId="3" label={"Create"} icon={<AddIcon />} />
                         </Link>
                     </TreeItem>
                 </TreeView>
@@ -42,19 +45,25 @@ const Sidebar = () => {
             <Link to='/admin/orders'>
                 <p>
                     <ListAltIcon />
-                    <span className='hidden sm:block'>Orders</span>
+                    <span className=' sm:block'>Orders</span>
                 </p>
             </Link>
             <Link to='/admin/users'>
                 <p>
                     <PeopleAltIcon />
-                    <span className='hidden sm:block'>Users</span>
+                    <span className=' sm:block'>Users</span>
+                </p>
+            </Link>
+            <Link to='/admin/carusels'>
+                <p>
+                    <PeopleAltIcon />
+                    <span className=' sm:block'>Carusels</span>
                 </p>
             </Link>
             <Link to='/admin/reviews'>
                 <p>
                     <RateReviewIcon />
-                    <span className='hidden sm:block'>Reviews</span>
+                    <span className=' sm:block'>Reviews</span>
                 </p>
             </Link>
         </div>

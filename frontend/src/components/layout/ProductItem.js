@@ -1,26 +1,11 @@
 import React from 'react'
-import ReactStars from 'react-rating-stars-component'
 import {Link} from 'react-router-dom'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-const options = {
-    edit: false,
-    color: 'rgba(20,20,20,0.1)',
-    activeColor: 'tomato',
-    isHalf: true,
-    size: window.innerWidth < 600 ? 18 : 25,
-}
 
 const ProductItem = ({product, action}) => {
-    const data = {
-        index: product?.index,
-        product: product?._id,
-        name: product?.name,
-        price: product?.price,
-        ratings: product?.ratings,
-        image: product?.images[0].url,
-    }
+    let data = {...product, product: product._id}
   return (
     <div  className="relative flex flex-col justify-between min-h-[260px] max-w-[250px] min-w-[160px] border rounded bg-white border-slate-200 hover:-translate-y-3 hover:shadow-card duration-300 ease-out transition">
         <div onClick={() => action(data)} className="z-10 absolute cursor-pointer text-red-600 bg-slate-50 sm:p-2 p-1 rounded-md shadow-sh sm:top-4 sm:right-4 top-2 right-2">
@@ -36,7 +21,7 @@ const ProductItem = ({product, action}) => {
         </div>
         <div className=" p-2 border-t border-slate-300">
             <p className='text-sm text-slate-500'>{product.category}</p>
-            <Link to={`/product/${product._id}`} className="text underline sm:text-lg text-xs font-serif font-bold mb-3">{product.name}</Link>
+            <Link to={`/product/${product._id}`} className="text underline sm:text-lg text-xs font-serif font-bold mb-2">{product.name}</Link>
             <div className='flex items-center justify-between'>
                 {
                     product?.discount > 0 ? (

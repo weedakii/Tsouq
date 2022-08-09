@@ -34,6 +34,8 @@ import UpdateRole from './components/admin/UpdateRole';
 import AdminReviews from './components/admin/AdminReviews';
 import Footer from './components/layout/Footer';
 import Favourite from './components/fav/Favourite';
+import AdminCarusels from './components/admin/AdminCarusels';
+import AdminCaruselUpdate from './components/admin/AdminCaruselUpdate';
 
 
 function App() {
@@ -156,6 +158,16 @@ function App() {
           <Route path='/admin/reviews' element={
             <ProtectedRoute isAdmin={true}>
               <AdminReviews />
+            </ProtectedRoute>
+          } />
+          <Route path='/admin/carusels' element={
+            <ProtectedRoute isAdmin={true}>
+              <AdminCarusels />
+            </ProtectedRoute>
+          } />
+          <Route path='/admin/carusel/:id' element={
+            <ProtectedRoute isAdmin={true}>
+              <AdminCaruselUpdate />
             </ProtectedRoute>
           } />
           <Route path='*' element={<NotFound />} />

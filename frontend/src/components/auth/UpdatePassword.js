@@ -27,16 +27,19 @@ const UpdateProfile = () => {
     }
 
     useEffect(() => {
-        if (error) {
-            alert.error(error)
-            dispatch(clearErrors())
+        const fetchData = () => {
+            if (error) {
+                alert.error(error)
+                dispatch(clearErrors())
+            }
+        
+            if (isUpdated) {
+                alert.success('Password Updated successfully')
+                navigate('/profile')
+                dispatch({type: UPDATE_PASSWORD_RESET})
+            }
         }
-    
-        if (isUpdated) {
-            alert.success('Password Updated successfully')
-            navigate('/profile')
-            dispatch({type: UPDATE_PASSWORD_RESET})
-        }
+        fetchData()
     }, [error, alert, dispatch, navigate, isUpdated])
   return (
     <>

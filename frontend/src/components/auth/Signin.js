@@ -58,14 +58,17 @@ const Signin = () => {
   }
 
   useEffect(() => {
-    if (error) {
-      alert.error(error)
-      dispatch(clearErrors)
+    const fetchData = () => {
+      if (error) {
+        alert.error(error)
+        dispatch(clearErrors)
+      }
+  
+      if (isAuthenticated) {
+        navigate(redirect)
+      }
     }
-
-    if (isAuthenticated) {
-      navigate(redirect)
-    }
+    fetchData()
   }, [dispatch, isAuthenticated, navigate, error, alert, redirect])
   
   return (

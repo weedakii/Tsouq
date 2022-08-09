@@ -8,7 +8,7 @@
     height: 100%;
 }
 
-.sidebar > a:first-child {
+.sidebar > div:first-child > a {
     padding: 0;
     font-size: 1.7rem;
     line-height: 2rem;

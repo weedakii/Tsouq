@@ -66,13 +66,17 @@ export const getSingleProduct = catchAsyncErr(async(req, res, next) => {
     if (!product) {
         return next(new ErrorHandler('product not found with this id', 404));
     }
+    
+    let moreProducts = await Products.find({category: product.category})
+    let filtered = moreProducts.filter(p => p.id !== product.id)
 
     product.views += 1;
     product.save()
 
     res.status(200).json({
         success: true,
-        product
+        product,
+        filtered
     })
 })
 // admin => create Products

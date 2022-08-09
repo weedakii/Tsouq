@@ -16,6 +16,10 @@ const Favourite = () => {
   const handleRemove = (id) => {
       dispatch(removeFromFavourite(id))
   }
+
+  const favs = items && items.map(p => (
+    <FavCard key={p.product} card={p} action={handleRemove} />
+  ))
   useEffect(() => {
     const fetchData = () => {
       if(error) {
@@ -52,9 +56,7 @@ const Favourite = () => {
                 <h2 className='w-fit border-b-4 border-slate-700 my-4 font-semibold sm:text-3xl text-xl mx-auto p-2 bg-slate-200'>Favorites Page</h2>
                 <div className="mt-8 grid sm:grid-cols-pr grid-cols-2 gap-5 sm:p-5 mx-auto my-0 justify-center">
                   {
-                    items && items.map(p => (
-                      <FavCard key={p.product} card={p} action={handleRemove} />
-                    ))
+                    favs
                   }
                 </div>
                 </>

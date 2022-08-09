@@ -12,8 +12,15 @@ import FeedIcon from '@mui/icons-material/Feed';
 import { Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { CREATE_PRODUCT_RESET } from '../../constants/productConst'
+import CloseIcon from '@mui/icons-material/Close';
+import SortIcon from '@mui/icons-material/Sort';
 
 const AdminProductCreate = () => {
+    const [open, setOpen] = useState(false)
+    const handleOpen = () => {
+        setOpen(!open)
+    }
+
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const alert = useAlert()
@@ -63,24 +70,47 @@ const AdminProductCreate = () => {
         })
     }
 
+    const catyg = category && category.map(c => (
+        <option value={c.name} key={c._id}>
+            {c.name}
+        </option>
+    ))
+
     useEffect(() => {
-        if (error) {
-            alert.error(error)
-            dispatch(clearErrors)
+        const fetchData = () => {
+            if (window.innerWidth > 600 ) {
+                setOpen(true)
+            }
+            if (error) {
+                alert.error(error)
+                dispatch(clearErrors)
+            }
+            if (success) {
+                alert.success("Product Created Successfully")
+                navigate('/admin/products')
+                dispatch({type: CREATE_PRODUCT_RESET})
+            }
         }
-        if (success) {
-            alert.success("Product Created Successfully")
-            navigate('/admin/dashboard')
-            dispatch({type: CREATE_PRODUCT_RESET})
-        }
+        fetchData()
     }, [error, alert, dispatch, navigate, success])
     
   return (
     <>
         <MetaData title="Admin Products"/>
         <div className="sm:grid-cols-sid grid-cols-1 grid sm:p-3 p-2 w-screen max-w-[100%]">
-            <div className="sm:max-w-[200px] sm:min-w-[190px]">
-                <Sidebar />
+            <div className="relative sm:max-w-[250px] sm:min-w-[200px] z-10 bg-white">
+                <div className='sm:hidden'>
+                    <Button onClick={handleOpen} >
+                    {
+                        open ? <CloseIcon fontSize='large' color='error' /> 
+                        : <SortIcon fontSize='large' color='info' />
+                    }
+                    </Button>
+
+                </div>
+                <div className={`${open ? 'block' : 'hidden'}`}>
+                    <Sidebar />
+                </div>
             </div>
             <div className='p-5'>
                 <form 
@@ -152,11 +182,7 @@ const AdminProductCreate = () => {
                         <select className='inp shipping_inp w-full' onChange={(e) => setCat(e.target.value)}>
                             <option value="" disabled>Choose Category</option>
                             {
-                                category && category.map(c => (
-                                    <option value={c.name} key={c._id}>
-                                        {c.name}
-                                    </option>
-                                ))
+                                catyg
                             }
                         </select>
                     </div>

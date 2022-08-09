@@ -109,7 +109,7 @@ export const getSingleProduct = (id) => async (dispatch) => {
         let {data} = await axios.get(`/api/v1/product/${id}`)
         dispatch({
             type: PRODUCT_DETAILS_SUCCESS,
-            payload: data.product
+            payload: data
         })
     } catch (error) {
         dispatch({

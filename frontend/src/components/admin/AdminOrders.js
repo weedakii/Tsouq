@@ -1,17 +1,24 @@
 import { DataGrid } from '@mui/x-data-grid';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import CloseIcon from '@mui/icons-material/Close';
+import SortIcon from '@mui/icons-material/Sort';
 import MetaData from '../layout/MetaData';
 import { allOrders, clearErrors, deleteOrder } from '../../actions/orderAction';
 import { Button } from '@mui/material';
 import { DELETE_ORDER_RESET } from '../../constants/orderConst';
 
 const AdminOrders = () => {
+    const [open, setOpen] = useState(false)
+    const handleOpen = () => {
+        setOpen(!open)
+    }
+
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const alert = useAlert()
@@ -59,27 +66,44 @@ const AdminOrders = () => {
     })
 
     useEffect(() => {
-        if (error) {
-            alert.error(error)
-            dispatch(clearErrors())
+        const fetchData = () => {
+            if (window.innerWidth > 600 ) {
+                setOpen(true)
+            }
+            if (error) {
+                alert.error(error)
+                dispatch(clearErrors())
+            }
+            if (deleteError) {
+                alert.error(deleteError)
+                dispatch(clearErrors())
+            }
+            if (isDeleted) {
+                alert.success("Order Deleted Successfully")
+                navigate(`/admin/orders`)
+                dispatch({type: DELETE_ORDER_RESET})
+            }
+            dispatch(allOrders())
         }
-        if (deleteError) {
-            alert.error(deleteError)
-            dispatch(clearErrors())
-        }
-        if (isDeleted) {
-            alert.success("Order Deleted Successfully")
-            navigate(`/admin/orders`)
-            dispatch({type: DELETE_ORDER_RESET})
-        }
-        dispatch(allOrders())
+        fetchData()
     }, [dispatch, error, alert, deleteError, isDeleted, navigate])
   return (
     <>
         <MetaData title={`All - Orders`} />
         <div className="sm:grid-cols-sid grid-cols-1 grid sm:p-3 p-2 w-screen max-w-[100%]">
-            <div className="sm:max-w-[200px] sm:min-w-[190px]">
-                <Sidebar />
+            <div className="relative sm:max-w-[250px] sm:min-w-[200px] z-10 bg-white">
+                <div className='sm:hidden'>
+                    <Button onClick={handleOpen} >
+                    {
+                        open ? <CloseIcon fontSize='large' color='error' /> 
+                        : <SortIcon fontSize='large' color='info' />
+                    }
+                    </Button>
+
+                </div>
+                <div className={`${open ? 'block' : 'hidden'}`}>
+                    <Sidebar />
+                </div>
             </div>
             <div className="p-1">
                 <h2 className="text-center font-bold text-3xl mb-10 mt-5 text-slate-700">All Orders</h2>

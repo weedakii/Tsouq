@@ -49,14 +49,17 @@ const Register = () => {
   }
 
   useEffect(() => {
-    if (error) {
-      alert.error(error)
-      dispatch(clearErrors())
+    const fetchData = () => {
+      if (error) {
+        alert.error(error)
+        dispatch(clearErrors())
+      }
+  
+      if (isAuthenticated) {
+        navigate('/profile')
+      }
     }
-
-    if (isAuthenticated) {
-      navigate('/profile')
-    }
+    fetchData()
   }, [error, alert, dispatch, navigate, isAuthenticated])
   
 
