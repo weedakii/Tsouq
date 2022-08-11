@@ -3,7 +3,7 @@ import {useAlert} from 'react-alert'
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import ReactStars from 'react-rating-stars-component'
 import {useDispatch, useSelector} from 'react-redux'
-import { clearErrors, getProducts, getSingleProduct } from '../../actions/productAction'
+import { clearErrors, getSingleProduct } from '../../actions/productAction'
 import {Link, useParams} from 'react-router-dom'
 import Loader from '../layout/Loader'
 import "react-image-gallery/styles/css/image-gallery.css";
@@ -28,7 +28,6 @@ import ProductItem from '../layout/ProductItem'
     size: window.innerWidth < 600 ? 18 : 25,
   }
 
-  let { keyword, currentPage, price, category } = ''
 
 const ProductDetails = () => {
     const [open, setOpen] = React.useState(false);
@@ -73,7 +72,6 @@ const ProductDetails = () => {
         alert.success('Item Added Successfully')
     }
     
-    category = product?.category
     let prod = filtered && filtered.map(p => {
         return <ProductItem key={p._id} product={p} />
     })

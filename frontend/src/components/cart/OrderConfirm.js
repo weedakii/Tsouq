@@ -39,7 +39,7 @@ const OrderConfirm = () => {
     >
       <img src={item.image} alt={item.name} className=" h-full my-auto max-w-[40%] object-cover"/>
       <div className='p-3 flex flex-col justify-between w-full'>
-        <div className="block underline w-full font-semibold text-right md:text-xl">
+        <div className="block w-full font-tajawal font-semibold text-right md:text-xl">
           <Link to={`/product/${item.product}`}>
             {item.name}
           </Link>

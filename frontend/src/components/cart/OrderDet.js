@@ -13,9 +13,13 @@ const OrderDet = () => {
     const {loading, error, order} = useSelector(state => state.orderDetails)
 
     const orderD = order.orderItems && order.orderItems.map(i => (
-        <div className="mb-4 p-2 border-b border-slate-500 flex gap-2 items-center" key={i._id}>
+        <div className="mb-4 p-2 border-b font-tajawal border-slate-500 flex justify-between gap-2 items-center" key={i._id}>
             <img src={i.image} alt={i.name} width='100' />
-            <Link to={`product/${i._id}`} className="underline font-semibold">{i.name}</Link>
+            <div dir='rtl' className='flex-auto'>
+                <Link to={`product/${i._id}`} className="text-lg">{i.name}</Link>
+                <p className='m-3 font-semibold text-lg'>الكمية: <span>{i.quantity}</span></p>
+                <p className='font-semibold text-xl text-end text-emerald-700'>{i.price} جنيه</p>
+            </div>
         </div>
     ))
     useEffect(() => {

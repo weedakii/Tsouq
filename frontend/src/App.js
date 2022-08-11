@@ -36,6 +36,7 @@ import Footer from './components/layout/Footer';
 import Favourite from './components/fav/Favourite';
 import AdminCarusels from './components/admin/AdminCarusels';
 import AdminCaruselUpdate from './components/admin/AdminCaruselUpdate';
+import ContactUs from './components/layout/ContactUs';
 
 
 function App() {
@@ -170,6 +171,7 @@ function App() {
               <AdminCaruselUpdate />
             </ProtectedRoute>
           } />
+          <Route path='/contact' element={<ContactUs />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
         <Footer />

@@ -9,17 +9,17 @@ import Loader from '../layout/Loader'
 import MetaData from '../layout/MetaData'
 import ProductItem from '../layout/ProductItem'
 import Search from './Search'
-import ReactStars from 'react-rating-stars-component'
+// import ReactStars from 'react-rating-stars-component'
 import SortIcon from '@mui/icons-material/Sort';
 import CloseIcon from '@mui/icons-material/Close';
 
-const options = {
-    edit: true,
-    color: 'rgba(20,20,20,0.4)',
-    activeColor: 'tomato',
-    isHalf: true,
-    size: window.innerWidth < 600 ? 18 : 25,
-}
+// const options = {
+//     edit: true,
+//     color: 'rgba(20,20,20,0.4)',
+//     activeColor: 'tomato',
+//     isHalf: true,
+//     size: window.innerWidth < 600 ? 18 : 25,
+// }
 
 const AllProducts = () => {
     const params = useParams()
@@ -48,7 +48,7 @@ const AllProducts = () => {
     }
     
     const [cat, setCat] = useState('')
-    const [ratings, setRatings] = useState(0)
+    // const [ratings, setRatings] = useState(0)
     
     const cats = category && category.map(c => (
         <li 
@@ -67,9 +67,9 @@ const AllProducts = () => {
                 alert.error(error)
                 dispatch(clearErrors)
             }
-            dispatch(getProducts(keyword, currentPage, newPrice, cat, ratings))
+            dispatch(getProducts(keyword, currentPage, newPrice, cat))
 
-    }, [dispatch, error, alert, keyword, currentPage, newPrice, cat, ratings])
+    }, [dispatch, error, alert, keyword, currentPage, newPrice, cat])
     
     return (
     <>
@@ -126,7 +126,7 @@ const AllProducts = () => {
                                         </div>
                                         <div className="border-slate-500 border-b pb-3">
                                             <h2 className="text-xl font-semibold">Category</h2>
-                                            <ul className="p-3 list-none font-mono cursor-pointer">
+                                            <ul className="p-3 list-none font-tajawal cursor-pointer">
                                                 <li onClick={() => setCat('')}
                                                     className="hover:text-red-700 hover:pl-2"
                                                 >All Products</li>
@@ -135,7 +135,7 @@ const AllProducts = () => {
                                                 }
                                             </ul>
                                         </div>
-                                        <fieldset className="border border-slate-400 pb-1 flex justify-center">
+                                        {/* <fieldset className="border border-slate-400 pb-1 flex justify-center">
                                             <legend className="ml-2 px-2 py-0">Ratings</legend>
                                             <ReactStars 
                                                 {...options}
@@ -145,7 +145,7 @@ const AllProducts = () => {
                                                     setRatings(newRating);
                                                 }}
                                             />
-                                        </fieldset>
+                                        </fieldset> */}
                                     </div>
                                 </div>
                             </div>

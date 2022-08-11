@@ -43,7 +43,7 @@ const Shipping = () => {
           encType="multipart/form-data"
           className='p-5 shadow-card mx-auto max-w-sm rounded'
           >
-          <h2 className="w-fit py-2 px-4 mx-auto border-b-2 border-slate-400 text-slate-600 text-xl font-semibold text-center">shipping details</h2>
+          <h2 className="w-fit mb-5 py-2 px-4 mx-auto border-b-2 border-slate-400 text-slate-600 text-xl font-semibold text-center">shipping details</h2>
           <div className="flex items-center mb-4" >
             <PersonIcon className="text-slate-600" />
             <input 

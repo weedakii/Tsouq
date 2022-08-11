@@ -68,9 +68,9 @@ const Register = () => {
       <div className="grid dark:bg-slate-800 bg-cyan-100/20 place-items-center h-full min-h-[calc(100vh-52px)]">
           <form className="my-10 relative rounded-md dark:bg-slate-700 dark:shadow-[0_0_10px_1px_#444] w-full max-w-[320px] text-left flex flex-col bg-white px-7 pt-14 pb-7 font-medium shadow-[0_0_20px_8px_#ddd]" onSubmit={handleRegister}>
               <div className="absolute -top-6 left-1/2 -translate-x-1/2 ">
-                  <Avatar sx={{ width: '65px', height: '65px' }} className="bg-gradient-to-r from-orange-300 to-yellow-200 shadow-2xl shadow-slate-400" />
+                  <Avatar sx={{ width: '65px', height: '65px' }} className="bg-gradient-to-r from-emerald-800 to-emerald-600 shadow-2xl shadow-slate-400" />
               </div>
-              <label htmlFor="name" className="dark:text-slate-200">Name</label>
+              <label htmlFor="name" className="dark:text-slate-200 mt-4">Name</label>
               <input required type="text" id="name" placeholder="Your name" 
                   className="inp" name="name" value={name} onChange={handleChangeInput}
               />
@@ -94,7 +94,7 @@ const Register = () => {
               </div>
               <button disabled={loading ? true : false} type="submit" className="btn">Sign in</button>
               <p className="font-serif dark:text-slate-200">Already have an account? <Link to="/signin">
-                  <span className="text-orange-700 dark:text-orange-400">Sign now</span>
+                  <span className="text-emerald-700 dark:text-emerald-500">Sign now</span>
                   </Link></p>
           </form>
       </div>

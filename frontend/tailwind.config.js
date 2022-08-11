@@ -20,6 +20,9 @@ module.exports = {
         'mainColor': '#89dad0',
         'textColor': '#ccc7c5',
         'blue': 'blue',
+      },
+      fontFamily: {
+        'tajawal' : ['"Tajawal"', 'sans-serif']
       }
     },
   },

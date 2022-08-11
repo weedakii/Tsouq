@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .inp {
-    @apply rounded-md bg-slate-100 outline-0 py-2 px-4 mb-4 ml-1 mt-1 focus:outline-8 focus:outline-offset-2 focus:outline-orange-500 
+    @apply rounded-md bg-slate-100 outline-0 py-2 px-4 mb-4 ml-1 mt-1 focus:outline-8 focus:outline-offset-2 focus:outline-emerald-700 
 }
 
 .shipping_inp {
@@ -11,11 +11,11 @@
 }
 
 .inp_profile {
-    @apply w-4/5 ml-8 mt-2 outline-1 outline-offset-2 outline-slate-500 py-1 pl-4 bg-emerald-100 border-l-[4px] border-orange-700 text-slate-800 rounded-sm focus:outline-orange-500 focus:rounded-md
+    @apply w-4/5 ml-8 mt-2 outline-1 outline-offset-2 outline-slate-500 py-1 pl-4 bg-emerald-100 border-l-[4px] border-emerald-700 text-slate-800 rounded-sm focus:outline-emerald-700 focus:rounded-md
 }
 
 .btn {
-    @apply text-slate-900 px-[7px] py-[10px] mt-5 mb-4 bg-gradient-to-r from-orange-300 to-yellow-200 rounded-lg
+    @apply text-slate-50 px-[7px] py-[10px] mt-5 mb-4 bg-gradient-to-r from-emerald-700 to-emerald-500 rounded-lg active:scale-75
 }
 
 .order-card {
@@ -168,4 +168,53 @@ input[type="number"] {
 
 .MuiDataGrid-cell a:hover {
     color: #89dad8;
+}
+
+.swiper {
+    overflow: initial !important;
+}
+
+.swiper-wrapper {
+    align-items: center;
+}
+
+.swiper-button-next {
+    right: -5px !important;
+    width: 50px !important;
+    height: 50px !important;
+    padding: 4px !important;
+    border-radius: 50% !important;
+    background-color: #7baa9ce6 !important;
+    transform: translate(0, -50%);
+}
+
+.swiper-button-prev {
+    left: -5px !important;
+    width: 50px !important;
+    height: 50px !important;
+    padding: 4px !important;
+    border-radius: 50% !important;
+    background-color: #7baa9ce6 !important;
+    transform: translate(0, -50%);
+}
+
+.swiper-button-next:after, .swiper-button-prev:after {
+    font-size: 32px !important;
+}
+
+@media (max-width: 500px) {
+    .swiper-button-next {
+        right: 1px !important;
+        width: 40px !important;
+        height: 40px !important;
+    }
+    .swiper-button-prev {
+        left: 1px !important;
+        width: 40px !important;
+        height: 40px !important;
+        padding: 4px !important;
+    }
+    .swiper-button-next:after, .swiper-button-prev:after {
+        font-size: 25px !important;
+    }
 }

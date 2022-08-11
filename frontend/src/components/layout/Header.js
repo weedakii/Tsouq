@@ -1,13 +1,14 @@
 import Badge from '@mui/material/Badge';
 import { Avatar, SpeedDial, SpeedDialAction, Switch } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import {useLocation, Link} from 'react-router-dom'
+import {useLocation, Link, useNavigate} from 'react-router-dom'
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import ContactMailIcon from '@mui/icons-material/ContactMail';
 import { useAlert} from 'react-alert'
 import { useDispatch, useSelector} from 'react-redux'
 import { logout } from '../../actions/userAction';
@@ -18,9 +19,11 @@ const Navbar = ({user}) => {
     const actions = [
         { icon: <Link to="/order/me"><ListAltIcon /></Link> , name: 'Orders' },
         { icon: <Link to="/profile"><PersonIcon /></Link> , name: 'Profile' },
-        { icon: <LogoutIcon />, name: 'Logout', func: logoutUser },
+        { icon: <Link to="/contact"><ContactMailIcon /></Link> , name: 'Contact' },
+        { icon: <LogoutIcon color='error' />, name: 'Logout', func: logoutUser },
     ];
 
+    const navigate = useNavigate()
     const alert = useAlert()
     const dispatch = useDispatch()
     const {cartItems} = useSelector(state => state.cart)
@@ -42,6 +45,7 @@ const Navbar = ({user}) => {
     function logoutUser() {
         dispatch(logout())
         alert.success(`User logged out successfully`)
+        navigate('/signin')
     }
 
     const router = useLocation()
@@ -68,9 +72,9 @@ const Navbar = ({user}) => {
     return (
         <div className= {isDark ? "dark sticky top-0 left-0 z-[999]" : "sticky top-0 left-0 z-[999]"} >
             <header className='bg-white shadow-md py-[10px] dark:bg-slate-900'>
-            <div className='mx-auto px-4 sm:px-8 max-w-7xl flex items-center justify-between'>
+            <div className='mx-auto px-4 font-tajawal sm:px-8 max-w-7xl flex items-center justify-between'>
                 <div className='text-mainDarkColor font-bold text-2xl'>
-                <Link to='/' >
+                <Link to='/' className='font-tajawal'>
                     Tsouq
                 </Link>
                 </div>
@@ -82,7 +86,7 @@ const Navbar = ({user}) => {
                     color="success"
                 />
                 <Link to='/products'>
-                    <span className={'hover:text-emerald-900 dark:hover:text-mainDarkColor dark:text-slate-200' + isActive('/products')}>products</span>
+                    <span className={'hover:text-emerald-900 font-tajawal dark:hover:text-mainDarkColor dark:text-slate-200' + isActive('/products')}>products</span>
                 </Link>
                 <Link to='/cart' className='mx-2'>
                     <span className={'flex items-center dark:text-slate-200 gap-1 dark:hover:text-mainDarkColor hover:text-mainDarkColor' + isActive('/cart')}> 
@@ -119,6 +123,7 @@ const Navbar = ({user}) => {
                                 icon={action.icon}
                                 onClick={action.func}
                                 tooltipTitle={action.name}
+                                tooltipOpen={window.innerWidth < 600 ? true : false}
                                 FabProps={{
                                     sx: {
                                     color: isActive('/'+action.name.toLowerCase()) && "darkgreen"

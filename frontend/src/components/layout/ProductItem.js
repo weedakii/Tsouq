@@ -1,6 +1,5 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 
@@ -21,20 +20,20 @@ const ProductItem = ({product, action}) => {
         </div>
         <div className=" p-2 border-t border-slate-300">
             <p className='text-sm text-slate-500'>{product.category}</p>
-            <Link to={`/product/${product._id}`} className="text underline sm:text-lg text-xs font-serif font-bold mb-2">{product.name}</Link>
+            <Link to={`/product/${product._id}`} className="text text-slate-800 sm:text-[16px] text-sm font-tajawal font-medium mb-1">{product.name}</Link>
             <div className='flex items-center justify-between'>
                 {
                     product?.discount > 0 ? (
                         <p>
-                            <span className="mr-2 font-semibold font-mono text-sm text-blue">{product.price}EG</span>
+                            <span className="mr-2 font-semibold font-tajawal text-[16px] text-green-600">{product.price}EG</span>
                             <span className="line-through text-xs font-bold text-gray-600/70">{product.oldPrice}EG</span>
                         </p>
                     ) : (
-                        <span className="font-semibold font-mono text-sm text-blue">{product.price}EG</span>
+                        <span className="font-semibold font-tajawal text-[16px] text-green-600">{product.price}EG</span>
                     )
                 }
                 {
-                    product?.views > 0 ? <p className='text-sm text-slate-500'>({product?.views}views)</p> : ''
+                    product?.views > 0 ? <p className='text-xs text-slate-500'>({product?.views} views)</p> : ''
                 }
             </div>
         </div>

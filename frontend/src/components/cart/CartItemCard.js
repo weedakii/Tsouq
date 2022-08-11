@@ -25,7 +25,7 @@ const CartItemCard = ({item, deleteCartItem}) => {
       <div className="h-28 p-2 flex-[0.57] min-w-[320px] flex items-center gap-4 border-r border-slate-400">
         <img className="h-full max-w-[35%] object-contain" src={item.image} alt={item.name} />
         <div className="flex flex-col gap-3 text-start sm:items-center sm:justify-between w-full">
-          <Link to={`/product/${item.product}`} className="w-full" style={{textDecoration: 'underline'}} >{item.name}</Link>
+          <Link to={`/product/${item.product}`} className="w-full font-tajawal" >{item.name}</Link>
           <div className="flex gap-2 w-full items-center">
             <span className="w-full font-bold">{`${item.price}$`}</span>
             <p onClick={() => deleteCartItem(item.product)} className="text-red-600 p-2 rounded-full cursor-pointer active:bg-slate-300 hover:bg-slate-200" ><DeleteIcon /></p>
@@ -37,7 +37,7 @@ const CartItemCard = ({item, deleteCartItem}) => {
         <span className="py-1 px-3 text-sm bg-slate-200">{item.quantity}</span>
         <button disabled={item.quantity === 6} className={`bg-slate-800 text-slate-100 py-1 px-2 sm:font-medium sm:text-xl ${(item.quantity === 6) ? 'text-slate-500' : ''}`} onClick={() => handleIncreaseQuantuty(item.product, item.quantity)}>+</button>
       </div>
-      <div className="flex flex-[0.2] items-center min-w-[120px] justify-center font-serif font-semibold text-xl text-green-700">${item.quantity * item.price}</div>
+      <div className="flex flex-[0.2] items-center min-w-[120px] justify-center font-tajawal font-semibold text-xl text-green-700">${item.quantity * item.price}</div>
     </div>
   )
 }

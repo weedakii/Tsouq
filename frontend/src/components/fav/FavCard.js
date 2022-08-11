@@ -15,18 +15,18 @@ const FavCard = ({card, action}) => {
                 <DeleteIcon className='text-xs active:scale-50 transition-all duration-150' />
             </IconButton>
         </div>
-        <img src={card?.images[0].url} alt={card?.name} className="max-h-52 m-auto rounded" />
+        <Link to={`/product/${card.product}`}><img src={card?.images[0].url} alt={card?.name} className="max-h-52 m-auto rounded" /></Link>
         <div className=" p-2 border-t border-slate-300">
-            <Link to={`/product/${card.product}`} className="text underline sm:text-lg text-xs font-serif font-bold mb-2">{card?.name}</Link>
+            <Link to={`/product/${card.product}`} className="text sm:text-[16px] text-sm font-tajawal font-semibold mb-2">{card?.name}</Link>
             <div className='flex items-center justify-between'>
                 {
                     card?.discount > 0 ? (
                         <p>
-                            <span className="mr-2 font-semibold font-mono text-sm text-blue">{card.price}EG</span>
+                            <span className="mr-2 font-semibold font-tajawal text-[16px] text-green-600">{card.price}EG</span>
                             <span className="line-through text-xs font-bold text-gray-600/70">{card.oldPrice}EG</span>
                         </p>
                     ) : (
-                        <span className="font-semibold font-mono text-sm text-blue">{card.price}EG</span>
+                        <span className="font-semibold font-tajawal text-[16px] text-green-600">{card.price}EG</span>
                     )
                 }
                 {
