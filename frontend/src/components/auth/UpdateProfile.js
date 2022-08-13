@@ -79,7 +79,7 @@ const UpdateProfile = () => {
         loading ? (
             <Loader />
         ) : (
-            <div className="grid place-items-center">
+            <div dir='rtl' className="grid place-items-center">
         <form onSubmit={handleUpdate} className='sm:p-5 p-2 sm:border sm:border-slate-400 my-7 sm:shadow-[0_0_15px_1px_#ccc] sm:rounded-xl'>
             <div className="flex items-center gap-4 mb-8 mt-4">
                 <Avatar src={avatarPreview} />
@@ -145,7 +145,7 @@ const UpdateProfile = () => {
                 name="address"
                 placeholder="Address"/>
             </div>
-            <button type="submit" className="mt-8 block ml-auto py-2 px-7 bg-slate-800 text-slate-50">Edit</button>
+            <button type="submit" className="mt-8 block mr-auto py-2 px-7 bg-slate-800 text-slate-50 hover:rounded-xl active:scale-75">Edit</button>
         </form>
     </div>
         )

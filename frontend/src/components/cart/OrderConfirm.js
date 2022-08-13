@@ -44,9 +44,9 @@ const OrderConfirm = () => {
             {item.name}
           </Link>
         </div>
-        <p className="text-mainDarkColor font-semibold text-xl font-mono">${item.price}</p>
-        <p>Quantity: {item.quantity}</p>
-        <p className="flex justify-between text-xl font-semibold">Total: <span className='text-red-600 font-bold'>{item.quantity*item.price}$</span></p>
+        <p className="text-mainDarkColor font-semibold text-xl font-tajawal">{item.price}  جنيه</p>
+        <p>الكمية: {item.quantity}</p>
+        <p className="flex justify-between text-xl font-semibold">التكلفة: <span className='text-red-600 font-bold'>{item.quantity*item.price} جنيه</span></p>
       </div>
     </div>
   ))
@@ -61,25 +61,25 @@ const OrderConfirm = () => {
   }, [dispatch, alert, error])
   
   return (
-    <div>
-        <div className="mt-4 ">
+    <div dir='rtl'>
+        <div dir='ltr' className="mt-4 ">
             <CheckActiveStep activeStep={1} />
         </div>
         <div className="p-5">
           {/*  */}
-          <div>
-            <h2 className="font-bold text-xl">Shipping Info:</h2>
+          <div className='font-tajawal'>
+            <h2 className="font-bold text-xl">معلومات التوصيل:</h2>
             <div className="p-3 w-[300px] shadow-card m-4 mx-auto rounded-xl">
               <div className="flex p-2 mb-3  font-semibold gap-4">
-                <p className="font-bold">Name:</p>
+                <p className="font-bold">الاسم:</p>
                 <span>{shippingInfo.name}</span>
               </div>
               <div className="flex p-2 mb-3  font-semibold gap-4">
-                <p className="font-bold">Phone:</p>
+                <p className="font-bold">رقم الهاتف:</p>
                 <span>{shippingInfo.phoneNo}</span>
               </div>
               <div className="flex p-2 mb-3  font-semibold gap-4">
-                <p className="font-bold">Address:</p>
+                <p className="font-bold">العنوان:</p>
                 <span>{shippingInfo.state} - {shippingInfo.address}</span>
               </div>
             </div>
@@ -87,7 +87,7 @@ const OrderConfirm = () => {
           {/*  */}
           <div className="md:flex">
             <div className="w-full">
-              <h2 className="font-bold text-xl">Your Cart Items:</h2>
+              <h2 className="font-bold text-xl">منتجاتك:</h2>
               <div className="sm:m-4">
                 {
                   card
@@ -95,20 +95,20 @@ const OrderConfirm = () => {
               </div>
             </div>
             {/*  */}
-            <div className="w-full sm:w-3/5 md:w-2/5 lg:w-2/6  mt-6 p-2 h-fit m-auto md:my-auto shadow-card rounded-lg font-mono">
-                <h2 className="p-2 bg-slate-200 rounded-lg text-lg pl-4 font-semibold">Order Summery</h2>
+            <div className="w-full sm:w-3/5 md:w-2/5 lg:w-2/6  mt-6 p-2 h-fit m-auto md:my-auto shadow-card rounded-lg font-tajawal">
+                <h2 className="p-2 bg-slate-200 rounded-lg text-lg pl-4 font-semibold">بيانات الاوردر</h2>
                 <div className="p-2 my-5 border-y border-slate-300">
-                    <p className="flex justify-between text-sm font-semibold mb-2"><span>Items Price:</span> <span className="text-slate-500">{itemsPrice}$</span></p>
-                    <p className="flex justify-between text-sm font-semibold"><span>Shipping Price:</span> <span className="text-slate-500">{shippingPrice}$</span></p>
+                    <p className="flex justify-between text-sm font-semibold mb-2"><span>التكلفة:</span> <span className="text-slate-500">{itemsPrice} جنيه</span></p>
+                    <p className="flex justify-between text-sm font-semibold"><span>تكلفة الشحن:</span> <span className="text-slate-500">{shippingPrice} جنيه</span></p>
                 </div>
-                <p className="flex justify-between text-xl pb-3 font-semibold border-b border-slate-300"><span>Total:</span> <span className="text-red-600">{total}$</span></p>
+                <p className="flex justify-between text-xl pb-3 font-semibold border-b border-slate-300"><span>الاجمالي:</span> <span className="text-red-600">{total} جنيه</span></p>
                 <button 
                     disabled={loading ? true : false}
                     onClick={createOrderHandler}
                     className="block my-3 mx-auto p-2 text-center rounded-lg
                       font-semibold text-lg bg-slate-800 text-slate-50 w-[90%] hover:rounded-full hover:bg-emerald-900 transition duration-300 active:scale-50"
                   >
-                    Make The Order
+                    ارسال
                 </button>
             </div>
           </div>

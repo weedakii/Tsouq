@@ -2,7 +2,7 @@ import { Breadcrumbs, Button, Slider } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import {useAlert} from 'react-alert'
 import {useDispatch, useSelector} from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useSearchParams } from 'react-router-dom'
 import Pagination from 'react-js-pagination'
 import { clearErrors, getProducts } from '../../actions/productAction'
 import Loader from '../layout/Loader'
@@ -12,6 +12,8 @@ import Search from './Search'
 // import ReactStars from 'react-rating-stars-component'
 import SortIcon from '@mui/icons-material/Sort';
 import CloseIcon from '@mui/icons-material/Close';
+import { addToFavourite } from '../../actions/favAction'
+import { ADD_TO_FAV_RESET } from '../../constants/favConst'
 
 // const options = {
 //     edit: true,
@@ -22,6 +24,7 @@ import CloseIcon from '@mui/icons-material/Close';
 // }
 
 const AllProducts = () => {
+    const [location] = useSearchParams()
     const params = useParams()
     const alert = useAlert()
     const dispatch = useDispatch()
@@ -50,7 +53,7 @@ const AllProducts = () => {
     const [cat, setCat] = useState('')
     // const [ratings, setRatings] = useState(0)
     
-    const cats = category && category.map(c => (
+    const cats = category && category?.map(c => (
         <li 
             className="hover:text-red-700 hover:pl-3 transition"
             key={c._id}
@@ -58,18 +61,30 @@ const AllProducts = () => {
         >&rarr; {c.name}</li>
     ))
 
+    const handleAdding = async (data) => {
+        dispatch(addToFavourite(data))
+        alert.success('Product Added Successfully')
+        dispatch({type: ADD_TO_FAV_RESET})
+    }
+
     const prods = products && products.map(product => (
-        <ProductItem key={product._id} product={product} />
+        <ProductItem key={product._id} product={product} action={handleAdding} />
     ))
+
     
     useEffect(() => {
+        const fetchData = () => {
+            if (location.get('cat') !== '' || null) {
+                setCat(location.get('cat'))
+            }
             if (error) {
                 alert.error(error)
                 dispatch(clearErrors)
             }
             dispatch(getProducts(keyword, currentPage, newPrice, cat))
-
-    }, [dispatch, error, alert, keyword, currentPage, newPrice, cat])
+        }
+        fetchData()
+    }, [dispatch, error, keyword, location, currentPage, newPrice, cat])
     
     return (
     <>
@@ -77,7 +92,7 @@ const AllProducts = () => {
             loading ? (
                 <Loader />
             ) : (
-                <div>
+                <div className='h-full flex-auto'>
                     <MetaData title={'Tsouq - all products'} />
                     <div className="container mx-auto my-5 p-5 pb-0">
                         <Breadcrumbs aria-label="breadcrumb">
@@ -103,7 +118,7 @@ const AllProducts = () => {
                                         
                                     </Button>
                                 </div>
-                                <div className={`${open ? ' opacity-100 h-[77vh] sm:w-[60vw] w-[70vw] ' : ' opacity-0 h-0 w-0 '} overflow-auto transition-all duration-1000 absolute top-[67px] -left-[32px] z-10 bg-white p-3 shadow-2xl border-r border-slate-500`}>
+                                <div className={`${open ? ' opacity-100 h-[77vh] lg:w-[20vw] md:w-[30vw] sm:w-[40vw] w-[70vw] ' : ' opacity-0 h-0 w-0 '} overflow-auto transition-all duration-1000 absolute top-[67px] -left-[32px] z-10 bg-white p-3 shadow-2xl border-r border-slate-500`}>
                                     <h2>Filter</h2>
                                     <div className="p-1">
                                         <div className="pb-3 flex flex-col border-slate-500 border-b">

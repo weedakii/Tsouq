@@ -154,17 +154,46 @@ export const adminProductsReducer = (state= {products: []}, action) => {
     }
 }
 
-export const productReducer = (state= {products: []}, action) => {
+export const homeReducer = (state= {products: []}, action) => {
     switch (action.type) {
-        case ALL_PRODUCTS_REQUEST:
         case HOME_REQUEST:
             return {
                 loading: true,
                 products: []
             }
     
-        case ALL_PRODUCTS_SUCCESS:
         case HOME_SUCCESS:
+            return {
+                loading: false,
+                products: action.payload.products,
+            }
+    
+        case HOME_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+    
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
+            }
+    
+        default:
+            return state;
+    }
+}
+
+export const productReducer = (state= {products: []}, action) => {
+    switch (action.type) {
+        case ALL_PRODUCTS_REQUEST:
+            return {
+                loading: true,
+                products: []
+            }
+    
+        case ALL_PRODUCTS_SUCCESS:
             return {
                 loading: false,
                 products: action.payload.products,
@@ -174,7 +203,6 @@ export const productReducer = (state= {products: []}, action) => {
             }
     
         case ALL_PRODUCTS_FAIL:
-        case HOME_FAIL:
             return {
                 loading: false,
                 error: action.payload

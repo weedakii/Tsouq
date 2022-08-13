@@ -12,6 +12,8 @@ import { Box, Breadcrumbs, Button, Chip, Dialog, DialogActions, DialogContent, D
 import MetaData from '../layout/MetaData'
 import { addToCart } from '../../actions/cartActions'
 import ProductItem from '../layout/ProductItem'
+import { addToFavourite } from '../../actions/favAction';
+import { ADD_TO_FAV_RESET } from '../../constants/favConst';
 
   const options = {
     thumbnailPosition: window.innerWidth > 640 ? "bottom" : "top",
@@ -71,9 +73,15 @@ const ProductDetails = () => {
         dispatch(addToCart(params.id, quantity))
         alert.success('Item Added Successfully')
     }
+
+    const handleAdding = async (data) => {
+        dispatch(addToFavourite(data))
+        alert.success('Product Added Successfully')
+        dispatch({type: ADD_TO_FAV_RESET})
+    }
     
     let prod = filtered && filtered.map(p => {
-        return <ProductItem key={p._id} product={p} />
+        return <ProductItem key={p._id} product={p} action={handleAdding} />
     })
 
     const revs = product.reviews && product.reviews.map(r => <div>

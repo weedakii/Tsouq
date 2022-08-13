@@ -1,6 +1,7 @@
 import catchAsyncErr from "../middlewares/catchAsyncErr.js";
 import ErrorHandler from "../middlewares/ErrorHandler.js";
 import Favourites from '../model/favouriteModel.js'
+import Products from "../model/productModel.js";
 
 // get all favourites
 export const getAllFavourite = catchAsyncErr(async (req, res, next) => {
@@ -19,8 +20,15 @@ export const createFavourite = catchAsyncErr(async (req, res, next) => {
         return next(new ErrorHandler('Product is Already In', 401))
     }
     
-    req.body.by = req.user.id
-    const favourite = await Favourites.create(req.body)
+    let product = await Products.findById(req.body.product)
+    if (!product) {
+        return next(new ErrorHandler('Product Not found', 401))
+    }
+    delete product._doc._id
+    let newProd = {by: req.user.id, product: req.body.product}
+    newProd = {...product._doc, ...newProd}
+    console.log(product._doc);
+    const favourite = await Favourites.create(newProd)
 
     res.status(200).json({
         success: true,

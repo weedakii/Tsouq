@@ -37,18 +37,18 @@ const Shipping = () => {
       <div className="mt-4">
         <CheckActiveStep activeStep={0} />
       </div>
-      <div className="">
+      <div dir='rtl' className="">
         <form 
           onSubmit={shippingHandler}
           encType="multipart/form-data"
           className='p-5 shadow-card mx-auto max-w-sm rounded'
           >
-          <h2 className="w-fit mb-5 py-2 px-4 mx-auto border-b-2 border-slate-400 text-slate-600 text-xl font-semibold text-center">shipping details</h2>
+          <h2 className="w-fit mb-5 py-2 px-4 mx-auto border-b-2 border-slate-400 text-slate-600 text-xl font-semibold text-center">معلومات التوصيل</h2>
           <div className="flex items-center mb-4" >
             <PersonIcon className="text-slate-600" />
             <input 
               type="text"
-              placeholder='Name'
+              placeholder='اسمك بالكامل'
               className='shipping_inp inp w-full '
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -56,24 +56,24 @@ const Shipping = () => {
             />
           </div>
           <div className="flex items-center mb-4">
-            <HomeIcon className="text-slate-600"/>
-            <input 
-              type="text"
-              placeholder='Address'
-              className='shipping_inp inp w-full '
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              required
-            />
-          </div>
-          <div className="flex items-center mb-4">
             <PhoneIcon className="text-slate-600"/>
             <input 
-              type="number"
+              type="رقم الهاتف"
               placeholder='Phone'
               className='shipping_inp inp w-full '
               value={phoneNo}
               onChange={(e) => setPhoneNo(e.target.value)}
+              required
+            />
+          </div>
+          <div className="flex items-center mb-4">
+            <HomeIcon className="text-slate-600"/>
+            <input 
+              type="text"
+              placeholder='العنوان'
+              className='shipping_inp inp w-full '
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
               required
             />
           </div>
@@ -85,7 +85,7 @@ const Shipping = () => {
               className='shipping_inp inp w-full '
               onChange={(e) => setState(e.target.value)}
             >
-              <option value="" >State</option>
+              <option value="" >محل الاقامة</option>
               {
                 State && 
                   State.getStatesOfCountry('EG').map((item) => (
@@ -99,9 +99,9 @@ const Shipping = () => {
           <button 
             disabled={state ? false : true}
             type="submit"
-            className="block px-5 py-3 bg-slate-800 text-slate-100 rounded ml-auto hover:rounded-xl active:scale-75"
+            className="block px-5 py-3 bg-slate-800 text-slate-100 rounded mr-auto hover:rounded-xl active:scale-75"
           >
-            Continue
+            التالي
           </button>
         </form>
       </div>

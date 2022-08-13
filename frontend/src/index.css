@@ -11,7 +11,7 @@
 }
 
 .inp_profile {
-    @apply w-4/5 ml-8 mt-2 outline-1 outline-offset-2 outline-slate-500 py-1 pl-4 bg-emerald-100 border-l-[4px] border-emerald-700 text-slate-800 rounded-sm focus:outline-emerald-700 focus:rounded-md
+    @apply w-4/5 ml-6 mt-2 outline-1 outline-offset-2 outline-slate-500 py-1 pr-4 bg-emerald-100 border-r-[4px] border-emerald-700 text-slate-800 rounded-sm focus:outline-emerald-700 focus:rounded-md
 }
 
 .btn {
@@ -40,11 +40,11 @@
     content: "";
     width: 100%;
     height: 100%;
-    background-color: #cdcdcdb2;
+    background-color: #e3e3e383;
     position: absolute;
     top: 0;
     left: 0;
-    clip-path: polygon(0 85%, 100% 0, 100% 100%, 0% 100%);
+    clip-path: polygon(0 84%, 100% 22%, 100% 100%, 0% 100%);
     z-index: -1;
 }
 
@@ -170,16 +170,13 @@ input[type="number"] {
     color: #89dad8;
 }
 
-.swiper {
-    overflow: initial !important;
-}
-
 .swiper-wrapper {
     align-items: center;
+    padding: 10px 0;
 }
 
 .swiper-button-next {
-    right: -5px !important;
+    right: 0px !important;
     width: 50px !important;
     height: 50px !important;
     padding: 4px !important;
@@ -189,7 +186,7 @@ input[type="number"] {
 }
 
 .swiper-button-prev {
-    left: -5px !important;
+    left: 0px !important;
     width: 50px !important;
     height: 50px !important;
     padding: 4px !important;
@@ -199,7 +196,7 @@ input[type="number"] {
 }
 
 .swiper-button-next:after, .swiper-button-prev:after {
-    font-size: 32px !important;
+    font-size: 30px !important;
 }
 
 @media (max-width: 500px) {

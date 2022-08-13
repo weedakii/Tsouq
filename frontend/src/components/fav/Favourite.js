@@ -53,7 +53,7 @@ const Favourite = () => {
                 </div>
               ) : (
                 <>
-                <h2 className='w-fit border-b-4 border-slate-700 my-4 font-semibold sm:text-3xl text-xl mx-auto p-2 bg-slate-200'>Favorites Page</h2>
+                <h2 className='w-fit border-b-4 border-slate-700 my-4 font-semibold sm:text-3xl text-xl mx-auto font-tajawal px-4 py-2 text-slate-800 bg-slate-100'>صفحة المفضلة</h2>
                 <div className="mt-8 grid sm:grid-cols-pr grid-cols-2 gap-5 sm:p-5 mx-auto my-0 justify-center">
                   {
                     favs

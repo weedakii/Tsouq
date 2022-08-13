@@ -42,23 +42,23 @@ const Cart = () => {
                     }
                 </div>
             </div>
-            <div className="w-full sm:w-3/5 md:w-2/5 lg:w-2/6 ml-auto mt-6 p-2 shadow-card rounded-lg font-mono">
-                <h2 className="p-2 bg-slate-200 rounded-lg text-lg pl-4 font-semibold">Home Delivery</h2>
+            <div dir='rtl' className="w-full sm:w-3/5 md:w-2/5 lg:w-2/6 ml-auto mt-6 p-2 shadow-card rounded-lg font-tajawal">
+                <h2 className="p-2 bg-slate-200 rounded-lg text-lg pl-4 font-semibold">توصيل الي المنزل</h2>
                 <div className="p-2 my-5 border-y border-slate-300">
-                    <p className="flex justify-between text-sm font-semibold mb-2"><span>Suptotal:</span> <span className="text-slate-500">{`$${cartItems.reduce(
+                    <p className="flex justify-between text-sm font-semibold mb-2"><span>التكلفة:</span> <span className="text-slate-500">{`${cartItems.reduce(
                     (acc, item) => acc + item.quantity*item.price,
                     0
-                )}`}</span></p>
-                    <p className="flex justify-between text-sm font-semibold"><span>Delivery:</span> <span className="text-slate-500">0.00$</span></p>
+                )} جنيه`}</span></p>
+                    <p className="flex justify-between text-sm font-semibold"><span>الشحن:</span> <span className="text-slate-500">0 جنيه</span></p>
                 </div>
-                <p className="flex justify-between text-xl pb-3 font-semibold border-b border-slate-300"><span>Total:</span> <span className="text-red-700 text-2xl font-bold">{`$${cartItems.reduce(
+                <p className="flex justify-between text-xl pb-3 font-semibold border-b border-slate-300"><span>الاجمالي:</span> <span className="text-red-700 text-2xl font-bold">{`${cartItems.reduce(
                     (acc, item) => acc + item.quantity*item.price,
                     0
-                )}`}</span></p>
+                )} جنيه`}</span></p>
                 <button 
                     onClick={checkoutHandler}
                     className="block my-3 mx-auto p-2 text-center rounded-full font-semibold text-lg bg-emerald-900 text-slate-50 w-[90%]">
-                    Checkout
+                    التالي
                 </button>
             </div>
             </>
