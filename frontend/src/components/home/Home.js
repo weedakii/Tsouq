@@ -26,6 +26,7 @@ const Home = () => {
     const alert = useAlert()
 
     const {loading, error, products} = useSelector(state => state.home)
+    const {isAuthenticated} = useSelector(state => state.user)
     const {category} = useSelector(state => state.catygories)
     const {
         carousel,
@@ -35,13 +36,17 @@ const Home = () => {
     } = products && products
 
     const handleAdding = async (data) => {
-        dispatch(addToFavourite(data))
-        alert.success('Product Added Successfully')
-        dispatch({type: ADD_TO_FAV_RESET})
+        if (isAuthenticated) {
+            dispatch(addToFavourite(data))
+            alert.success('Product Added Successfully')
+            dispatch({type: ADD_TO_FAV_RESET})
+        } else {
+            alert.info('Login first to access this feature')
+        }
     }
 
     let cat = category && category.map((c) => (
-        <SwiperSlide><Link to={`/products?cat=${c.name}`} key={c.name}>
+        <SwiperSlide key={c._id}><Link to={`/products?cat=${c.name}`}>
             <CatCard name={c.name} image={c.image_url} />
         </Link></SwiperSlide>
     ))
@@ -57,7 +62,19 @@ const Home = () => {
     let top = topRatedProducts && topRatedProducts.map((p) => {
         return <SwiperSlide><ProductItem key={p._id} product={p} action={handleAdding} /></SwiperSlide>
     })
-
+    let catCount = () => {
+        if (window.innerWidth < 400) {
+            return 2
+        } else if (window.innerWidth >= 400 && window.innerWidth < 670) {
+            return 3
+        } else if (window.innerWidth >= 670 && window.innerWidth < 860) {
+            return 4
+        } else if (window.innerWidth >= 860 && window.innerWidth < 1010) {
+            return 5
+        } else if (window.innerWidth >= 1010) {
+            return 6
+        }
+    }
     useEffect(() => {
         const fetchData = () => {
             if (error) {
@@ -78,9 +95,9 @@ const Home = () => {
                 <>
                     <div dir='rtl' className='h-full'>
                         <MetaData title='Tsouq' />
-                        <div className="container mx-auto sm:p-5 p-2 overflow-hidden">
+                        <div className="md:w-[80%] sm:w-[85%] w-[95%] mx-auto sm:p-5 p-2 overflow-hidden">
                             {/* banner */}
-                            <div className="max-h-[500px]">
+                            <div className="">
                                 <Swiper
                                     spaceBetween={10}
                                     pagination={{
@@ -90,18 +107,18 @@ const Home = () => {
                                     className="mySwiper"
                                 >
                                     <SwiperSlide>
-                                        <div className=" h-full w-full row-span-2 col-span-2">
-                                            <img className='h-full w-full rounded-lg object-cover m-auto' src={carousel && carousel[0]?.url} alt={carousel && carousel[0]?.public_id} />
+                                        <div className=" h-full w-full">
+                                            <img className='h-full w-full max-w-screen-md rounded-lg object-cover mx-auto' src={carousel && carousel[0]?.url} alt={carousel && carousel[0]?.public_id} />
                                         </div>
                                     </SwiperSlide>
                                     <SwiperSlide>
                                         <div className="h-full w-full">
-                                            <img className='h-full w-full rounded-lg object-cover m-auto' src={carousel && carousel[1]?.url} alt={carousel && carousel[1]?.public_id} />
+                                            <img className='h-full w-full max-w-screen-md rounded-lg object-cover mx-auto' src={carousel && carousel[1]?.url} alt={carousel && carousel[1]?.public_id} />
                                         </div>
                                     </SwiperSlide>
                                     <SwiperSlide>
                                         <div className="h-full w-full">
-                                            <img className='h-full w-full rounded-lg object-cover m-auto' src={carousel && carousel[2]?.url} alt={carousel && carousel[2]?.public_id} />
+                                            <img className='h-full w-full max-w-screen-md rounded-lg object-cover mx-auto' src={carousel && carousel[2]?.url} alt={carousel && carousel[2]?.public_id} />
                                         </div>
                                     </SwiperSlide>
                                 </Swiper>
@@ -111,7 +128,7 @@ const Home = () => {
                                 <h2 className='cp mb-5 font-bold text-3xl text-mainDarkColor p-4'>الاقسام</h2>
                                 <div className="relative sm:p-6 mx-auto flex justify-start gap-3 overflow-auto">
                                     <Swiper
-                                        slidesPerView={window.innerWidth < 600 ? 3 : window.innerWidth > 900 ? 6 : 4}
+                                        slidesPerView={catCount()}
                                         spaceBetween={20}
                                         slidesPerGroup={1}
                                         loopFillGroupWithBlank={true}

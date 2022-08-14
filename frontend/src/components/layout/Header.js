@@ -70,12 +70,12 @@ const Navbar = ({user}) => {
     
     
     return (
-        <div className= {isDark ? "dark sticky top-0 left-0 z-[999]" : "sticky top-0 left-0 z-[999]"} >
+        <div dir='rtl' className= {isDark ? "dark sticky top-0 left-0 z-[999]" : "sticky top-0 left-0 z-[999]"} >
             <header className='bg-white shadow-md py-[10px] dark:bg-slate-900'>
             <div className='mx-auto px-4 font-tajawal sm:px-8 max-w-7xl flex items-center justify-between'>
                 <div className='text-mainDarkColor font-bold text-2xl'>
                 <Link to='/' className='font-tajawal'>
-                    Tsouq
+                    تسوق
                 </Link>
                 </div>
                 <div className='flex items-center gap-3 font-serif text-base font-medium text-black'>
@@ -86,7 +86,7 @@ const Navbar = ({user}) => {
                     color="success"
                 />
                 <Link to='/products'>
-                    <span className={'hover:text-emerald-900 font-tajawal dark:hover:text-mainDarkColor dark:text-slate-200' + isActive('/products')}>products</span>
+                    <span className={'hover:text-emerald-900 font-tajawal dark:hover:text-mainDarkColor dark:text-slate-200' + isActive('/products')}>منتجاتنا</span>
                 </Link>
                 <Link to='/cart' className='mx-2'>
                     <span className={'flex items-center dark:text-slate-200 gap-1 dark:hover:text-mainDarkColor hover:text-mainDarkColor' + isActive('/cart')}> 

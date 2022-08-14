@@ -194,7 +194,7 @@ const AdminUpdateProduct = () => {
                     <div className='flex items-center gap-3 mb-4 text-slate-600'>
                         <AccountTreeIcon />
                         <select className='inp shipping_inp w-full' value={cat} onChange={(e) => setCat(e.target.value)}>
-                            <option value="" disabled>Choose Category</option>
+                            <option value="">Choose Category</option>
                             {
                                 category && category.map(c => (
                                     <option value={c.name} key={c._id}>

@@ -68,6 +68,7 @@ const ProductDetails = () => {
     
     const dispatch = useDispatch()
     const {loading, error, product, filtered} = useSelector(state => state.productDetails)
+    const {isAuthenticated} = useSelector(state => state.user)
 
     const addToCartHamdler = () => {
         dispatch(addToCart(params.id, quantity))
@@ -75,9 +76,13 @@ const ProductDetails = () => {
     }
 
     const handleAdding = async (data) => {
-        dispatch(addToFavourite(data))
-        alert.success('Product Added Successfully')
-        dispatch({type: ADD_TO_FAV_RESET})
+        if (isAuthenticated) {
+            dispatch(addToFavourite(data))
+            alert.success('Product Added Successfully')
+            dispatch({type: ADD_TO_FAV_RESET})
+        } else {
+            alert.info('Login first to access this feature')
+        }
     }
     
     let prod = filtered && filtered.map(p => {
@@ -141,14 +146,14 @@ const ProductDetails = () => {
                                         )}  {...options} />
                                     }
                                 </div>
-                                <div className="p-4 flex-[0.62] flex flex-col">
-                                    <p className="text-sm text-slate-500">ProdutcId: {product._id}</p>
+                                <div dir='rtl' className="p-4 flex-[0.62] flex flex-col">
+                                    <p className="text-sm text-end text-slate-500">ProdutcId: {product._id}</p>
                                     <h2 className="text-3xl my-4 font-bold">{product.name}</h2>
-                                    <div className="flex items-center gap-2 ">
+                                    {/* <div className="flex items-center gap-2 ">
                                         <ReactStars {...infos} value={product.ratings} /> <span className="font-semibold text-slate-500 text-sm">({product.numOfReviews}Review)</span>
-                                    </div>
+                                    </div> */}
                                     <div className="text-slate-700 flex flex-col gap-4">
-                                        <span>WHAT IS SPECIAL:</span>
+                                        <span>المميزات:</span>
                                         <ul className="list-disc mx-6 mb-4 " style={{direction: 'rtl'}}>
                                             {product && (product.info || '').split("،").map((d,i) => {
                                                 return <li key={i}>{d}</li>
@@ -156,9 +161,9 @@ const ProductDetails = () => {
                                         </ul>
                                     </div>
                                     <div className="flex flex-col gap-3 mb-4">
-                                        <span className="text-slate-800 font-semibold">Category:</span>
+                                        <span className="text-slate-800 font-semibold">القسم:</span>
                                         <span>
-                                            <Chip label={product.category} color="warning" className='ml-5' />
+                                            <Chip label={product.category} color="success" className='ml-5' />
                                         </span>
                                     </div>
                                     <div className='flex gap-3 items-center mb-3'>
@@ -167,9 +172,9 @@ const ProductDetails = () => {
                                             <span>{quantity}</span>
                                             <button disabled={quantity === 6} className={`font-medium text-xl ${(quantity === 6) ? 'text-slate-500' : ''}`} onClick={handleIncreaseQuantuty}>+</button>
                                         </div>
-                                        <button onClick={addToCartHamdler} className="py-2 w-full border rounded-full font-medium hover:bg-slate-900 hover:text-slate-100 bg-amber-700 text-slate-100 transition active:scale-105">{`Add to Bag - ${(product.price * quantity)}$`}</button>
+                                        <button onClick={addToCartHamdler} className="py-2 w-full border rounded-full font-medium hover:bg-slate-900 hover:text-slate-100 bg-amber-700 text-slate-100 transition active:scale-105">{`اضف الي العربة - ${(product.price * quantity)} جنيه`}</button>
                                     </div>
-                                    <p className="text-sm text-slate-500">Selled by: {product.seller}</p>
+                                    <p className="text-sm text-slate-500">المالك: {product.seller}</p>
                                     <button onClick={handleClickOpen} className="py-3 mt-3 text-xl rounded w-full border font-medium bg-slate-900 text-slate-100 hover:bg-slate-50 hover:text-slate-800 hover:border-slate-600 transition">Leave a review</button>
                                     <div>
                                         <Dialog
@@ -198,11 +203,11 @@ const ProductDetails = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="my-4 p-5">
+                            <div dir='rtl' className="my-4 p-5">
                                 <Box sx={{ border: 1, borderBottom: 0, borderColor: 'darkgray' }}>
                                     <Tabs value={value} textColor="secondary" indicatorColor="secondary" onChange={handleChange} aria-label="basic tabs example">
-                                        <Tab label="Description" {...a11yProps(0)} sx={{background: '#f6f6f6', borderRight: 1,  borderColor: 'darkgray'}} />
-                                        <Tab label="Reviews" {...a11yProps(1)} sx={{background: '#f6f6f6', borderRight: 1,  borderColor: 'darkgray'}} />
+                                        <Tab label="الوصف" {...a11yProps(0)} sx={{background: '#f6f6f6', borderLeft: 1, fontSize: '20px',  borderColor: 'darkgray'}} />
+                                        <Tab label="التعليقات" {...a11yProps(1)} sx={{background: '#f6f6f6', borderLeft: 1, fontSize: '20px',  borderColor: 'darkgray'}} />
                                     </Tabs>
                                 </Box>
                                 <Box sx={{ border: 1, borderColor: 'darkgray' }}>
@@ -224,8 +229,8 @@ const ProductDetails = () => {
                                     </TabPanel>
                                 </Box>
                             </div>
-                            <div>
-                                <h3 className='text-slate-800 sm:text-2xl ml-4 mb-4 p-3 text-lg font-semibold'>you may also like</h3>
+                            <div dir='rtl'>
+                                <h3 className='text-slate-800 sm:text-2xl ml-4 mb-4 p-3 text-lg font-semibold'>منتجات مشابهة</h3>
                                     
                                 <div className='flex items-center flex-nowrap overflow-auto gap-3 p-3 sm:mx-6'>
                                     {
@@ -263,7 +268,7 @@ return (
     >
     {value === index && (
         <Box sx={{ p: 3 }}>
-        <Typography>{children}</Typography>
+            <p className='font-tajawal'>{children}</p>
         </Box>
     )}
     </div>

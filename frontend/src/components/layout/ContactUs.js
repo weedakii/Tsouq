@@ -36,8 +36,9 @@ const ContactUs = () => {
   
 
   return (
-    <div className='w-full h-full flex-auto grid place-items-center'>
+    <div className='w-full h-full my-4 flex-auto grid place-items-center'>
       <form ref={form} dir='rtl' onSubmit={sendEmail} className='flex flex-col sm:w-3/5 w-[95%] m-auto p-4 border border-slate-400 rounded-lg shadow-2xl'>
+      <h2 className="w-fit mb-5 py-2 px-4 mx-auto border-b-2 border-slate-400 text-slate-600 text-xl font-semibold text-center">تعليقك يهمنا</h2>
         {/* Name */}
         <div className='flex flex-col mb-3 '>
           <label htmlFor="name">*الاسم</label>

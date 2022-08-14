@@ -2,7 +2,7 @@ import { Breadcrumbs, Button, Slider } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import {useAlert} from 'react-alert'
 import {useDispatch, useSelector} from 'react-redux'
-import { Link, useParams, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import Pagination from 'react-js-pagination'
 import { clearErrors, getProducts } from '../../actions/productAction'
 import Loader from '../layout/Loader'
@@ -26,10 +26,12 @@ import { ADD_TO_FAV_RESET } from '../../constants/favConst'
 const AllProducts = () => {
     const [location] = useSearchParams()
     const params = useParams()
+    const navigate = useNavigate()
     const alert = useAlert()
     const dispatch = useDispatch()
     const {error, loading, products, productsCount, resPerPage, filteredProducts} = useSelector(state => state.products)
     const {category} = useSelector(state => state.catygories)
+    const {isAuthenticated} = useSelector(state => state.user)
     const keyword = params.keyword
     let count = filteredProducts
 
@@ -51,20 +53,28 @@ const AllProducts = () => {
     }
     
     const [cat, setCat] = useState('')
+    const handleCat = (e) => {
+        setCat(e)
+        navigate(`/products?cat=${e}`)
+    }
     // const [ratings, setRatings] = useState(0)
     
     const cats = category && category?.map(c => (
         <li 
-            className="hover:text-red-700 hover:pl-3 transition"
+            className="hover:text-red-700 mb-2 hover:pl-3 transition"
             key={c._id}
-            onClick={() => setCat(c.name)}
+            onClick={() => handleCat(c.name)}
         >&rarr; {c.name}</li>
     ))
 
     const handleAdding = async (data) => {
-        dispatch(addToFavourite(data))
-        alert.success('Product Added Successfully')
-        dispatch({type: ADD_TO_FAV_RESET})
+        if (isAuthenticated) {
+            dispatch(addToFavourite(data))
+            alert.success('Product Added Successfully')
+            dispatch({type: ADD_TO_FAV_RESET})
+        } else {
+            alert.info('Login first to access this feature')
+        }
     }
 
     const prods = products && products.map(product => (
@@ -74,8 +84,9 @@ const AllProducts = () => {
     
     useEffect(() => {
         const fetchData = () => {
-            if (location.get('cat') !== '' || null) {
+            if (location.get('cat') !== '' || location.get('cat') !== null) {
                 setCat(location.get('cat'))
+                console.log(location.get('cat'));
             }
             if (error) {
                 alert.error(error)
@@ -84,7 +95,7 @@ const AllProducts = () => {
             dispatch(getProducts(keyword, currentPage, newPrice, cat))
         }
         fetchData()
-    }, [dispatch, error, keyword, location, currentPage, newPrice, cat])
+    }, [dispatch, error, keyword, alert, location, currentPage, newPrice, cat])
     
     return (
     <>
@@ -141,7 +152,7 @@ const AllProducts = () => {
                                         </div>
                                         <div className="border-slate-500 border-b pb-3">
                                             <h2 className="text-xl font-semibold">Category</h2>
-                                            <ul className="p-3 list-none font-tajawal cursor-pointer">
+                                            <ul className="p-3 list-none font-tajawal text-base cursor-pointer">
                                                 <li onClick={() => setCat('')}
                                                     className="hover:text-red-700 hover:pl-2"
                                                 >All Products</li>
@@ -166,12 +177,18 @@ const AllProducts = () => {
                             </div>
                             <Search  />
                         </div>
-                        <div className="flex border-t border-slate-500">
-                            <div className="sm:w-4/5 w-[95%] grid sm:grid-cols-pr grid-cols-2 sm:gap-5 gap-3 sm:p-4 p-2 mx-auto my-0 justify-center">
-                                {
-                                    prods
-                                }
-                            </div>
+                        <div className="border-t border-slate-500">
+                            {
+                                prods.length ? (
+                                <div className="sm:w-4/5 w-[95%] mt-3 grid sm:grid-cols-pr grid-cols-2 sm:gap-5 gap-3 sm:p-4 p-2 mx-auto my-0 justify-center">
+                                    {
+                                        prods
+                                    }
+                                </div>
+                                ) : (
+                                    <p className='p-3 bg-slate-100 text-lg font-semibold mt-6 text-emerald-800 font-tajawal text-center'>لايوجد منتجات متوفرة لهذا القسم حاليا</p>
+                                )
+                            }
                         </div>
                         {
                             resPerPage < count && (
