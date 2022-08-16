@@ -8,7 +8,7 @@ import {Link, useParams} from 'react-router-dom'
 import Loader from '../layout/Loader'
 import "react-image-gallery/styles/css/image-gallery.css";
 import ImageGallery from 'react-image-gallery';
-import { Box, Breadcrumbs, Button, Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Tab, Tabs, Typography } from '@mui/material'
+import { Box, Breadcrumbs, Button, Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Tab, Tabs } from '@mui/material'
 import MetaData from '../layout/MetaData'
 import { addToCart } from '../../actions/cartActions'
 import ProductItem from '../layout/ProductItem'
