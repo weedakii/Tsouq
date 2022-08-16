@@ -15,7 +15,7 @@ const ProductItem = ({product, action}) => {
                 <img src={product.images[0].url} alt={product.name} className="max-h-52 m-auto rounded" />
             </Link>
             {
-                product?.discount > 0 ? <p className='absolute bottom-0 right-0 text-xs p-1 bg-red-700 text-white'>{`خصم ${product?.discount}%`}</p> : ''
+                product?.discount > 0 ? <p dir='rtl' className='absolute bottom-0 right-0 text-xs p-1 bg-red-700 text-white'>{`خصم ${product?.discount}%`}</p> : ''
             }
         </div>
         <div className=" p-2 border-t border-slate-300">
