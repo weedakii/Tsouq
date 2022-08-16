@@ -82,6 +82,10 @@ const OrderConfirm = () => {
                 <p className="font-bold">العنوان:</p>
                 <span>{shippingInfo.state} - {shippingInfo.address}</span>
               </div>
+              <div className="flex p-2 mb-3  font-semibold gap-4">
+                <p className="font-bold">الملاحظات:</p>
+                <span className='text-red-700'>{shippingInfo.message ? shippingInfo.message : "لايوجد اي ملاحظات"}</span>
+              </div>
             </div>
           </div>
           {/*  */}

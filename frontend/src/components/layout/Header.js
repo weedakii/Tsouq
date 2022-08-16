@@ -1,5 +1,5 @@
 import Badge from '@mui/material/Badge';
-import { Avatar, SpeedDial, SpeedDialAction, Switch } from '@mui/material'
+import { Avatar, SpeedDial, SpeedDialAction } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import {useLocation, Link, useNavigate} from 'react-router-dom'
 import ListAltIcon from '@mui/icons-material/ListAlt';
@@ -27,20 +27,19 @@ const Navbar = ({user}) => {
     const alert = useAlert()
     const dispatch = useDispatch()
     const {cartItems} = useSelector(state => state.cart)
-    const {items} = useSelector(state => state.myFav)
     const [isDark, setIsDark] = useState(false)
 
     if (user && user.role === 'admin') {
         actions.unshift({icon: <Link to="/admin/dashboard"><DashboardIcon /></Link>, name: 'Dashboard'})
     }
     
-    const handleChange = (e) => {
-        localStorage.setItem('isDark', e.target.checked)
-        setTimeout(() => {
-            setIsDark(e.target.checked);
-            window.location.reload()
-        }, 500);
-    };
+    // const handleChange = (e) => {
+    //     localStorage.setItem('isDark', e.target.checked)
+    //     setTimeout(() => {
+    //         setIsDark(e.target.checked);
+    //         window.location.reload()
+    //     }, 500);
+    // };
 
     function logoutUser() {
         dispatch(logout())
@@ -74,17 +73,17 @@ const Navbar = ({user}) => {
             <header className='bg-white shadow-md py-[10px] dark:bg-slate-900'>
             <div className='mx-auto px-4 font-tajawal sm:px-8 max-w-7xl flex items-center justify-between'>
                 <div className='text-mainDarkColor font-bold text-2xl'>
-                <Link to='/' className='font-tajawal'>
+                <Link to='/' className='font-cairo'>
                     تسوق
                 </Link>
                 </div>
                 <div className='flex items-center gap-3 font-serif text-base font-medium text-black'>
-                <Switch
+                {/* <Switch
                     checked={isDark}
                     onChange={handleChange}
                     inputProps={{ 'aria-label': 'controlled' }}
                     color="success"
-                />
+                /> */}
                 <Link to='/products'>
                     <span className={'hover:text-emerald-900 font-tajawal dark:hover:text-mainDarkColor dark:text-slate-200' + isActive('/products')}>منتجاتنا</span>
                 </Link>
@@ -97,15 +96,14 @@ const Navbar = ({user}) => {
                 </Link>
                 <Link to='/favourite'>
                     <span className={'flex items-center dark:text-slate-200 gap-1 dark:hover:text-mainDarkColor hover:text-mainDarkColor' + isActive('/cart')}> 
-                        <Badge badgeContent={items?.length} color="secondary">
-                            <FavoriteIcon color='error' className='active:scale-50' />
-                        </Badge>
+                        <FavoriteIcon color='error' className='active:scale-50' />
                     </span>
                 </Link>
                 <div className='relative w-6 h-6 ml-3'>
                     {
                         user ? (
                         <SpeedDial
+                            dir='rtl'
                             ariaLabel="SpeedDial basic example"
                             sx={{ position: 'absolute', top: -8, left: -20 }}
                             icon={<Avatar src={user && user.avatar.url} />}
@@ -123,6 +121,7 @@ const Navbar = ({user}) => {
                                 icon={action.icon}
                                 onClick={action.func}
                                 tooltipTitle={action.name}
+                                tooltipPlacement="right"
                                 tooltipOpen={window.innerWidth < 600 ? true : false}
                                 FabProps={{
                                     sx: {

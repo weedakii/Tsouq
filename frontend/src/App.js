@@ -37,6 +37,7 @@ import Favourite from './components/fav/Favourite';
 import AdminCarusels from './components/admin/AdminCarusels';
 import AdminCaruselUpdate from './components/admin/AdminCaruselUpdate';
 import ContactUs from './components/layout/ContactUs';
+import { myFavourite } from './actions/favAction';
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
     const fetchData = () => {
       store.dispatch(loadUser())
       store.dispatch(getCategory())
+      store.dispatch(myFavourite())
     }
     fetchData()
   }, [])

@@ -1,31 +1,31 @@
 import { Avatar } from '@mui/material'
 import Loader from '../layout/Loader'
 import React, { useEffect } from 'react'
-import {Link, useParams, useNavigate} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector} from 'react-redux'
 import { useAlert} from 'react-alert'
 import { clearErrors } from '../../actions/userAction'
 
-const lists = [
-  'My Profile',
-  'My Orders',
-  'My Cart',
-  'My Last Seen',
-  'Settings'
-]
+// const lists = [
+//   'My Profile',
+//   'My Orders',
+//   'My Cart',
+//   'My Last Seen',
+//   'Settings'
+// ]
 
 const Profile = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const alert = useAlert()
-  const params = useParams()
-  const isActive = (r) => {
-    if (r === params.keyword) {
-      return ' bg-slate-800 text-slate-100 rounded-tr-none -mx-[1px] rounded-br-none'
-    } else {
-      return ' bg-slate-50'
-    }
-  }
+  // const params = useParams()
+  // const isActive = (r) => {
+  //   if (r === params.keyword) {
+  //     return ' bg-slate-800 text-slate-100 rounded-tr-none -mx-[1px] rounded-br-none'
+  //   } else {
+  //     return ' bg-slate-50'
+  //   }
+  // }
 
   const {loading, error, user, isAuthenticated} = useSelector(state => state.user)
 
@@ -52,7 +52,7 @@ const Profile = () => {
         <Loader />
       ) : (
         <div  className="flex sm:p-8 p-2">
-          <div className="hidden md:block w-1/4 border-r  border-slate-600">
+          {/* <div className="hidden w-1/4 border-r  border-slate-600">
             <ul className="list-none">
               {
                 lists.map(i => <Link key={i} to={`/profile/${i}`}><li className={"m-3 p-2 mb-4 border border-slate-600 rounded-full hover:bg-slate-800 hover:text-slate-100 hover:rounded-tr-none hover:-mx-[1px] hover:rounded-br-none duration-400 transition-all " + isActive(i)}>
@@ -60,9 +60,9 @@ const Profile = () => {
                 </li></Link>)
               }
             </ul>
-          </div>
-        <div dir='rtl' className='w-full p-3 font-tajawal'>
-          <div className='relative h-48 bg-gradient-to-br from-orange-400 to-amber-300'>
+          </div> */}
+        <div dir='rtl' className='w-full sm:max-w-[80%] mx-auto p-3 font-tajawal'>
+          <div className='relative h-48 bg-gradient-to-br from-emerald-700 to-slate-900'>
             <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 rounded-full shadow-[0px_10px_30px_-5px_#444]"><Avatar src={user && user?.avatar?.url} sx={{width: '80px', height: '80px'}} /></div>
           </div>
           <div className='mt-20'>
@@ -122,7 +122,7 @@ const Profile = () => {
                 <input className="inp_profile" 
                   type="text"
                   id='createdAt' 
-                  value={String(user?.createdAt).slice(0,10)} 
+                  value={new Date(user?.createdAT).toUTCString().slice(0, 22)} 
                   placeholder="Address"
                   disabled
                 />

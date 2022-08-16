@@ -46,7 +46,7 @@ const Favourite = () => {
         ) : (
           <div className='h-full flex-1 sm:p-4 p-2'>
             {
-              (items.length === 0) ? (
+              (items?.length === 0) ? (
                 <div className="text-center h-full py-3 my-auto">
                   <p className="p-3 bg-slate-200 text-orange-800 text-lg mb-4 w-fit mx-auto rounded-lg">there are no items yet</p>
                   <Link to='/' className="text-slate-800 font-semibold underline text-lg">Go Home And Add Some</Link>

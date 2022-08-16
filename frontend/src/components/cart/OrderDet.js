@@ -40,26 +40,27 @@ return (
             loading ? (
                 <Loader />
             ) : (
-                <div className="p-5 sm:w-4/5 mx-auto">
+                <div dir='rtl' className="p-5 sm:w-4/5 mx-auto">
                     <h2 className="text-mainDarkColor sm:text-xl sm:font-bold text-lg font-semibold text-center">OrderID #{order && order?._id}</h2>
                     {/*  */}
                     <div className="my-5 flex gap-4 justify-around sm:flex-row flex-col">
                         <div>
-                            <h3 className="text-slate-800 sm:text-2xl sm:font-bold text-xl font-semibold">Shipping Info</h3>
+                            <h3 className="text-slate-800 sm:text-2xl sm:font-bold text-xl font-semibold">بيانات التوصيل</h3>
                             <div className="order-card flex flex-col gap-2">
                                 <p>{order.shippingInfo && order.shippingInfo.name}</p>
                                 <p>{order.shippingInfo && order.shippingInfo.phoneNo}</p>
                                 <p>{order.shippingInfo && order.shippingInfo.state}, {order.shippingInfo && order.shippingInfo.address}</p>
+                                <p className='border border-emerald-600 p-2 bg-emerald-100/25'>{order.shippingInfo && order.shippingInfo.message}</p>
                             </div>
                         </div>
                         <div>
-                            <h3 className="text-slate-800 sm:text-2xl sm:font-bold text-xl font-semibold">Total</h3>
+                            <h3 className="text-slate-800 sm:text-2xl sm:font-bold text-xl font-semibold">اجمالي التكلفة</h3>
                             <div className="order-card">
-                                <p className="text-red-600 font-bold">{order?.totalPrice}$</p>
+                                <p className="text-red-600 font-bold">{order?.totalPrice} جنيه</p>
                             </div>
                         </div>
                         <div>
-                            <h3 className="text-slate-800 sm:text-2xl sm:font-bold text-xl font-semibold">Order Status</h3>
+                            <h3 className="text-slate-800 sm:text-2xl sm:font-bold text-xl font-semibold">حالة التوصيل</h3>
                             <div className="order-card">
                                 <p className={
                                     order.orderStatus && order.orderStatus === "Delivered" ? "text-green-700" : order?.orderStatus === "Shipping" ? "text-slate-900" : "text-red-700"

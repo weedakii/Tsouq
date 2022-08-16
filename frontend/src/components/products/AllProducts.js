@@ -111,14 +111,14 @@ const AllProducts = () => {
                                 Home
                             </Link>
                             <h2
-                                className="text-xl font-semibold text-slate-800"
+                                className="sm:text-xl text-base font-semibold text-slate-800"
                             >
                                 Products
                             </h2>
                         </Breadcrumbs>
                     </div>
                     <div>
-                        <div className="bg-slate-50 flex gap-2 sm:px-8 px-4 mx-auto py-4 sticky top-[58px] z-20">
+                        <div className="bg-slate-50 flex gap-2 sm:px-8 px-4 mx-auto py-3 sticky top-[52px] z-20">
                             <div className='relative'>
                                 <div className='block '>
                                     <Button size='large' onClick={handleFilter}>
@@ -129,7 +129,7 @@ const AllProducts = () => {
                                         
                                     </Button>
                                 </div>
-                                <div className={`${open ? ' opacity-100 h-[77vh] lg:w-[20vw] md:w-[30vw] sm:w-[40vw] w-[70vw] ' : ' opacity-0 h-0 w-0 '} overflow-auto transition-all duration-1000 absolute top-[67px] -left-[32px] z-10 bg-white p-3 shadow-2xl border-r border-slate-500`}>
+                                <div className={`${open ? ' opacity-100 h-[77vh] lg:w-[20vw] md:w-[30vw] sm:w-[40vw] w-[70vw] ' : ' opacity-0 h-0 w-0 '} overflow-auto transition-all duration-1000 absolute top-[67px] -left-[32px] z-10 bg-white p-4 shadow-2xl border-r border-slate-500`}>
                                     <h2>Filter</h2>
                                     <div className="p-1">
                                         <div className="pb-3 flex flex-col border-slate-500 border-b">

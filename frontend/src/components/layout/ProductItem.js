@@ -15,7 +15,7 @@ const ProductItem = ({product, action}) => {
                 <img src={product.images[0].url} alt={product.name} className="max-h-52 m-auto rounded" />
             </Link>
             {
-                product?.discount > 0 ? <p className='absolute bottom-0 left-0 text-xs p-1 bg-red-700 text-white'>{`DISCOUNT ${product?.discount}%`}</p> : ''
+                product?.discount > 0 ? <p className='absolute bottom-0 right-0 text-xs p-1 bg-red-700 text-white'>{`خصم ${product?.discount}%`}</p> : ''
             }
         </div>
         <div className=" p-2 border-t border-slate-300">
@@ -25,15 +25,15 @@ const ProductItem = ({product, action}) => {
                 {
                     product?.discount > 0 ? (
                         <p>
-                            <span className="mr-2 font-semibold font-tajawal text-[16px] text-green-600">{product.price}EG</span>
-                            <span className="line-through text-xs font-bold text-gray-600/70">{product.oldPrice}EG</span>
+                            <span className="mr-2 font-semibold font-tajawal sm:text-[16px] text-sm text-green-600">{product.price}EG</span>
+                            <span className="line-through sm:text-xs text-[11px] font-bold text-gray-600/70">{product.oldPrice}EG</span>
                         </p>
                     ) : (
-                        <span className="font-semibold font-tajawal text-[16px] text-green-600">{product.price}EG</span>
+                        <span className="font-semibold font-tajawal sm:text-[16px] text-sm text-green-600">{product.price}EG</span>
                     )
                 }
                 {
-                    product?.views > 0 ? <p className='text-xs text-slate-500'>({product?.views} views)</p> : ''
+                    product?.views > 0 ? <p className='sm:text-xs text-[11px] text-slate-500'>({product?.views} views)</p> : ''
                 }
             </div>
         </div>

@@ -19,32 +19,33 @@ const Shipping = () => {
   const [phoneNo, setPhoneNo] = useState(shippingInfo?.phoneNo)
   const [name, setName] = useState(shippingInfo?.name)
   const [state, setState] = useState(shippingInfo?.state)
+  const [message, setMessage] = useState('')
 
   const shippingHandler = (e) => {
     e.preventDefault()
     if (phoneNo.length !== 11) {
-      alert.error('Phone Number must be 10 digits')
+      alert.error('Phone Number must be 11 digits')
       return;
     }
     dispatch(saveShippingInfo({
-      address, name, state, phoneNo
+      address, name, state, phoneNo, message
     }))
     navigate('/order/confirm')
   }
 
   return (
-    <div className="grid items-center h-[calc(100vh-58px)]">
+    <div className="flex-auto grid items-center ">
       <div className="mt-4">
         <CheckActiveStep activeStep={0} />
       </div>
-      <div dir='rtl' className="">
+      <div dir='rtl' className="my-5">
         <form 
           onSubmit={shippingHandler}
           encType="multipart/form-data"
           className='p-5 shadow-card mx-auto max-w-sm rounded'
           >
           <h2 className="w-fit mb-5 py-2 px-4 mx-auto border-b-2 border-slate-400 text-slate-600 text-xl font-semibold text-center">معلومات التوصيل</h2>
-          <div className="flex items-center mb-4" >
+          <div className="flex items-center mb-4 gap-2" >
             <PersonIcon className="text-slate-600" />
             <input 
               type="text"
@@ -55,7 +56,7 @@ const Shipping = () => {
               required
             />
           </div>
-          <div className="flex items-center mb-4">
+          <div className="flex items-center mb-4 gap-2">
             <PhoneIcon className="text-slate-600"/>
             <input 
               type="رقم الهاتف"
@@ -66,7 +67,7 @@ const Shipping = () => {
               required
             />
           </div>
-          <div className="flex items-center mb-4">
+          <div className="flex items-center mb-4 gap-2">
             <HomeIcon className="text-slate-600"/>
             <input 
               type="text"
@@ -77,7 +78,7 @@ const Shipping = () => {
               required
             />
           </div>
-          <div className="flex items-center mb-4">
+          <div className="flex items-center mb-4 gap-2">
             <TransferWithinAStationIcon className="text-slate-600"/>
             <select 
               required
@@ -95,6 +96,18 @@ const Shipping = () => {
                   ))
               }
             </select>
+          </div>
+          <div className="flex flex-col mb-4 gap-2">
+            <label htmlFor="mesg" className='font-semibold text-emerald-700'>*ملاحظاتك</label>
+            <textarea 
+              placeholder='اترك اي ملاحظات بشأن اي منتج سواء كانت من حيث اللون او الحجم او تاريخ التوصيل لضمان خدمة افضل'
+              className='shipping_inp inp w-full '
+              id='mesg'
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              cols={20}
+              rows={10}
+            />
           </div>
           <button 
             disabled={state ? false : true}

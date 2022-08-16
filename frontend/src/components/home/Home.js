@@ -27,6 +27,7 @@ const Home = () => {
 
     const {loading, error, products} = useSelector(state => state.home)
     const {isAuthenticated} = useSelector(state => state.user)
+    // const {items} = useSelector(state => state.myFav)
     const {category} = useSelector(state => state.catygories)
     const {
         carousel,
@@ -49,6 +50,14 @@ const Home = () => {
         <SwiperSlide key={c._id}><Link to={`/products?cat=${c.name}`}>
             <CatCard name={c.name} image={c.image_url} />
         </Link></SwiperSlide>
+    ))
+
+    let ban = carousel && carousel.map((c) => (
+        <SwiperSlide>
+            <div className=" h-full w-full">
+                <img className='w-full max-w-[700px] rounded-lg object-cover mx-auto' src={c?.url} alt={c?.public_id} />
+            </div>
+        </SwiperSlide>
     ))
 
     let hot = hotProducts && hotProducts.map((p) => {
@@ -106,21 +115,9 @@ const Home = () => {
                                     modules={[Pagination]}
                                     className="mySwiper"
                                 >
-                                    <SwiperSlide>
-                                        <div className=" h-full w-full">
-                                            <img className='h-full w-full max-w-screen-md rounded-lg object-cover mx-auto' src={carousel && carousel[0]?.url} alt={carousel && carousel[0]?.public_id} />
-                                        </div>
-                                    </SwiperSlide>
-                                    <SwiperSlide>
-                                        <div className="h-full w-full">
-                                            <img className='h-full w-full max-w-screen-md rounded-lg object-cover mx-auto' src={carousel && carousel[1]?.url} alt={carousel && carousel[1]?.public_id} />
-                                        </div>
-                                    </SwiperSlide>
-                                    <SwiperSlide>
-                                        <div className="h-full w-full">
-                                            <img className='h-full w-full max-w-screen-md rounded-lg object-cover mx-auto' src={carousel && carousel[2]?.url} alt={carousel && carousel[2]?.public_id} />
-                                        </div>
-                                    </SwiperSlide>
+                                    {
+                                        ban
+                                    }
                                 </Swiper>
                             </div>
                             {/* category */}

@@ -22,7 +22,8 @@ module.exports = {
         'blue': 'blue',
       },
       fontFamily: {
-        'tajawal' : ['"Tajawal"', 'sans-serif']
+        'tajawal' : ['"Tajawal"', 'sans-serif'],
+        'cairo' : ['"Cairo"', 'sans-serif'],
       }
     },
   },

@@ -22,15 +22,15 @@ const FavCard = ({card, action}) => {
                 {
                     card?.discount > 0 ? (
                         <p>
-                            <span className="mr-2 font-semibold font-tajawal text-[16px] text-green-600">{card.price}EG</span>
-                            <span className="line-through text-xs font-bold text-gray-600/70">{card.oldPrice}EG</span>
+                            <span className="mr-2 font-semibold font-tajawal sm:text-[16px] text-sm text-green-600">{card.price}EG</span>
+                            <span className="line-through sm:text-xs text-[10px] font-bold text-gray-600/70">{card.oldPrice}EG</span>
                         </p>
                     ) : (
-                        <span className="font-semibold font-tajawal text-[16px] text-green-600">{card.price}EG</span>
+                        <span className="font-semibold font-tajawal sm:text-[16px] text-sm text-green-600">{card.price}EG</span>
                     )
                 }
                 {
-                    card?.views > 0 ? <p className='text-sm text-slate-500'>({card?.views}views)</p> : ''
+                    card?.views > 0 ? <p className='sm:text-xs text-[10px] text-slate-500'>({card?.views} views)</p> : ''
                 }
             </div>
         </div>
