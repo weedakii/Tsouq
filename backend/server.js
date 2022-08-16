@@ -27,7 +27,7 @@ const server = app.listen(process.env.PORT, () => {
 process.on('unhandledRejection', err => {
     console.log(`ERROR: ${err.stack}`);
     console.log('shutting down server due to unhandled rejection');
-    // server.close(() => {
-    //     process.exit(1);
-    // });
+    server.close(() => {
+        process.exit(1);
+    });
 })
