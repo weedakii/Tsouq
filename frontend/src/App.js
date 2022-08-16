@@ -38,6 +38,7 @@ import AdminCarusels from './components/admin/AdminCarusels';
 import AdminCaruselUpdate from './components/admin/AdminCaruselUpdate';
 import ContactUs from './components/layout/ContactUs';
 import { myFavourite } from './actions/favAction';
+import PrivacyPolicy from './components/layout/PrivacyPolicy';
 
 
 function App() {
@@ -173,6 +174,7 @@ function App() {
               <AdminCaruselUpdate />
             </ProtectedRoute>
           } />
+          <Route path='/privacy-policy' element={<PrivacyPolicy />} />
           <Route path='/contact' element={<ContactUs />} />
           <Route path='*' element={<NotFound />} />
         </Routes>

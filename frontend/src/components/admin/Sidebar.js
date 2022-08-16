@@ -13,8 +13,10 @@ import { Avatar } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './sidebar.css'
+import { useSelector } from 'react-redux';
 
 const Sidebar = () => {
+    const {user} = useSelector(state => state.user)
   return (
     <div className="bg-white sm:fixed absolute w-[180px] flex border-r-2 border-slate-400 flex-col gap-2 overflow-auto justify-between max-h-[calc(100vh-100px)] sm:p-2 p-1">
         <div className="sidebar">
@@ -69,8 +71,8 @@ const Sidebar = () => {
         </div>
         {/*  */}
         <div className='text-center py-4 border-t-2 border-slate-400 h-full flex-[0.2] flex items-center justify-start gap-2'>
-            <Avatar className="text-slate-900" sx={{width: window.innerWidth > 700 ? '50px' : '40px', height: window.innerWidth > 700 ? '50px' : '40px'}} />
-            <span className='font-semibold md:text-lg text-slate-800'>Name</span>
+            <Avatar src={user?.avatar?.url} className="text-slate-900" sx={{width: window.innerWidth > 700 ? '50px' : '40px', height: window.innerWidth > 700 ? '50px' : '40px'}} />
+            <span className='font-semibold md:text-lg text-slate-800'>{user?.name}</span>
         </div>
     </div>
   )

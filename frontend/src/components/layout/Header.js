@@ -9,6 +9,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ContactMailIcon from '@mui/icons-material/ContactMail';
+import SecurityIcon from '@mui/icons-material/Security';
 import { useAlert} from 'react-alert'
 import { useDispatch, useSelector} from 'react-redux'
 import { logout } from '../../actions/userAction';
@@ -20,6 +21,7 @@ const Navbar = ({user}) => {
         { icon: <Link to="/order/me"><ListAltIcon /></Link> , name: 'Orders' },
         { icon: <Link to="/profile"><PersonIcon /></Link> , name: 'Profile' },
         { icon: <Link to="/contact"><ContactMailIcon /></Link> , name: 'Contact' },
+        { icon: <Link to="/privacy-policy"><SecurityIcon /></Link> , name: 'Privacy-policy' },
         { icon: <LogoutIcon color='error' />, name: 'Logout', func: logoutUser },
     ];
 
