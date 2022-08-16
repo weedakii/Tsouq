@@ -2,10 +2,12 @@ import React from 'react'
 import CheckActiveStep from './CheckActiveStep'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { Link } from 'react-router-dom';
+import MetaData from '../layout/MetaData';
 
 const Success = () => {
   return (
     <>
+    <MetaData title={`نجاح الشراء`} />
         <div className="mt-4 h-full">
             <CheckActiveStep activeStep={2} />
         </div>

@@ -35,7 +35,7 @@ const OrderDet = () => {
     
 return (
     <>
-        <MetaData title={`Order Details`} />
+        <MetaData title={`بيانات الاوردر`} />
         {
             loading ? (
                 <Loader />

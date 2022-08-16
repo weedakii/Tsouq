@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import {Link, useNavigate} from 'react-router-dom'
-import { Avatar } from '@mui/material'
+import { Avatar, CircularProgress } from '@mui/material'
 import { useDispatch, useSelector} from 'react-redux'
 import { useAlert } from 'react-alert'
 import { clearErrors, register } from '../../actions/userAction'
+import MetaData from '../layout/MetaData'
 
 const Register = () => {
   const alert = useAlert()
@@ -65,23 +66,24 @@ const Register = () => {
 
   return (
     <div className={(darkMode === "true") ? " dark h-full " : 'h-full'}>
+      <MetaData title={`انشاء حساب - تسوق`} />
       <div className="grid dark:bg-slate-800 bg-cyan-100/20 place-items-center h-full min-h-[calc(100vh-52px)]">
-          <form className="my-10 relative rounded-md dark:bg-slate-700 dark:shadow-[0_0_10px_1px_#444] w-full max-w-[320px] text-left flex flex-col bg-white px-7 pt-14 pb-7 font-medium shadow-[0_0_20px_8px_#ddd]" onSubmit={handleRegister}>
+          <form dir='rtl' className="my-10 relative rounded-md dark:bg-slate-700 dark:shadow-[0_0_10px_1px_#444] w-full max-w-[320px] text-right flex flex-col bg-white px-7 pt-14 pb-7  shadow-[0_0_20px_8px_#ddd]" onSubmit={handleRegister}>
               <div className="absolute -top-6 left-1/2 -translate-x-1/2 ">
                   <Avatar sx={{ width: '65px', height: '65px' }} className="bg-gradient-to-r from-emerald-800 to-emerald-600 shadow-2xl shadow-slate-400" />
               </div>
-              <label htmlFor="name" className="dark:text-slate-200 mt-4">Name</label>
-              <input required type="text" id="name" placeholder="Your name" 
+              <label htmlFor="name" className="dark:text-slate-200 mt-4">اسم المستخدم</label>
+              <input required type="text" id="name" placeholder="اسمك" 
                   className="inp" name="name" value={name} onChange={handleChangeInput}
               />
-              <label htmlFor="email" className="dark:text-slate-200">Email</label>
-              <input required type="email" id="email" placeholder="Your email" 
+              <label htmlFor="email" className="dark:text-slate-200">البريد الالكتروني</label>
+              <input required type="email" id="email" placeholder="الايميل" 
                   className="inp" name="email" value={email} onChange={handleChangeInput}
               />
-              <label htmlFor="password" className="dark:text-slate-200">Password</label>
-              <input required type="password" className="inp" id="password" placeholder="Your password" name="password" value={password} onChange={handleChangeInput}/>
-              <label htmlFor="cf_password" className="dark:text-slate-200">confirm Password</label>
-              <input required type="password" className="inp" id="cf_password" placeholder="Your password" name='cf_password' value={cf_password} onChange={handleChangeInput}/>
+              <label htmlFor="password" className="dark:text-slate-200">الرقم السري</label>
+              <input required type="password" className="inp" id="password" placeholder="الرقم السري" name="password" value={password} onChange={handleChangeInput}/>
+              <label htmlFor="cf_password" className="dark:text-slate-200">ادخل الرقم السري مرة اخري</label>
+              <input required type="password" className="inp" id="cf_password" placeholder="الرقم السري مرة اخري" name='cf_password' value={cf_password} onChange={handleChangeInput}/>
               <div className="flex items-center gap-4">
                 <Avatar src={avatarPreview} />
                 <input 
@@ -92,9 +94,12 @@ const Register = () => {
                   className="inp_file  dark:outline-slate-200 outline-slate-500 outline-dashed outline-2"
                 />
               </div>
-              <button disabled={loading ? true : false} type="submit" className="btn">Sign in</button>
-              <p className="font-serif dark:text-slate-200">Already have an account? <Link to="/signin">
-                  <span className="text-emerald-700 dark:text-emerald-500">Sign now</span>
+              <button disabled={loading ? true : false} type="submit" className="btn">
+                انشاء حساب
+                {loading && <CircularProgress color="success" />}
+              </button>
+              <p className="font-tajawal dark:text-slate-200">انا امتلك حساب بالفعل؟ <Link to="/signin">
+                  <span className="text-emerald-700 font-semibold dark:text-emerald-500"> سجل الان</span>
                   </Link></p>
           </form>
       </div>

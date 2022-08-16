@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import CartItemCard from './CartItemCard'
 import { removeFromCart } from '../../actions/cartActions'
 import { Link, useNavigate } from 'react-router-dom'
+import MetaData from '../layout/MetaData'
 
 const Cart = () => {
     const dispatch = useDispatch()
@@ -23,6 +24,7 @@ const Cart = () => {
 
   return (
     <div className="p-5 h-full">
+        <MetaData title={`حقيبتك - تسوق`} />
         {
             (cartItems.length === 0) ? 
             <div className="text-center py-3">

@@ -60,7 +60,7 @@ const UserOrders = () => {
 
 return (
     <>
-    <MetaData title={`${user?.name} - Orders`} />
+    <MetaData title={`${user?.name} - اوردرات - تسوق`} />
         {
             loading ? (
                 <Loader />

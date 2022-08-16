@@ -115,7 +115,7 @@ const ProductDetails = () => {
                 ) : (
                     <>
                         <div>
-                            <MetaData title={product.name} />
+                            <MetaData title={`${product.name} - تسوق`} />
                             <div className="container mx-auto mt-5 p-5 pb-0">
                             <Breadcrumbs aria-label="breadcrumb">
                                 <Link className='sm:text-base text-sm' style={{textDecoration: 'underline'}} color="inherit" to="/">

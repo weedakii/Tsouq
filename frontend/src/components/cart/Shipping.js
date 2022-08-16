@@ -9,6 +9,7 @@ import { useAlert } from 'react-alert';
 import { State } from 'country-state-city';
 import CheckActiveStep from './CheckActiveStep';
 import { saveShippingInfo } from '../../actions/cartActions';
+import MetaData from '../layout/MetaData';
 
 const Shipping = () => {
   const dispatch = useDispatch()
@@ -35,6 +36,7 @@ const Shipping = () => {
 
   return (
     <div className="flex-auto grid items-center ">
+      <MetaData title={`بيانات المستلم`} />
       <div className="mt-4">
         <CheckActiveStep activeStep={0} />
       </div>

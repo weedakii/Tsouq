@@ -3,6 +3,7 @@ import emailjs from '@emailjs/browser';
 import {Button} from '@mui/material'
 import { useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
+import MetaData from './MetaData';
 
 const ContactUs = () => {
   const {user} = useSelector(state => state.user)
@@ -37,6 +38,7 @@ const ContactUs = () => {
 
   return (
     <div className='w-full h-full my-4 flex-auto grid place-items-center'>
+      <MetaData title={`تواصل معانا - تسوق`} />
       <form ref={form} dir='rtl' onSubmit={sendEmail} className='flex flex-col sm:w-3/5 w-[95%] m-auto p-4 border border-slate-400 rounded-lg shadow-2xl'>
       <h2 className="w-fit mb-5 py-2 px-4 mx-auto border-b-2 border-slate-400 text-slate-600 text-xl font-semibold text-center">تعليقك يهمنا</h2>
         {/* Name */}

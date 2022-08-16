@@ -103,7 +103,7 @@ const Home = () => {
             ) : (
                 <>
                     <div dir='rtl' className='h-full'>
-                        <MetaData title='Tsouq' />
+                        <MetaData title='تسوق' />
                         <div className="md:w-[80%] sm:w-[85%] w-[95%] mx-auto sm:p-5 p-2 overflow-hidden">
                             {/* banner */}
                             <div className="">

@@ -5,6 +5,7 @@ import {Link, useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector} from 'react-redux'
 import { useAlert} from 'react-alert'
 import { clearErrors } from '../../actions/userAction'
+import MetaData from '../layout/MetaData'
 
 // const lists = [
 //   'My Profile',
@@ -47,6 +48,7 @@ const Profile = () => {
   
   return (
     <>
+    <MetaData title={`${user?.name}`} />
     {
       loading ? (
         <Loader />

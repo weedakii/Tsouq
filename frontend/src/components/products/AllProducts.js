@@ -104,7 +104,7 @@ const AllProducts = () => {
                 <Loader />
             ) : (
                 <div className='h-full flex-auto'>
-                    <MetaData title={'Tsouq - all products'} />
+                    <MetaData title={'جميع المنتجات - تسوق'} />
                     <div className="container mx-auto my-5 p-5 pb-0">
                         <Breadcrumbs aria-label="breadcrumb">
                             <Link style={{textDecoration: 'underline'}} color="inherit" to="/">

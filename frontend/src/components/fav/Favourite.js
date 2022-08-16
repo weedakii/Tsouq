@@ -39,7 +39,7 @@ const Favourite = () => {
   
   return (
     <>
-    <MetaData title={'Favourites'} />
+    <MetaData title={'المفضلة'} />
       {
         loading ? (
           <Loader />

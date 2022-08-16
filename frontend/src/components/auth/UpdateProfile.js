@@ -74,7 +74,7 @@ const UpdateProfile = () => {
     }, [error, alert, dispatch, navigate, isUpdated, user])
   return (
     <>
-    <MetaData title="Profile Updated" />
+    <MetaData title="تعديل الحساب - تسوق" />
     {
         loading ? (
             <Loader />
@@ -92,19 +92,18 @@ const UpdateProfile = () => {
                 />
             </div>
             <div className="flex">
-                <div className="w-full flex flex-col font-mono text-lg">
-                    <label htmlFor="name">*Name</label>
+                <div className="w-full flex flex-col font-tajawal text-lg">
+                    <label htmlFor="name">*الاسم الاول</label>
                     <input className="inp_profile" 
                     type="text" 
                     id='name' 
                     value={name} 
                     onChange={(e) => setName(e.target.value)}
                     name="name"
-
-                    placeholder="name"/>
+                    placeholder="الاسم الاول"/>
                 </div>
-                <div className="w-full flex flex-col font-mono text-lg mb-4">
-                    <label htmlFor="lastname">*Last Name</label>
+                <div className="w-full flex flex-col font-tajawal text-lg mb-4">
+                    <label htmlFor="lastname">*اسم العائلة</label>
                     <input className="inp_profile" 
                     type="text" 
                     id='lastname' 
@@ -112,38 +111,38 @@ const UpdateProfile = () => {
                     onChange={(e) => setLastName(e.target.value)}
                     name="lastName"
 
-                    placeholder="Last name"/>
+                    placeholder="اسم العائلة"/>
                 </div>
             </div>
-            <div className="w-full flex flex-col font-mono text-lg mb-4">
-                <label htmlFor="email">*Email</label>
+            <div className="w-full flex flex-col font-tajawal text-lg mb-4">
+                <label htmlFor="email">*البريد الالكتروني</label>
                 <input className="inp_profile" 
                 type="email" 
                 id='email' 
                 value={email} 
                 onChange={(e) => setEmail(e.target.value)}
                 name="email"
-                placeholder="Email"/>
+                placeholder="الايميل"/>
             </div>
-            <div className="w-full flex flex-col font-mono text-lg mb-4">
-                <label htmlFor="phone">*Phone</label>
+            <div className="w-full flex flex-col font-tajawal text-lg mb-4">
+                <label htmlFor="phone">*رقم الهاتف</label>
                 <input className="inp_profile" 
                 type="number"
                 id='phone' 
                 value={phoneNo} 
                 onChange={(e) => setPhoneNo(e.target.value)}
                 name="phoneNo"
-                placeholder="Phone"/>
+                placeholder="المحمول"/>
             </div>
-            <div className="w-full flex flex-col font-mono text-lg mb-4">
-                <label htmlFor="address">*Address</label>
+            <div className="w-full flex flex-col font-tajawal text-lg mb-4">
+                <label htmlFor="address">*العنوان</label>
                 <input className="inp_profile" 
                 type="text"
                 id='address' 
                 value={address} 
                 onChange={(e) => setAddress(e.target.value)}
                 name="address"
-                placeholder="Address"/>
+                placeholder="محل الاقامة"/>
             </div>
             <button type="submit" className="mt-8 block mr-auto py-2 px-7 bg-slate-800 text-slate-50 hover:rounded-xl active:scale-75">Edit</button>
         </form>
