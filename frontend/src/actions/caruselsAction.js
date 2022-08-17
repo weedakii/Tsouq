@@ -10,7 +10,7 @@ import {
     CARUSEL_DETAILS_FAIL,
     CLEAR_ERRORS
 } from "../constants/caruselConst"
-import axios from "axios"
+import axios from "./axios"
 
 export const getCarusels = () => async (dispatch) => {
     try {

@@ -25,7 +25,7 @@ import {
     ALL_CATEGORY_FAIL,
     CLEAR_ERRORS
 } from "../constants/productConst"
-import axios from 'axios'
+import axios from './axios'
 
 export const getCategory = () => async (dispatch) => {
     try{

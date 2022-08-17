@@ -10,7 +10,7 @@ import {
     MY_FAV_SUCCESS,
     CLEAR_ERRORS
 } from "../constants/favConst";
-import axios from 'axios'
+import axios from './axios'
 
 
 export const myFavourite = () => async (dispatch) => {
