@@ -7,16 +7,16 @@ import error from './middlewares/error.js';
 import router from './routes/router.js';
 import path from 'path'
 const app = express();
+app.use(express.json());
 app.use(cors())
 
 if (process.env.NODE_ENV !== "PRODUCTION") {
     dotenv.config({path: 'backend/config/config.env'})
 }
 
-app.use(express.json());
 app.use(cookieParser())
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json({ limit: "30mb", extended: true}))
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }))
 app.use(fileUpload())
 
 app.use('/api/v1', router)
