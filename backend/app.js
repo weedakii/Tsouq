@@ -2,10 +2,12 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import fileUpload from 'express-fileupload';
 import express from 'express'
+import cors from 'cors'
 import error from './middlewares/error.js';
 import router from './routes/router.js';
 import path from 'path'
 const app = express();
+app.use(cors())
 
 if (process.env.NODE_ENV !== "PRODUCTION") {
     dotenv.config({path: 'backend/config/config.env'})
