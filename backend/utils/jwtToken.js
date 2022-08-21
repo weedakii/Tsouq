@@ -6,10 +6,11 @@ const sendToken = (user, statusCode, res) => {
             Date.now() + process.env.COOKIE_EXPIRATION * 24 * 60 * 60 * 1000
         ),
         httpOnly: true,
-        secure: true
+        sameSite : "none",
+        secure: true,
     }
-
-    res.status(statusCode).cookie('token', token, options).json({
+    res.cookie('tsouq_token', token, options)
+    res.status(statusCode).json({
         success: true,
     })
 }

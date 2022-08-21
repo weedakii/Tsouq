@@ -8,7 +8,11 @@ import router from './routes/router.js';
 import path from 'path'
 const app = express();
 app.use(express.json());
-app.use(cors())
+app.set('trust proxy', 1)
+app.use(cors({
+    origin: true,
+    credentials: true
+}))
 
 if (process.env.NODE_ENV !== "PRODUCTION") {
     dotenv.config({path: 'backend/config/config.env'})

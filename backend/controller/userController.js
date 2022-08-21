@@ -96,9 +96,11 @@ export const googleLogin = catchAsyncErr(async (req, res, next) => {
 })
 // logout user
 export const logoutUser = catchAsyncErr(async (req, res, next) => {
-    res.cookie('token', null, {
+    res.cookie('tsouq_token', null, {
         expires: new Date(Date.now()),
         httpOnly: true,
+        sameSite : "none",
+        secure: true,
     })
 
     res.status(200).json({

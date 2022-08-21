@@ -8,6 +8,8 @@ import SpellcheckIcon from '@mui/icons-material/Spellcheck';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import DescriptionIcon from '@mui/icons-material/Description';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
+import MoneyOffIcon from '@mui/icons-material/MoneyOff';
+import PlusOneIcon from '@mui/icons-material/PlusOne';
 import FeedIcon from '@mui/icons-material/Feed';
 import { Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
@@ -27,8 +29,10 @@ const AdminProductCreate = () => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [info, setInfo] = useState('')
+    const [type, setType] = useState('original')
     const [price, setPrice] = useState()
-    const [stock, setStock] = useState()
+    const [oldPrice, setOldPrice] = useState('')
+    const [stock, setStock] = useState(20)
     const [cat, setCat] = useState('')
     const [imagesPreview, setImagesPreview] = useState([])
     const [images, setImages] = useState([])
@@ -40,8 +44,10 @@ const AdminProductCreate = () => {
         const myForm = new FormData()
         myForm.set("name", name)
         myForm.set("price", price)
+        myForm.set("oldPrice", oldPrice)
         myForm.set("description", description)
         myForm.set("info", info)
+        myForm.set("type", type)
         myForm.set("stock", stock)
         myForm.set("category", cat)
 
@@ -96,8 +102,8 @@ const AdminProductCreate = () => {
     
   return (
     <>
-        <MetaData title="Admin Products"/>
-        <div className="sm:grid-cols-sid grid-cols-1 grid sm:p-3 p-2 w-screen max-w-[100%]">
+        <MetaData title="الادمن - انشاء منتج"/>
+        <div className="flex-1 sm:grid-cols-sid grid-cols-1 grid sm:p-3 p-2 w-screen max-w-[100%]">
             <div className="relative sm:max-w-[250px] sm:min-w-[200px] z-10 bg-white">
                 <div className='sm:hidden'>
                     <Button onClick={handleOpen} >
@@ -114,11 +120,12 @@ const AdminProductCreate = () => {
             </div>
             <div className='p-5'>
                 <form 
-                    className='flex flex-col'
+                    dir='rtl'
+                    className='flex flex-col font-tajawal'
                     encType='multipart/form-data'
                     onSubmit={createProductHundler}
                 >
-                    <h3 className='text-slate-800 mb-5 text-center text-2xl font-bold'>Create Product</h3>
+                    <h3 className='text-slate-800 mb-5 text-center text-2xl font-bold'>انشاء منتج جديد</h3>
                     <div className='flex items-center gap-3 mb-4 text-slate-600'>
                         <SpellcheckIcon />
                         <input 
@@ -126,9 +133,19 @@ const AdminProductCreate = () => {
                             value={name}
                             name="name"
                             className='inp shipping_inp w-full'
-                            placeholder='Product Name'
+                            placeholder='اسم المنتج'
                             required
                             onChange={(e) => setName(e.target.value)}
+                        />
+                    </div>
+                    <div className='flex items-center gap-3 mb-4 text-slate-600'>
+                        <MoneyOffIcon />
+                        <input 
+                            type="number"
+                            className='inp shipping_inp w-full'
+                            placeholder='السعر القديم'
+                            value={oldPrice}
+                            onChange={(e) => setOldPrice(e.target.value)}
                         />
                     </div>
                     <div className='flex items-center gap-3 mb-4 text-slate-600'>
@@ -136,18 +153,18 @@ const AdminProductCreate = () => {
                         <input 
                             type="number"
                             className='inp shipping_inp w-full'
-                            placeholder='Price'
+                            placeholder='السعر الجديد'
                             required
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
                         />
                     </div>
                     <div className='flex items-center gap-3 mb-4 text-slate-600'>
-                        <AttachMoneyIcon />
+                        <PlusOneIcon />
                         <input 
                             type="number"
                             className='inp shipping_inp w-full'
-                            placeholder='Stock'
+                            placeholder='عدد القطع'
                             required
                             value={stock}
                             onChange={(e) => setStock(e.target.value)}
@@ -156,7 +173,7 @@ const AdminProductCreate = () => {
                     <div className='flex items-center gap-3 mb-4 text-slate-600'>
                         <DescriptionIcon />
                         <textarea 
-                            placeholder='Description'
+                            placeholder='الكلام الكتير عن النتج'
                             className='inp shipping_inp w-full'
                             required
                             value={description}
@@ -168,7 +185,7 @@ const AdminProductCreate = () => {
                     <div className='flex items-center gap-3 mb-4 text-slate-600'>
                         <FeedIcon />
                         <textarea 
-                            placeholder='Information'
+                            placeholder='الكلام القليل'
                             className='inp shipping_inp w-full'
                             required
                             value={info}
@@ -177,10 +194,31 @@ const AdminProductCreate = () => {
                             rows="2"
                         />
                     </div>
+                    <div className='flex flex-col mb-4'>
+                        <h3 className='text-xl font-semibold my-2'>النوع</h3>
+                        <div className='flex items-center justify-evenly'>
+                            <div className='flex items-center gap-3'>
+                                <input checked={type === 'original' ? true : false} type="radio" name="type" onChange={(e) => setType(e.target.value)} id="original" value="original" />
+                                <label htmlFor="original">original</label>
+                            </div>
+                            <div className='flex items-center gap-3'>
+                                <input type="radio" name="type" onChange={(e) => setType(e.target.value)} id="new" value="new" />
+                                <label htmlFor="new">new</label>
+                            </div>
+                            <div className='flex items-center gap-3'>
+                                <input type="radio" name="type" onChange={(e) => setType(e.target.value)} id="hot" value="hot" />
+                                <label htmlFor="hot">hot</label>
+                            </div>
+                            <div className='flex items-center gap-3'>
+                                <input type="radio" name="type" onChange={(e) => setType(e.target.value)} id="top rated" value="top rated" />
+                                <label htmlFor="top rated">top rated</label>
+                            </div>
+                        </div>
+                    </div>
                     <div className='flex items-center gap-3 mb-4 text-slate-600'>
                         <AccountTreeIcon />
                         <select className='inp shipping_inp w-full' onChange={(e) => setCat(e.target.value)}>
-                            <option value="" disabled>Choose Category</option>
+                            <option value="">الكاتيجوري</option>
                             {
                                 catyg
                             }
@@ -204,7 +242,7 @@ const AdminProductCreate = () => {
                         }
                     </div>
                     <Button type='submit' variant='contained' color='warning' disabled={loading ? true : false}>
-                        Create
+                        انشاء
                     </Button>
                 </form>
             </div>

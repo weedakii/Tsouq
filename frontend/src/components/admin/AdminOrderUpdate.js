@@ -60,8 +60,8 @@ const AdminOrderUpdate = () => {
     }, [dispatch, error, alert, params, order, errorUpdate, navigate, isUpdated])
   return (
     <>
-        <MetaData title={`All - Orders`} />
-        <div className="sm:grid-cols-sid grid-cols-1 grid sm:p-3 p-2 w-screen max-w-[100%]">
+        <MetaData title="الادمن - تعديل الاوردر" />
+        <div className="flex-1 sm:grid-cols-sid grid-cols-1 grid sm:p-3 p-2 w-screen max-w-[100%]">
         <div className="relative sm:max-w-[250px] sm:min-w-[200px] z-10 bg-white">
                 <div className='sm:hidden'>
                     <Button onClick={handleOpen} >

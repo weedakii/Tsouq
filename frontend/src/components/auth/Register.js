@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {Link, useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import { Avatar, CircularProgress } from '@mui/material'
 import { useDispatch, useSelector} from 'react-redux'
 import { useAlert } from 'react-alert'
@@ -9,7 +9,6 @@ import MetaData from '../layout/MetaData'
 const Register = () => {
   const alert = useAlert()
   const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   let darkMode = localStorage.getItem("isDark")
   const initialState = {name: '', email: '', password: '', cf_password: ''}
@@ -57,11 +56,11 @@ const Register = () => {
       }
   
       if (isAuthenticated) {
-        navigate('/profile')
+        window.location = '/profile'
       }
     }
     fetchData()
-  }, [error, alert, dispatch, navigate, isAuthenticated])
+  }, [error, alert, dispatch, isAuthenticated])
   
 
   return (

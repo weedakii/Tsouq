@@ -47,7 +47,7 @@ const Home = () => {
     }
 
     let cat = category && category.map((c) => (
-        <SwiperSlide key={c._id}><Link to={`/products?cat=${c.name}`}>
+        <SwiperSlide key={c._id}><Link to={`/products?cat=${c.name}`} replace>
             <CatCard name={c.name} image={c.image_url} />
         </Link></SwiperSlide>
     ))

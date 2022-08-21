@@ -75,7 +75,7 @@ const UpdateRole = () => {
         loading ? (
             <Loader />
         ) : (
-        <div className="sm:grid-cols-sid grid-cols-1 grid sm:p-3 p-2 w-screen max-w-[100%]">
+        <div className="flex-1 sm:grid-cols-sid grid-cols-1 grid sm:p-3 p-2 w-screen max-w-[100%]">
             <div className="relative sm:max-w-[250px] sm:min-w-[200px] z-10 bg-white">
                 <div className='sm:hidden'>
                     <Button onClick={handleOpen} >
@@ -92,11 +92,12 @@ const UpdateRole = () => {
             </div>
             <div className='p-5'>
                 <form 
+                    dir='rtl'
                     className='flex flex-col'
                     encType='multipart/form-data'
                     onSubmit={updateUserHundler}
                 >
-                    <h3 className='text-slate-800 mb-5 text-center text-2xl font-bold'>Update User</h3>
+                    <h3 className='text-slate-800 mb-5 text-center text-2xl font-bold'>رفع ايميل المستخدم</h3>
                     <div className='flex items-center gap-3 mb-4 text-slate-600'>
                         <SpellcheckIcon />
                         <input 
@@ -129,7 +130,7 @@ const UpdateRole = () => {
                         </select>
                     </div>
                     <Button type='submit' variant='contained' color='warning' disabled={loadingUpdate ? true : false}>
-                        Update
+                        تعديل
                     </Button>
                 </form>
             </div>

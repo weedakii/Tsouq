@@ -33,7 +33,7 @@ class APIFeatures {
 
         const skip = resPerPage * (currentPage - 1)
 
-        this.query = this.query.limit(resPerPage).skip(skip)
+        this.query = this.query.sort({_id: -1}).limit(resPerPage).skip(skip)
         return this;
     }
 }

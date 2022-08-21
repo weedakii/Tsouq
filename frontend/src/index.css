@@ -176,6 +176,11 @@ input[type="number"] {
 .swiper-wrapper {
     align-items: center;
     padding: 10px 0;
+    height: 300px !important;
+}
+
+.swiper-slide {
+    height: 100%;
 }
 
 .swiper-button-next {

@@ -89,8 +89,8 @@ const AdminOrders = () => {
     }, [dispatch, error, alert, deleteError, isDeleted, navigate])
   return (
     <>
-        <MetaData title={`All - Orders`} />
-        <div className="sm:grid-cols-sid grid-cols-1 grid sm:p-3 p-2 w-screen max-w-[100%]">
+        <MetaData title="الادمن - جميع الطلبات" />
+        <div className="flex-1 sm:grid-cols-sid grid-cols-1 grid sm:p-3 p-2 w-screen max-w-[100%]">
             <div className="relative sm:max-w-[250px] sm:min-w-[200px] z-10 bg-white">
                 <div className='sm:hidden'>
                     <Button onClick={handleOpen} >
@@ -106,7 +106,7 @@ const AdminOrders = () => {
                 </div>
             </div>
             <div className="p-1">
-                <h2 className="text-center font-bold text-3xl mb-10 mt-5 text-slate-700">All Orders</h2>
+                <h2 className="text-center font-bold text-3xl mb-10 mt-5 text-slate-700">جميع الطلبات</h2>
                 <DataGrid 
                     rows={rows}
                     columns={columns}

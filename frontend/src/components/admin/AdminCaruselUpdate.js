@@ -82,7 +82,7 @@ const AdminCaruselUpdate = () => {
     
   return (
     <>
-        <MetaData title="Admin Products"/>
+        <MetaData title="الادمن - تعديل البانر"/>
         {
           loading ? (
             <Loader />
@@ -108,7 +108,7 @@ const AdminCaruselUpdate = () => {
                       encType='multipart/form-data'
                       onSubmit={updateProductHundler}
                   >
-                      <h3 className='text-slate-800 mb-5 text-center text-2xl font-bold'>Update Product</h3>
+                      <h3 className='text-slate-800 mb-5 text-center text-2xl font-bold'>تعديل البانر</h3>
                       <div className='flex items-center gap-3 mb-4 text-slate-600'>
                           <SpellcheckIcon />
                           <input 
@@ -142,7 +142,7 @@ const AdminCaruselUpdate = () => {
                           }
                       </div>
                       <Button type='submit' variant='contained' color='warning' disabled={loadingUpdate ? true : false}>
-                          Update
+                          تعديل
                       </Button>
                   </form>
               </div>

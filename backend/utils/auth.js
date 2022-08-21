@@ -4,11 +4,11 @@ import ErrorHandler from "../middlewares/ErrorHandler.js"
 import User from "../model/userModel.js"
 
 export const isAuthenticated = catchAsyncErr(async (req, res, next) => {
-    const { token } = req.cookies
-    if (!token) {
+    const { tsouq_token } = req.cookies
+    if (!tsouq_token) {
         return next(new ErrorHandler('plz login first to access this page',401))
     }
-    const decoded = jwt.verify(token, process.env.JWT_SECRET)
+    const decoded = jwt.verify(tsouq_token, process.env.JWT_SECRET)
     req.user = await User.findById(decoded.id)
 
     next()

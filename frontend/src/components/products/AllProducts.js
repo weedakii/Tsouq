@@ -29,7 +29,7 @@ const AllProducts = () => {
     const navigate = useNavigate()
     const alert = useAlert()
     const dispatch = useDispatch()
-    const {error, loading, products, productsCount, resPerPage, filteredProducts} = useSelector(state => state.products)
+    const {error, loading, products, resPerPage, filteredProducts} = useSelector(state => state.products)
     const {category} = useSelector(state => state.catygories)
     const {isAuthenticated} = useSelector(state => state.user)
     const keyword = params.keyword
@@ -52,7 +52,7 @@ const AllProducts = () => {
         setPrice(newPrice)
     }
     
-    const [cat, setCat] = useState('')
+    const [cat, setCat] = useState(location.get('cat') || '')
     const handleCat = (e) => {
         setCat(e)
         navigate(`/products?cat=${e}`)
@@ -86,7 +86,6 @@ const AllProducts = () => {
         const fetchData = () => {
             if (location.get('cat') !== '' || location.get('cat') !== null) {
                 setCat(location.get('cat'))
-                console.log(location.get('cat'));
             }
             if (error) {
                 alert.error(error)
@@ -196,7 +195,7 @@ const AllProducts = () => {
                                 <Pagination 
                                     activePage={currentPage}
                                     itemsCountPerPage={resPerPage}
-                                    totalItemsCount={productsCount}
+                                    totalItemsCount={filteredProducts}
                                     onChange={setCurrentPageNo}
                                     nextPageText="Next"
                                     prevPageText="Prev"

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Avatar, CircularProgress } from '@mui/material'
 import {useDispatch, useSelector} from 'react-redux'
 import {useAlert} from 'react-alert'
@@ -7,14 +7,13 @@ import { clearErrors, login } from '../../actions/userAction'
 import Loader from '../layout/Loader'
 import {GoogleLogin} from 'react-google-login';
 import { gapi } from 'gapi-script';
-import axios from 'axios'
 import MetaData from '../layout/MetaData'
+import axios from '../../actions/axios'
 
 const Signin = () => {
   const alert = useAlert()
   const location = useLocation()
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   let darkMode = localStorage.getItem("isDark")
   const initialState = {email: '', password: ''}
   const [userData, setUserData] = useState(initialState)
@@ -66,11 +65,11 @@ const Signin = () => {
       }
   
       if (isAuthenticated) {
-        navigate(redirect)
+        window.location = redirect
       }
     }
     fetchData()
-  }, [dispatch, isAuthenticated, navigate, error, alert, redirect])
+  }, [dispatch, isAuthenticated, error, alert, redirect])
   
   return (
     <div className={(darkMode === "true") ? "dark" : ''}>

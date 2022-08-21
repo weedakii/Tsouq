@@ -83,7 +83,7 @@ const AdminProducts = () => {
             }
             if (isDeleted) {
                 alert.success("Product Deleted Successfully")
-                navigate(`/admin/dashboard`)
+                navigate(`/admin/products`)
                 dispatch({type: DELETE_PRODUCT_RESET})
             }
             dispatch(getAdminProducts())
@@ -93,8 +93,8 @@ const AdminProducts = () => {
 
     return (
         <>
-            <MetaData title="Admin Products"/>
-            <div className="sm:grid-cols-sid grid-cols-1 grid sm:p-3 p-2 w-screen max-w-[100%]">
+            <MetaData title="الادمن - جميع المنتجات"/>
+            <div className="flex-1 sm:grid-cols-sid grid-cols-1 grid sm:p-3 p-2 w-screen max-w-[100%]">
                 <div className="relative sm:max-w-[250px] sm:min-w-[200px] z-10 bg-white">
                     <div className='sm:hidden'>
                         <Button onClick={handleOpen} >
@@ -114,8 +114,8 @@ const AdminProducts = () => {
                         loading === true ? (
                             <Loader />
                         ) : (
-                            <div className="">
-                                <h2 className="text-center font-bold text-3xl mb-7 mt-4 text-slate-700">All Products</h2>
+                            <div className="font-tajawal">
+                                <h2 className="text-center font-bold text-3xl mb-7 mt-4 text-slate-700">جميع المنتجات</h2>
                                 <DataGrid 
                                     rows={rows}
                                     columns={columns}

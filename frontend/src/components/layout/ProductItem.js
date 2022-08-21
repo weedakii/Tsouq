@@ -6,7 +6,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 const ProductItem = ({product, action}) => {
     let data = {product: product._id}
   return (
-    <div  className="relative h-auto flex flex-col justify-between min-h-[260px] max-w-[250px] min-w-[160px] border rounded bg-white border-slate-200 hover:-translate-y-3 hover:shadow-card duration-300 ease-out transition">
+    <div  className="h-full relative flex flex-col justify-between min-h-[260px] max-w-[250px] min-w-[160px] border rounded bg-white border-slate-200 hover:-translate-y-3 hover:shadow-card duration-300 ease-out transition">
         <div onClick={() => action(data)} className="z-10 absolute cursor-pointer text-red-600 bg-slate-50 sm:p-2 p-1 rounded-md shadow-sh sm:top-4 sm:right-4 top-2 right-2">
             <FavoriteBorderIcon className="active:scale-50" />
         </div>

@@ -31,7 +31,8 @@ export const homeProducts = catchAsyncErr(async (req, res, next) => {
 export const getProducts = catchAsyncErr(async(req, res, next) => {
     const resPerPage = 16
     const productsCount = await Products.countDocuments()
-    const apifeatures = new APIFeatures(Products.find(), req.query)
+    const all = Products.find()
+    const apifeatures = new APIFeatures(all, req.query)
                             .search()
                             .filter();
 
@@ -99,9 +100,13 @@ export const createProduct = catchAsyncErr(async(req, res, next) => {
             url: result.secure_url
         })
     }
+    if (req.body.oldPrice === '') {
+        req.body.oldPrice = req.body.price;
+    }
+    let dis = ((req.body.oldPrice - req.body.price) / req.body.oldPrice * 100)
+    req.body.discount = Math.round(dis)
     req.body.images = imagesLink
     req.body.user = req.user.id
-    req.body.oldPrice = req.body.price;
     req.body.index = await Products.countDocuments()
     const product = await Products.create(req.body)
 

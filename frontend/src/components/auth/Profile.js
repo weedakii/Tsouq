@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector} from 'react-redux'
 import { useAlert} from 'react-alert'
-import { clearErrors } from '../../actions/userAction'
+import { clearErrors, loadUser } from '../../actions/userAction'
 import MetaData from '../layout/MetaData'
 
 // const lists = [
