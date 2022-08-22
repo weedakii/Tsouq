@@ -1,6 +1,7 @@
 import catchAsyncErr from "../middlewares/catchAsyncErr.js";
 import ErrorHandler from "../middlewares/ErrorHandler.js";
 import Products from '../model/productModel.js'
+import Favourites from '../model/favouriteModel.js'
 import Carosal from '../model/carosalModel.js'
 import APIFeatures from "../utils/APIFeatures.js";
 import cloudinary from 'cloudinary'
@@ -165,18 +166,27 @@ export const updateProduct = catchAsyncErr(async(req, res, next) => {
 // admin delete products
 export const deleteProduct = catchAsyncErr(async(req, res, next) => {
     let product = await Products.findById(req.params.id)
-
+    
     if (!product) {
         return next(new ErrorHandler('product not found with this id'))
     }
 
+    
     // delete img from cloudinary
     for (let i = 0; i < product.images.length; i++) {
         await cloudinary.v2.uploader.destroy(
             product.images[i].public_id
         )
     }
+        
+    const fav = await Favourites.find({product: req.params.id})
+    
+    if (!fav) {
+        return next(new ErrorHandler("item not found", 404))
+    }
 
+    fav.forEach(async f =>  await f.remove())
+    
     await product.remove()
     res.status(200).json({
         success: true,

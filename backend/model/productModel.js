@@ -30,7 +30,6 @@ const productSchema = new mongoose.Schema({
     },
     oldPrice: {
         type: Number,
-        default: 300,
         maxlength: [5, 'plz make sure that the lenth is maximum 5 numbers'],
     },
     discount: {

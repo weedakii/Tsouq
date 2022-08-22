@@ -27,7 +27,6 @@ export const createFavourite = catchAsyncErr(async (req, res, next) => {
     delete product._doc._id
     let newProd = {by: req.user.id, product: req.body.product}
     newProd = {...product._doc, ...newProd}
-    console.log(product._doc);
     const favourite = await Favourites.create(newProd)
 
     res.status(200).json({
