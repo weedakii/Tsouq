@@ -4,9 +4,7 @@ import {useNavigate} from 'react-router-dom'
 import HomeIcon from '@mui/icons-material/Home';
 import PhoneIcon from '@mui/icons-material/Phone';
 import PersonIcon from '@mui/icons-material/Person';
-import TransferWithinAStationIcon from '@mui/icons-material/TransferWithinAStation';
 import { useAlert } from 'react-alert';
-import { State } from 'country-state-city';
 import CheckActiveStep from './CheckActiveStep';
 import { saveShippingInfo } from '../../actions/cartActions';
 import MetaData from '../layout/MetaData';
@@ -19,7 +17,6 @@ const Shipping = () => {
   const [address, setAddress] = useState(shippingInfo?.address)
   const [phoneNo, setPhoneNo] = useState(shippingInfo?.phoneNo)
   const [name, setName] = useState(shippingInfo?.name)
-  const [state, setState] = useState(shippingInfo?.state)
   const [message, setMessage] = useState('')
 
   const shippingHandler = (e) => {
@@ -29,7 +26,7 @@ const Shipping = () => {
       return;
     }
     dispatch(saveShippingInfo({
-      address, name, state, phoneNo, message
+      address, name, phoneNo, message
     }))
     navigate('/order/confirm')
   }
@@ -80,25 +77,6 @@ const Shipping = () => {
               required
             />
           </div>
-          <div className="flex items-center mb-4 gap-2">
-            <TransferWithinAStationIcon className="text-slate-600"/>
-            <select 
-              required
-              value={state}
-              className='shipping_inp inp w-full '
-              onChange={(e) => setState(e.target.value)}
-            >
-              <option value="" >محل الاقامة</option>
-              {
-                State && 
-                  State.getStatesOfCountry('EG').map((item) => (
-                    <option value={item.isoCode} key={item.isoCode}>
-                      {item.name}
-                    </option>
-                  ))
-              }
-            </select>
-          </div>
           <div className="flex flex-col mb-4 gap-2">
             <label htmlFor="mesg" className='font-semibold text-emerald-700'>*ملاحظاتك</label>
             <textarea 
@@ -111,8 +89,7 @@ const Shipping = () => {
               rows={10}
             />
           </div>
-          <button 
-            disabled={state ? false : true}
+          <button
             type="submit"
             className="block px-5 py-3 bg-slate-800 text-slate-100 rounded mr-auto hover:rounded-xl active:scale-75"
           >

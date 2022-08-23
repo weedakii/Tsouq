@@ -47,7 +47,7 @@ const Home = () => {
     }
 
     let cat = category && category.map((c) => (
-        <SwiperSlide key={c._id}><Link to={`/products?cat=${c.name}`} replace>
+        <SwiperSlide key={c._id}><Link to={`/products?cat=${c.name}`}  >
             <CatCard name={c.name} image={c.image_url} />
         </Link></SwiperSlide>
     ))
@@ -55,7 +55,7 @@ const Home = () => {
     let ban = carousel && carousel.map((c) => (
         <SwiperSlide>
             <div className=" h-full w-full">
-                <img className='w-full max-w-[700px] rounded-lg object-cover mx-auto' src={c?.url} alt={c?.public_id} />
+                <img className='w-full max-w-[600px] rounded-lg object-contain mx-auto' src={c?.url} alt={c?.public_id} />
             </div>
         </SwiperSlide>
     ))

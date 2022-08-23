@@ -173,11 +173,11 @@ input[type="number"] {
     color: #89dad8;
 }
 
-.swiper-wrapper {
+/* .swiper-wrapper {
     align-items: center;
     padding: 10px 0;
     height: 300px !important;
-}
+} */
 
 .swiper-slide {
     height: 100%;

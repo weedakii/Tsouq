@@ -51,10 +51,10 @@ const Cart = () => {
                     (acc, item) => acc + item.quantity*item.price,
                     0
                 )} جنيه`}</span></p>
-                    <p className="flex justify-between text-sm font-semibold"><span>الشحن:</span> <span className="text-slate-500">0 جنيه</span></p>
+                    <p className="flex justify-between text-sm font-semibold"><span>الشحن:</span> <span className="text-slate-500">20 جنيه</span></p>
                 </div>
                 <p className="flex justify-between text-xl pb-3 font-semibold border-b border-slate-300"><span>الاجمالي:</span> <span className="text-red-700 text-2xl font-bold">{`${cartItems.reduce(
-                    (acc, item) => acc + item.quantity*item.price,
+                    (acc, item) => acc + item.quantity*item.price + 20,
                     0
                 )} جنيه`}</span></p>
                 <button 

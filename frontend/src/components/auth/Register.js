@@ -16,7 +16,7 @@ const Register = () => {
   const { name, email, password, cf_password } = userData
 
   const [avatar, setAvatar] = useState()
-  const [avatarPreview, setAvatarPreview] = useState('')
+  // const [avatarPreview, setAvatarPreview] = useState('')
 
   const { loading, isAuthenticated, error} = useSelector(state => state.user)
 
@@ -26,7 +26,7 @@ const Register = () => {
       reader.onload = () => {
         if (reader.readyState === 2) {
           setAvatar(reader.result)
-          setAvatarPreview(reader.result)
+          // setAvatarPreview(reader.result)
         }
       }
       reader.readAsDataURL(e.target.files[0])
@@ -83,7 +83,7 @@ const Register = () => {
               <input required type="password" className="inp" id="password" placeholder="الرقم السري" name="password" value={password} onChange={handleChangeInput}/>
               <label htmlFor="cf_password" className="dark:text-slate-200">ادخل الرقم السري مرة اخري</label>
               <input required type="password" className="inp" id="cf_password" placeholder="الرقم السري مرة اخري" name='cf_password' value={cf_password} onChange={handleChangeInput}/>
-              <div className="flex items-center gap-4">
+              {/* <div className="flex items-center gap-4">
                 <Avatar src={avatarPreview} />
                 <input 
                   type="file"
@@ -92,7 +92,7 @@ const Register = () => {
                   onChange={handleChangeInput}
                   className="inp_file  dark:outline-slate-200 outline-slate-500 outline-dashed outline-2"
                 />
-              </div>
+              </div> */}
               <button disabled={loading ? true : false} type="submit" className="btn">
                 انشاء حساب
                 {loading && <CircularProgress color="success" />}
