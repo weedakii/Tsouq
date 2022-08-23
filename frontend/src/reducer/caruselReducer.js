@@ -6,6 +6,10 @@ import {
     UPDATE_CARUSEL_REQUEST,
     UPDATE_CARUSEL_SUCCESS,
     UPDATE_CARUSEL_RESET,
+    DELETE_CARUSEL_FAIL,
+    DELETE_CARUSEL_REQUEST,
+    DELETE_CARUSEL_SUCCESS,
+    DELETE_CARUSEL_RESET,
     CARUSEL_DETAILS_REQUEST,
     CARUSEL_DETAILS_SUCCESS,
     CARUSEL_DETAILS_FAIL,
@@ -100,6 +104,45 @@ export const updateCaruselReducer = (state= {carusel: {}}, action) => {
                 return {
                     ...state,
                     isUpdated: false
+                };
+    
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
+            }
+    
+        default:
+            return state;
+    }
+}
+
+export const deleteCaruselReducer = (state= {category: {}}, action) => {
+    switch (action.type) {
+        case DELETE_CARUSEL_REQUEST:
+            return {
+                loading: true,
+                ...state
+            }
+    
+        case DELETE_CARUSEL_SUCCESS:
+            return {
+                loading: false,
+                ...state,
+                isDeleted: action.payload,
+            }
+    
+        case DELETE_CARUSEL_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
+    
+        case DELETE_CARUSEL_RESET:
+                return {
+                    ...state,
+                    isDeleted: false
                 };
     
         case CLEAR_ERRORS:

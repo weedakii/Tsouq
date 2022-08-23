@@ -20,28 +20,9 @@ import {
     PRODUCT_DETAILS_REQUEST,
     PRODUCT_DETAILS_SUCCESS,
     PRODUCT_DETAILS_FAIL,
-    ALL_CATEGORY_REQUEST,
-    ALL_CATEGORY_SUCCESS,
-    ALL_CATEGORY_FAIL,
     CLEAR_ERRORS
 } from "../constants/productConst"
 import axios from './axios'
-
-export const getCategory = () => async (dispatch) => {
-    try{
-        dispatch({type: ALL_CATEGORY_REQUEST})
-        let {data} = await axios.get('/api/v1/category')
-        dispatch({
-            type: ALL_CATEGORY_SUCCESS,
-            payload: data
-        })
-    } catch (error) {
-        dispatch({
-            type: ALL_CATEGORY_FAIL,
-            payload: error.response.data.errMessage
-        })
-    }
-}
 
 export const getAdminProducts = () => async (dispatch) => {
     try {
@@ -146,7 +127,7 @@ export const createProduct = (productData) => async (dispatch) => {
     try {
         dispatch({type: CREATE_PRODUCT_REQUEST})
         const config = {
-            headers: {"Content-Type": "application/json"}
+            headers: {"Content-Type": "multipart/form-data"}
         }
         const {data} = await axios.post(
             `/api/v1/weed/product/new`,
@@ -160,7 +141,7 @@ export const createProduct = (productData) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: CREATE_PRODUCT_FAIL,
-            payload: error.response.data.errMessage
+            payload: error.response.data?.errMessage || error.response.data?.message
         })
     }
 }

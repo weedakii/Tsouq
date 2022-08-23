@@ -8,6 +8,11 @@ import router from './routes/router.js';
 import path from 'path'
 const app = express();
 app.use(express.json());
+app.use('/uploads',express.static('backend/uploads'))
+app.use('/uploads/products',express.static('backend/uploads/products'))
+app.use('/uploads/avatar',express.static('backend/uploads/avatar'))
+app.use('/uploads/category',express.static('backend/uploads/category'))
+app.use('/uploads/carusel',express.static('backend/uploads/carusel'))
 app.set('trust proxy', 1)
 app.use(cors({
     origin: true,
@@ -21,7 +26,7 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
 app.use(cookieParser())
 app.use(bodyParser.json({ limit: "30mb", extended: true}))
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }))
-app.use(fileUpload())
+// app.use(fileUpload())
 
 app.use('/api/v1', router)
 

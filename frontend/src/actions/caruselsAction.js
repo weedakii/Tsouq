@@ -5,6 +5,9 @@ import {
     UPDATE_CARUSEL_FAIL,
     UPDATE_CARUSEL_REQUEST,
     UPDATE_CARUSEL_SUCCESS,
+    DELETE_CARUSEL_FAIL,
+    DELETE_CARUSEL_REQUEST,
+    DELETE_CARUSEL_SUCCESS,
     CARUSEL_DETAILS_REQUEST,
     CARUSEL_DETAILS_SUCCESS,
     CARUSEL_DETAILS_FAIL,
@@ -64,6 +67,22 @@ export const UpdateCarusel = (id, productData) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: UPDATE_CARUSEL_FAIL,
+            payload: error.response.data.errMessage
+        })
+    }
+}
+
+export const deleteCarusel = (id) => async (dispatch) => {
+    try {
+        dispatch({type: DELETE_CARUSEL_REQUEST})
+        let {data} = await axios.delete(`/api/v1/weed/carusel/${id}`)
+        dispatch({
+            type: DELETE_CARUSEL_SUCCESS,
+            payload: data.success
+        })
+    } catch (error) {
+        dispatch({
+            type: DELETE_CARUSEL_FAIL,
             payload: error.response.data.errMessage
         })
     }

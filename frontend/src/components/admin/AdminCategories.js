@@ -6,15 +6,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../layout/Loader'
 import {useAlert} from 'react-alert'
 import { DataGrid } from '@mui/x-data-grid'
-import { clearErrors, deleteCarusel, getCarusels } from '../../actions/caruselsAction'
+import DeleteIcon from '@mui/icons-material/Delete';
 import { Button } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
 import SortIcon from '@mui/icons-material/Sort';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { DELETE_CARUSEL_RESET } from '../../constants/caruselConst'
+import { clearErrors, deleteCategory, getCategory } from '../../actions/categoryAction'
+import { DELETE_CATEGORY_RESET } from '../../constants/categoryConst'
 
 
-const AdminCarusels = () => {
+const AdminCategories = () => {
     const [open, setOpen] = useState(false)
     const handleOpen = () => {
         setOpen(!open)
@@ -22,11 +22,11 @@ const AdminCarusels = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const alert = useAlert()
-    const {loading, error, carusel} = useSelector(state => state.carusels)
-    const { error: deleteError, isDeleted} = useSelector(state => state.deleteCarusel)
+    const {loading, error, category} = useSelector(state => state.catygories)
+    const { error: deleteError, isDeleted} = useSelector(state => state.deleteCategory)
 
     const deleteHundler = (id) => {
-        dispatch(deleteCarusel(id))
+        dispatch(deleteCategory(id))
     }
 
     const columns = [
@@ -41,19 +41,21 @@ const AdminCarusels = () => {
             sortable: false,
             renderCell: (params) => {
                 return (
+                    <>
                     <Button color='error' onClick={() => deleteHundler(params.getValue(params.id, "id"))}>
                         <DeleteIcon />
                     </Button>
+                    </>
                 )
             }
         },
     ]
     const rows = []
 
-    carusel && carusel.forEach(p => (
+    category && category.forEach(p => (
         rows.push({
             id: p._id,
-            name: p.public_id
+            name: p.name
         })
     ))
 
@@ -72,16 +74,16 @@ const AdminCarusels = () => {
             }
             if (isDeleted) {
                 alert.success("Product Deleted Successfully")
-                navigate(`/admin/carusels`)
-                dispatch({type: DELETE_CARUSEL_RESET})
+                navigate(`/admin/categories`)
+                dispatch({type: DELETE_CATEGORY_RESET})
             }
-            dispatch(getCarusels())
+            dispatch(getCategory())
         }
         fetchData()
     }, [dispatch, deleteError, isDeleted, alert, error, navigate])
   return (
     <>
-        <MetaData title="الادمن - جميع البانرات"/>
+        <MetaData title="الادمن - جميع الاقسام"/>
         <div className="flex-1 sm:grid-cols-sid grid-cols-1 grid sm:p-3 p-2 w-screen max-w-[100%]">
             <div className="relative sm:max-w-[250px] sm:min-w-[200px] z-10 bg-white">
                 <div className='sm:hidden'>
@@ -103,7 +105,10 @@ const AdminCarusels = () => {
                         <Loader />
                     ) : (
                         <div className="">
-                            <h2 className="text-center font-bold text-3xl mb-7 mt-4 text-slate-700">جميع البانرات</h2>
+                            <h2 className="text-center font-bold text-3xl mb-7 mt-4 text-slate-700">جميع الاقسام</h2>
+                            <Link to={`/admin/category/new`}>
+                                <button className='my-5 py-4 font-bold rounded-lg w-full text-center bg-red-700 text-white active:scale-75'>انشاء قسم جديد</button>
+                            </Link>
                             <DataGrid 
                                 rows={rows}
                                 columns={columns}
@@ -121,4 +126,4 @@ const AdminCarusels = () => {
   )
 }
 
-export default AdminCarusels
+export default AdminCategories

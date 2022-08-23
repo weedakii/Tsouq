@@ -9,6 +9,10 @@ const categorySchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    path: {
+        type: String,
+        required: true,
+    },
 })
 
 export default mongoose.model('Category', categorySchema)

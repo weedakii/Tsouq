@@ -3,6 +3,7 @@ import Category from '../model/categoryModel.js'
 import catchAsyncErr from "../middlewares/catchAsyncErr.js";
 import ErrorHandler from "../middlewares/ErrorHandler.js";
 import cloudinary from 'cloudinary'
+import fs from 'fs'
 
 // get Category
 export const getCategory = catchAsyncErr(async (req, res, next) => {
@@ -14,14 +15,60 @@ export const getCategory = catchAsyncErr(async (req, res, next) => {
         category
     })
 })
+// create category
 export const createCategory = catchAsyncErr(async (req, res, next) => {
+    let {name} = req.body
+    const path = req.file.destination.split('backend/')[1] + req.file.filename
     
-    const category = await Category.create(req.body)
+    let image_url = `https://tsouq-backend.herokuapp.com/${path}`
+    const category = await Category.create({name, image_url, path})
 
     res.status(200).json({
         success: true,
         category
     })
+})
+// delete category
+export const deleteCategory = catchAsyncErr(async (req, res, next) => {
+    try {
+        const category = await Category.findById(req.params.id)
+        if (!category) {
+            return next(new ErrorHandler("Category not found", 404))
+        }
+        fs.unlinkSync('backend/'+category.path)
+        
+        await category.remove()
+        res.status(200).json({
+            success: true,
+            category
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            error
+        })
+    }
+})
+// delete carusel
+export const deleteCarusel = catchAsyncErr(async (req, res, next) => {
+    try {
+        console.log(req.params.id);
+        const carusel = await Carusel.findById(req.params.id)
+        if (!carusel) {
+            return next(new ErrorHandler("carusel not found", 404))
+        }
+        fs.unlinkSync('backend/'+carusel.path)
+        
+        await carusel.remove()
+        res.status(200).json({
+            success: true,
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            error
+        })
+    }
 })
 // get carousel
 export const getCarousel = catchAsyncErr(async (req, res, next) => {
@@ -47,7 +94,12 @@ export const getSingleCarusel = catchAsyncErr(async (req, res, next) => {
 })
 // create carousel
 export const createCarousel = catchAsyncErr(async (req, res, next) => {
-    let carousel = await Carusel.create(req.body)
+    let {public_id} = req.body
+    const path = req.file.destination.split('backend/')[1] + req.file.filename
+    
+    let url = `https://tsouq-backend.herokuapp.com/${path}`
+    
+    let carousel = await Carusel.create({url, public_id, path})
 
     res.status(200).json({
         success: true,

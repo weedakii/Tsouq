@@ -1,10 +1,11 @@
 import express from 'express';
-import { createCarousel, createCategory, getCarousel, getCategory, getSingleCarusel, updateCarousel } from '../controller/categoryCotroller.js';
+import { createCarousel, createCategory, deleteCarusel, deleteCategory, getCarousel, getCategory, getSingleCarusel } from '../controller/categoryCotroller.js';
 import { createOrder, deleteOrder, getAllOrders, getMyOrder, getSingleOrder, updateRole } from '../controller/orderController.js';
 import { createProduct, adminGetProducts, updateProduct, deleteProduct, getProducts, getSingleProduct, homeProducts } from '../controller/productController.js';
 import { adminDeleteUser, adminGetAllUsers, adminGetOneUser, adminUpdateUser, forgotPassword, googleLogin, loginUser, logoutUser, registerUser, resetPassword, userChangePassword, userProfile, userUpdateProfile } from '../controller/userController.js';
 import { authRoles, isAuthenticated } from '../utils/auth.js';
 import { createFavourite, deleteFavourite, getAllFavourite } from '../controller/favouriteController.js';
+import { uploadCarusel, uploadCategory, uploadProducts } from '../utils/uploader.js';
 
 const router = express.Router();
 // category and carusel routes
@@ -33,13 +34,14 @@ router.route('/order/new').post(isAuthenticated, createOrder)
 router.route('/order/:id').get(isAuthenticated, getSingleOrder)
 router.route('/orders/me').get(isAuthenticated, getMyOrder)
 // admin routes
-router.route('/weed/category/new').post(isAuthenticated ,createCategory)
-router.route('/weed/new/carusel').post(isAuthenticated, authRoles('admin'), createCarousel)
+router.route('/weed/category/new').post(isAuthenticated, authRoles('admin'), uploadCategory, createCategory)
+router.route('/weed/category/:id').delete(isAuthenticated, authRoles('admin'), deleteCategory)
+router.route('/weed/new/carusel').post(isAuthenticated, authRoles('admin'), uploadCarusel, createCarousel)
 router.route('/weed/carusel/:id')
             .get(isAuthenticated, authRoles('admin'), getSingleCarusel)
-            .put(isAuthenticated, authRoles('admin'), updateCarousel)
+            .delete(isAuthenticated, authRoles('admin'), deleteCarusel)
 router.route('/weed/products').get(isAuthenticated, authRoles('admin'), adminGetProducts)
-router.route('/weed/product/new').post(isAuthenticated, authRoles('admin'), createProduct)
+router.route('/weed/product/new').post(isAuthenticated, authRoles('admin'), uploadProducts, createProduct)
 router.route('/weed/product/:id')
             .delete(isAuthenticated, deleteProduct)
             .put(isAuthenticated, updateProduct)

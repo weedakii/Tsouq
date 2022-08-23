@@ -25,7 +25,6 @@ import NotFound from './NotFound';
 import Dashboard from './components/admin/Dashboard';
 import AdminProducts from './components/admin/AdminProducts';
 import AdminProductCreate from './components/admin/AdminProductCreate';
-import { getCategory } from './actions/productAction';
 import UpdateProduct from './components/admin/UpdateProduct';
 import AdminOrders from './components/admin/AdminOrders';
 import AdminOrderUpdate from './components/admin/AdminOrderUpdate';
@@ -39,6 +38,9 @@ import AdminCaruselUpdate from './components/admin/AdminCaruselUpdate';
 import ContactUs from './components/layout/ContactUs';
 import { myFavourite } from './actions/favAction';
 import PrivacyPolicy from './components/layout/PrivacyPolicy';
+import AdminCategories from './components/admin/AdminCategories';
+import { getCategory } from './actions/categoryAction';
+import AdminCreateCategory from './components/admin/AdminCreateCategory';
 
 
 function App() {
@@ -172,6 +174,16 @@ function App() {
           <Route path='/admin/carusel/:id' element={
             <ProtectedRoute isAdmin={true}>
               <AdminCaruselUpdate />
+            </ProtectedRoute>
+          } />
+          <Route path='/admin/categories' element={
+            <ProtectedRoute isAdmin={true}>
+              <AdminCategories />
+            </ProtectedRoute>
+          } />
+          <Route path='/admin/category/new' element={
+            <ProtectedRoute isAdmin={true}>
+              <AdminCreateCategory />
             </ProtectedRoute>
           } />
           <Route path='/privacy-policy' element={<PrivacyPolicy />} />

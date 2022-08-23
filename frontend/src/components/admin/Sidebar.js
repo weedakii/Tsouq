@@ -8,6 +8,7 @@ import TreeView from '@mui/lab/TreeView';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ViewCarouselIcon from '@mui/icons-material/ViewCarousel';
+import CategoryIcon from '@mui/icons-material/Category';
 import TreeItem from '@mui/lab/TreeItem';
 import { Avatar } from '@mui/material'
 
@@ -69,6 +70,12 @@ const Sidebar = () => {
                 <p>
                     <ViewCarouselIcon />
                     <span className=' sm:block text-inherit'>Carusels</span>
+                </p>
+            </Link>
+            <Link className={"mx-4 -mr-2 hover:bg-slate-800 transition-all duration-700" + isActive(`/admin/categories`)} to='/admin/categories'>
+                <p>
+                    <CategoryIcon />
+                    <span className=' sm:block text-inherit'>Categories</span>
                 </p>
             </Link>
             <Link className={"mx-4 -mr-2 hover:bg-slate-800 transition-all duration-700" + isActive(`/admin/reviews`)} to='/admin/reviews'>

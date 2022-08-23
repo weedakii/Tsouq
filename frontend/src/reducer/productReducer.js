@@ -23,9 +23,6 @@ import {
     PRODUCT_DETAILS_REQUEST,
     PRODUCT_DETAILS_SUCCESS,
     PRODUCT_DETAILS_FAIL,
-    ALL_CATEGORY_REQUEST,
-    ALL_CATEGORY_SUCCESS,
-    ALL_CATEGORY_FAIL,
     CLEAR_ERRORS,
 } from "../constants/productConst"
 
@@ -248,36 +245,5 @@ export const  productDetailsReducer = (state = {product: {}}, action) => {
     
         default:
             return state
-    }
-}
-
-export const categoryReducer = (state = {category: []}, action) => {
-    switch (action.type) {
-        case ALL_CATEGORY_REQUEST:
-            return {
-                loading: true,
-                category: []
-            }
-    
-        case ALL_CATEGORY_SUCCESS:
-            return {
-                loading: false,
-                category: action.payload.category
-            }
-    
-        case ALL_CATEGORY_FAIL:
-            return {
-                loading: false,
-                category: action.payload 
-            }
-    
-            case CLEAR_ERRORS:
-            return {
-                ...state,
-                error: null
-            }
-    
-        default:
-            return state;
     }
 }

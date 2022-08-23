@@ -8,6 +8,10 @@ const caruselSchema = new mongoose.Schema({
     public_id: {
         type: String,
         required: true,
+    },
+    path: {
+        type: String,
+        required: true,
     }
 })
 

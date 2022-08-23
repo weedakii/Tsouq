@@ -1,21 +1,25 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
-import { productDetailsReducer, productReducer, adminProductsReducer, categoryReducer, createProductReducer, deleteProductReducer, homeReducer } from './reducer/productReducer';
+import { productDetailsReducer, productReducer, adminProductsReducer, createProductReducer, deleteProductReducer, homeReducer } from './reducer/productReducer';
 import { allUsersReducer, forgotPasswordReducer, upadteUserReducer, userDetailsReducer, userReducer } from './reducer/userReducer';
 import { allOrdersReducer, createOrderReducer, myOrdersReducer, orderDetailsReducer, orderReducer } from './reducer/orderReducer';
 import { cartReducer } from './reducer/cartReducer';
 import { addToFavReducer, myFavReducer, removeFromFavReducer } from './reducer/favReducer';
-import { caruselDetailsReducer, caruselsReducer, updateCaruselReducer } from './reducer/caruselReducer';
+import { caruselDetailsReducer, caruselsReducer, deleteCaruselReducer, updateCaruselReducer } from './reducer/caruselReducer';
+import { categoryReducer, createCategorytReducer, deleteCategoryReducer } from './reducer/categoryReducer';
 
 const reducer = combineReducers({
     home: homeReducer,
     carusels: caruselsReducer,
     caruselDetails: caruselDetailsReducer,
     updateCarusel: updateCaruselReducer,
+    deleteCarusel: deleteCaruselReducer,
     products: productReducer,
     productDetails: productDetailsReducer,
     catygories: categoryReducer,
+    createCategory: createCategorytReducer,
+    deleteCategory: deleteCategoryReducer,
     user: userReducer,
     updateUser: upadteUserReducer,
     forgotPassword: forgotPasswordReducer,

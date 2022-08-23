@@ -5,6 +5,7 @@ import Favourites from '../model/favouriteModel.js'
 import Carosal from '../model/carosalModel.js'
 import APIFeatures from "../utils/APIFeatures.js";
 import cloudinary from 'cloudinary'
+import fs from 'fs'
 
 // home page products
 export const homeProducts = catchAsyncErr(async (req, res, next) => {
@@ -83,30 +84,41 @@ export const getSingleProduct = catchAsyncErr(async(req, res, next) => {
 })
 // admin => create Products
 export const createProduct = catchAsyncErr(async(req, res, next) => {
-    let images = []
-    if (typeof req.body.images === "string") {
-        images.push(req.body.images)
-    } else {
-        images = req.body.images
+    let prodImages = []
+    if (req.files.productImages) {
+        let allImages = req.files.productImages
+        allImages.forEach(e => {
+            let image_url = e.destination.split('backend/')[1] + e.filename
+            prodImages.push({
+                public_id: e.filename,
+                url: `http://localhost:4000/${image_url}`
+            })
+        });
     }
+    console.log(prodImages);
+    // if (typeof req.body.images === "string") {
+    //     images.push(req.body.images)
+    // } else {
+    //     images = req.body.images
+    // }
 
-    let imagesLink = []
+    // let imagesLink = []
 
-    for (let i = 0; i < images.length; i++) {
-        let result = await cloudinary.v2.uploader.upload(images[i], {
-            folder: "products"
-        })
-        imagesLink.push({
-            public_id: result.public_id,
-            url: result.secure_url
-        })
-    }
+    // for (let i = 0; i < images.length; i++) {
+    //     let result = await cloudinary.v2.uploader.upload(images[i], {
+    //         folder: "products"
+    //     })
+    //     imagesLink.push({
+    //         public_id: result.public_id,
+    //         url: result.secure_url
+    //     })
+    // }
     if (req.body.oldPrice === '') {
         req.body.oldPrice = req.body.price;
     }
     let dis = ((req.body.oldPrice - req.body.price) / req.body.oldPrice * 100)
     req.body.discount = Math.round(dis)
-    req.body.images = imagesLink
+    req.body.images = prodImages
     req.body.user = req.user.id
     req.body.index = await Products.countDocuments()
     const product = await Products.create(req.body)
@@ -171,7 +183,7 @@ export const deleteProduct = catchAsyncErr(async(req, res, next) => {
         return next(new ErrorHandler('product not found with this id'))
     }
 
-    
+    fs.unlinkSync('backend/'+carusel.path)
     // delete img from cloudinary
     for (let i = 0; i < product.images.length; i++) {
         await cloudinary.v2.uploader.destroy(
