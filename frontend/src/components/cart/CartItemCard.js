@@ -25,9 +25,9 @@ const CartItemCard = ({item, deleteCartItem}) => {
       <div className="h-28 p-2 flex-[0.57] min-w-[320px] flex items-center gap-4 border-r border-slate-400">
         <img className="h-full max-w-[35%] object-contain" src={item.image} alt={item.name} />
         <div className="flex flex-col gap-3 text-start sm:items-center sm:justify-between w-full">
-          <Link to={`/product/${item.product}`} className="w-full font-tajawal" >{item.name}</Link>
+          <Link to={`/product/${item.product}`} className="text w-full font-tajawal" >{item.name}</Link>
           <div className="flex gap-2 w-full items-center justify-between">
-            <span dir='rtl' className="w-full text-end font-bold">{`${item.price} جنيه`}</span>
+            <span dir='rtl' className="w-full text-mainDarkColor text-end font-bold">{`${item.price} جنيه`}</span>
             <p onClick={() => deleteCartItem(item.product)} className="text-red-600 p-2 rounded-full cursor-pointer active:bg-slate-300 hover:bg-slate-200" ><DeleteIcon /></p>
           </div>
         </div>

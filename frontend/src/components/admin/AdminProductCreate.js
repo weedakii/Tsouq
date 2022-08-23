@@ -52,7 +52,7 @@ const AdminProductCreate = () => {
         myForm.set("category", cat)
 
         images.forEach(i => {
-            myForm.append("productImages", i)
+            myForm.append("images", i)
         })
 
         dispatch(createProduct(myForm))
@@ -60,13 +60,14 @@ const AdminProductCreate = () => {
 
     const imagesHandler = (e) => {
         let files = Array.from(e.target.files)
-        setImages(files)
+        setImages([])
         setImagesPreview([])
 
         files.forEach(f => {
             const reader = new FileReader()
             reader.onload = () => {
                 if (reader.readyState === 2) {
+                    setImages((old) => [...old, reader.result])
                     setImagesPreview((old) => [...old, reader.result])
                 }
             }

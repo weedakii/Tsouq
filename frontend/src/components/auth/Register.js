@@ -15,7 +15,7 @@ const Register = () => {
   const [userData, setUserData] = useState(initialState)
   const { name, email, password, cf_password } = userData
 
-  const [avatar, setAvatar] = useState()
+  // const [avatar, setAvatar] = useState()
   // const [avatarPreview, setAvatarPreview] = useState('')
 
   const { loading, isAuthenticated, error} = useSelector(state => state.user)
@@ -25,7 +25,7 @@ const Register = () => {
       const reader = new FileReader()
       reader.onload = () => {
         if (reader.readyState === 2) {
-          setAvatar(reader.result)
+          // setAvatar(reader.result)
           // setAvatarPreview(reader.result)
         }
       }
@@ -43,7 +43,6 @@ const Register = () => {
     myForm.set("name", name)
     myForm.set("email", email)
     myForm.set("password", password)
-    myForm.set("avatar", avatar)
 
     dispatch(register(myForm))
   }

@@ -37,13 +37,9 @@ const userSchema = new mongoose.Schema({
     avatar: {
         public_id: {
             type: String,
-            required: true,
-            default: 'user_umrxh3'
         },
         url: {
             type: String,
-            required: true,
-            default: 'https://res.cloudinary.com/weedakii/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1640540356/avatar/user_umrxh3.jpg'
         },
     },
     role: {
